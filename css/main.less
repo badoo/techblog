@@ -181,7 +181,7 @@ header {
 
     li {
         display: inline-block;
-        margin: 0 5px 10px 0;
+        margin: 0 5px 0.5em 0;
     }
 
     li a {
@@ -200,6 +200,11 @@ header {
 
         li {
             display: block;
+            margin-bottom: 1em;
+        }
+
+        .categories-link {
+            display: none;
         }
 
     }
@@ -231,16 +236,20 @@ footer {
 
         #categories {
             position: fixed;
-            top: 250px;
+            top: 220px;
             left: 0;
             padding: 0 3%;
             width: 26%;
+
+            h3 {
+                text-align: center;
+            }
         }
     }
 
     @media all and (min-width: 960px) {
         #categories {
-            top: 300px;
+            top: 270px;
         }
     }
 }
@@ -311,5 +320,9 @@ pre {
     img {
         border: 5px solid @TEXT_COLOR;
     }
+}
+
+.post-footer {
+    padding: 1em 0;
 }
 
