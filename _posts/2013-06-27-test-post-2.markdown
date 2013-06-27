@@ -1,0 +1,73 @@
+---
+layout: post
+title:  Test Post 2
+author: Anton Laurens
+date:   2013-06-27 10:20:33
+categories: awesomeness javascript Objective-C
+---
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+### Third level header.
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+#### Fourth level header.
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+* List item 1
+* List item 2
+* List item 3
+* List item 4
+
+>  "You teach a child to read, and he or her will be able to pass a literacy test." - George W. Bush
+
+#### Images
+![Hot or Not Ebcounters](/images/test-post-image-1.png)
+
+### Syntax Highlighting
+
+#### JavaScript
+{% highlight javascript %}
+var myFunction = isLanguageAwesome (language) {
+    return language === 'javascript';
+}
+{% endhighlight %}
+
+#### Objective-C
+{% highlight obj-c %}
+int main(int argc, char* argv[])
+{
+    @autoreleasepool {
+        int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
+        return retVal;
+    }
+}
+{% endhighlight %}
+
+#### Java
+{% highlight java %}
+private static final EnumSet<Badoo.FolderTypes> FOLDERS_WITH_BADGES = EnumSet.of(
+    Badoo.FolderTypes.UNREAD_MESSAGES,
+    Badoo.FolderTypes.PROFILE_VISITORS,
+    Badoo.FolderTypes.MATCHES,
+    Badoo.FolderTypes.RATED_ME,
+    Badoo.FolderTypes.HON_MESSAGES
+);
+{% endhighlight %}
+
+#### CSS
+{% highlight css %}
+body {
+    font-size: 1em;
+    color: #333;
+}
+{% endhighlight %}
+
+#### HTML
+{% highlight html %}
+<div id="main-content">
+    <p>HTML is awesome!</p>
+</div>
+{% endhighlight %}

@@ -1,0 +1,229 @@
+@import "normalize.less";
+@import "syntax.less";
+
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
+
+/***********************************************************
+                        VARIABLES
+************************************************************/
+@BACKGROUND_COLOR: #FFF;
+@TEXT_COLOR: #333;
+@LIGHTER_TEXT_COLOR: lighten(@TEXT_COLOR, 10%);
+@LINK_COLOR: #09C;
+@LINK_HOVER_COLOR: #369;
+@BORDER_COLOR: #EFEFEF;
+@WELL_COLOR: #EFEFEF;
+@TAG_COLOR: #00805B;;
+@LINE_HEIGHT: 1.5em;
+@VERTICAL_PADDING: 0.25em;
+@HORIZONTAL_PADDING: 5%;
+
+
+/***********************************************************
+                        MIXINS
+************************************************************/
+.Border-radius (@radius) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -ms-border-radius: @radius;
+    -o-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.Transition (@transition) {
+    -webkit-transition: @transition;
+    -moz-transition: @transition;
+    -ms-transition: @transition;
+    -o-transition: @transition;
+    transition: @transition;
+}
+
+.Box-shadow (@params) {
+    -webkit-box-shadow: @params;
+    -moz-box-shadow: @params;
+    -ms-box-shadow: @params;
+    -o-box-shadow: @params;
+    -transition-box-shadow: @params;
+}
+
+.Default-padding () {
+    padding: @VERTICAL_PADDING @HORIZONTAL_PADDING;
+}
+
+
+
+/***********************************************************
+                    BASE STYLES
+************************************************************/
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+    line-height: 1.5em;
+    font-size: 100%;
+    background-color: @BACKGROUND_COLOR;
+    color: @TEXT_COLOR;
+
+    @media all and (min-width: 960px) {
+        font-size: 125%;
+    }
+}
+
+h1, h2, h3, h4 {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 2.5em;
+    line-height: @LINE_HEIGHT;
+
+    a,
+    a:hover {
+        text-decoration: none;
+    }
+
+}
+
+h2 {
+    font-size: 2em;
+    line-height: @LINE_HEIGHT;
+}
+
+h3 {
+    font-size: 1.5em;
+    line-height: @LINE_HEIGHT;
+}
+h4 {
+    font-size: 1em;
+}
+
+p {
+    font-size: 1em;
+    line-height: @LINE_HEIGHT;
+}
+
+a {
+    color: @LINK_COLOR;
+    text-decoration: none;
+}
+
+a:hover {
+    color: @LINK_HOVER_COLOR;
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+    a, a:hover {
+        color: @TEXT_COLOR;
+    }
+}
+
+blockquote {
+    margin-left: 0;
+    margin-right: 0;
+    .Default-padding;
+    padding-left: 40px;
+    background-color: @WELL_COLOR;
+    border-left: 5px solid #F3A500;
+}
+
+
+
+/***********************************************************
+                    MAIN STYLES
+************************************************************/
+#container {
+    .Default-padding();
+    margin: 0 auto;
+
+    @media all and (min-width: 960px) {
+        padding: 1em 10px;
+        width: 940px;
+    }
+}
+
+header {
+    border-bottom: 1px solid @BORDER_COLOR;
+}
+
+#page-header h1 {
+    @media all and (max-width: 320px) {
+        font-size: 2em;
+    }
+}
+
+.badoo-logo {
+    background: transparent url(/images/badoo-logo.jpg) 0 center no-repeat;
+    background-size: contain;
+    color: transparent;
+}
+
+footer {
+    border-top: 1px solid @BORDER_COLOR;
+    margin-top: 1em;
+}
+
+.highlight {
+    padding: @VERTICAL_PADDING (@HORIZONTAL_PADDING / 2);
+    background-color: @WELL_COLOR;
+
+    @media all and (max-width: 480px) {
+        font-size: 0.9em;
+    }
+}
+pre {
+    white-space: pre;
+    overflow: auto;
+}
+
+.post-summary {
+    border-bottom: 1px solid @BORDER_COLOR;
+    header {
+        border-bottom: none;
+    }
+    a, a:hover {
+        color: @TEXT_COLOR;
+        text-decoration: none;
+    }
+
+    &:last-of-type {
+        border-bottom: none;
+    }
+}
+
+.post-title {
+    margin-bottom: 0;
+}
+.post-meta {
+    margin-top: 0;
+    font-size: 0.9em;
+    color: @LIGHTER_TEXT_COLOR;
+}
+.post-tags {
+    padding-left: 0;
+
+    li {
+        .Border-radius(5px);
+        font-size: 0.9em;
+        padding: @VERTICAL_PADDING 10px;
+        margin-bottom: 5px;
+        display: inline-block;
+        background-color: @TAG_COLOR;
+        color: white;
+    }
+}
+
+.post-content {
+    img {
+        border: 5px solid @TEXT_COLOR;
+    }
+}
+

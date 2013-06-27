@@ -1,9 +1,21 @@
 ---
 layout: default
 ---
-<h2>{{ page.title }}</h2>
-<p class="meta">{{ page.date | date_to_string }}</p>
 
-<div class="post">
-{{ content }}
-</div>
+<header class="post-header">
+    <h2 class="post-title">{{ page.title }}</h2>
+    <p class="post-meta">By <span class="post-author">{{ page.author }}</span> on <span class="post-date">{{ page.date | date_to_string }}</span></p>
+    <ul class="post-tags">
+        {% for tag in page.categories %}
+        <li class="post-category post-category-{{ tag | downcase }}">{{ tag }}</li>
+        {% endfor %}
+    </ul>
+</header>
+
+<section class="post-content">
+    {{ content }}
+</section>
+
+<footer class="post-footer">
+    <p>Disqus Comments Go Here</p>
+</footer>

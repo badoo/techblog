@@ -1,2 +1,4 @@
-name: Your New Jekyll Site
-pygments: true
+name: Badoo Tech Blog
+compress_less: true
+use_lessjs: false
+permalink: /blog/:year/:month/:day/:title/
