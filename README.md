@@ -28,7 +28,7 @@ Assuming you want to write a new post with a title of "I am awesome", first crea
 git checkout -b i-am-awesome
 ```
 
-Read http://jekyllrb.com/docs/posts/ for an explanation of how to add a new post.
+Read http://jekyllrb.com/docs/posts/ for an explanation of the basics of adding a post.
 
 When you are done and have committed all your work, push your branch to your forked repository.
 ```sh
