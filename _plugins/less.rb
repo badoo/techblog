@@ -28,7 +28,7 @@ module Jekyll
             # put logs on a new line
             puts
 
-            #return if not site.config['environment'] == 'production'
+            # if less is not available on the PATH then set use_lessjs to true
             if not which('lessc')
                 site.config['use_lessjs'] = true
                 puts 'LessGenerator: less is not installed.'
@@ -57,10 +57,11 @@ module Jekyll
                 FileUtils.mkdir_p(css_dir)
 
                 begin
-                    command = ['lessc',
-                    less_path,
-                    css_path,
-                    compress
+                    command = [
+                        'lessc',
+                        less_path,
+                        css_path,
+                        compress
                     ].join(' ')
 
                     puts 'LessGenerator: running command - ' + command
