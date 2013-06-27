@@ -39,6 +39,14 @@ git push origin i-am-awesome
 
 Submit a pull request back to the origin repository and someone (or lots of people) will review it and maybe make some comments. When everybody is happy your pull request will be merged and will be live on the site when the next release is done.
 
+***
+
+### Running Locally
+
+To run a local version of the blog you need to install Jekyll, which is a Ruby gem.
+
+***
+
 ### Very Important!
 
 Once a post has has gone live **DO NOT CHANGE THE TITLE OR DATE**. If you do the link will change and then the internets will have broken links and everyone will be sad.

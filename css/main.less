@@ -111,6 +111,7 @@ p {
 }
 
 a {
+    .Transition(all 250ms ease);
     color: @LINK_COLOR;
     text-decoration: none;
 }
@@ -189,11 +190,13 @@ pre {
     header {
         border-bottom: none;
     }
-    a, a:hover {
+    a {
         color: @TEXT_COLOR;
+    }
+    a:hover {
+        color: @LINK_HOVER_COLOR;
         text-decoration: none;
     }
-
     &:last-of-type {
         border-bottom: none;
     }
@@ -202,22 +205,32 @@ pre {
 .post-title {
     margin-bottom: 0;
 }
-.post-meta {
-    margin-top: 0;
+.post-meta,
+.post-comment-count {
     font-size: 0.9em;
     color: @LIGHTER_TEXT_COLOR;
+}
+.post-meta {
+    margin: 0.25em 0;
+}
+.post-comment-count {
+    margin-top: 0;
 }
 .post-tags {
     padding-left: 0;
 
     li {
-        .Border-radius(5px);
-        font-size: 0.9em;
-        padding: @VERTICAL_PADDING 10px;
-        margin-bottom: 5px;
         display: inline-block;
-        background-color: @TAG_COLOR;
-        color: white;
+
+        a {
+            .Border-radius(5px);
+            font-size: 0.9em;
+            padding: @VERTICAL_PADDING 10px;
+            margin-bottom: 5px;
+            display: inline-block;
+            background-color: @TAG_COLOR;
+            color: white;
+        }
     }
 }
 
