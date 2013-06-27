@@ -1,0 +1,12 @@
+# name of the site
+name: Badoo Tech Blog
+
+# format of the links - do not change this as it will break all existing links!
+permalink: /blog/:year/:month/:day/:title/
+
+# if less is available on the PATH and being compiled then set this to false to not minify the outputted css
+compress_less: true
+
+# this is set to true by the LessGenerator plugin if lessc is not available on the PATH
+# in this case less.js is used to compile in the browser.
+use_lessjs: false

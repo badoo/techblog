@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>{{ page.title }}</title>
+
+    {% if site.use_lessjs %}
+    <link rel="stylesheet/less" type="text/css" href="/css/main.less">
+    {% else %}
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    {% endif %}
+
+</head>
+<body>
+
+    <div id="container">
+
+        <header id="page-header">
+            <h1><a href="/"><span class="badoo-logo">Badoo</span> Tech Blog</a></h1>
+        </header>
+
+        <section id="page-content">
+        {{ content }}
+        </section>
+
+        <footer id="page-footer">
+            <p>&copy; Badoo {{ 'now' | date: "%Y" }}</p>
+        </footer>
+
+    </div>
+
+    {% if site.use_lessjs %}
+    <script>
+        var less = {
+            poll: 1000
+        };
+    </script>
+    <script src="/js/less.js"></script>
+    <script>
+        less.watch();
+    </script>
+    {% endif %}
+
+</body>
+</html>
