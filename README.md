@@ -23,8 +23,10 @@ git remote add upstream git@git.ukoffice:mobile/techblog.git
 
 ### Contributing a Post
 
-Assuming you want to write a new post with a title of "I am awesome", first create a new branch:
+Assuming you want to write a new post with a title of "I am awesome", first make sure you are in branch **master** and have pulled from upstream, then create a new branch.
 ```sh
+git checkout master
+git pull upstream master
 git checkout -b i-am-awesome
 ```
 
@@ -36,3 +38,7 @@ git push origin i-am-awesome
 ```
 
 Submit a pull request back to the origin repository and someone (or lots of people) will review it and maybe make some comments. When everybody is happy your pull request will be merged and will be live on the site when the next release is done.
+
+### Very Important!
+
+Once a post has has gone live **DO NOT CHANGE THE TITLE OR DATE**. If you do the link will change and then the internets will have broken links and everyone will be sad.
