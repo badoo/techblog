@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Badoo Tech Blog
 ---
 
-{% for post in site.posts %}
+{% for post in site.categories[page.category] %}
     {% include post-summary.html %}
 {% endfor %}

@@ -64,8 +64,6 @@ module Jekyll
                         compress
                     ].join(' ')
 
-                    puts 'LessGenerator: running command - ' + command
-
                     `#{command}`
 
                     raise "LessGenerator: compilation error" if $?.to_i != 0
