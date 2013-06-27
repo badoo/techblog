@@ -142,34 +142,107 @@ blockquote {
                     MAIN STYLES
 ************************************************************/
 #container {
-    .Default-padding();
     margin: 0 auto;
-
-    @media all and (min-width: 960px) {
-        padding: 1em 10px;
-        width: 940px;
-    }
 }
 
 header {
     border-bottom: 1px solid @BORDER_COLOR;
 }
 
-#page-header h1 {
-    @media all and (max-width: 320px) {
-        font-size: 2em;
+#page-header {
+
+    h1 {
+        margin-bottom: 0;
+    }
+
+    h1 a {
+        display: block;
+        background: transparent url(/images/badoo-logo.jpg) center center no-repeat;
+        background-size: contain;
+        text-indent: -9999px;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    @media all and (min-width: 768px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 26%;
+        padding: 0 3%;
     }
 }
 
-.badoo-logo {
-    background: transparent url(/images/badoo-logo.jpg) 0 center no-repeat;
-    background-size: contain;
-    color: transparent;
+#user-nav {
+    padding-left: 0;
+    text-align: center;
+
+    li {
+        display: inline-block;
+        margin: 0 5px 10px 0;
+    }
+
+    li a {
+        .Border-radius(5px);
+        padding: 0.25em 5px;
+        border: 1px solid @BORDER_COLOR;
+
+        &:hover {
+            background-color: @LINK_HOVER_COLOR;
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    @media all and (min-width: 768px) {
+
+        li {
+            display: block;
+        }
+
+    }
+}
+
+#page-content {
+    .Default-padding();
+    min-height: 900px;
+
+    @media all and (min-width: 768px) {
+        position: relative;
+        margin-left: 26%;
+        border-left: 1px solid @BORDER_COLOR;
+    }
 }
 
 footer {
+    .Default-padding();
     border-top: 1px solid @BORDER_COLOR;
     margin-top: 1em;
+}
+
+#page-footer {
+    @media all and (min-width: 768px) {
+        position: relative;
+        margin-left: 26%;
+        border-left: 1px solid @BORDER_COLOR;
+        margin-top: 0;
+
+        #categories {
+            position: fixed;
+            top: 250px;
+            left: 0;
+            padding: 0 3%;
+            width: 26%;
+        }
+    }
+
+    @media all and (min-width: 960px) {
+        #categories {
+            top: 300px;
+        }
+    }
 }
 
 .highlight {

@@ -28,7 +28,13 @@
 
         <header id="page-header">
             <h1><a href="/">Badoo</a></h1>
-            <small>Tech Blog</small>
+            <p><strong>Tech Blog</strong></p>
+
+            <ul id="user-nav">
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#categories">Categories</a></li>
+            </ul>
         </header>
 
         <section id="page-content">
@@ -36,6 +42,14 @@
         </section>
 
         <footer id="page-footer">
+            <section id="categories">
+                <h3>Categories</h3>
+                <ul>
+                {% for category in site.categories %}
+                    <li><a href="/categories/{{ category[0] }}">{{ category[0] }}</a></li>
+                {% endfor %}
+                </ul>
+            </section>
             <p>&copy; Badoo {{ 'now' | date: "%Y" }}</p>
         </footer>
 
