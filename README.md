@@ -76,10 +76,11 @@ Submit a pull request back to the origin repository and someone (or lots of peop
 
 To run a local version of the blog you need to install Jekyll, which is a Ruby gem. If you are running Windows see this [blog post](http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html) for instructions on how to set it up.
 
-If you are on Mac OSX then run:
+If you are on Mac OSX then run the following command. It will take a few minutes to install.
 ```sh
 gem install jekyll
 ```
+After this just run `jekyll -v` to confirm it has installed correctly. If it hasn't then someone from the mobile web team will ~~begrudgingly~~ be happy to help you.
 
 Then from the root of the **techblog** directory run:
 ```sh
