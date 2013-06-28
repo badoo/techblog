@@ -157,9 +157,13 @@ header {
 
     h1 a {
         display: block;
-        background: transparent url(/images/badoo-logo.jpg) center center no-repeat;
+        background: transparent url(/images/badoo-logo-small.jpg) center center no-repeat;
         background-size: contain;
         text-indent: -9999px;
+
+        @media all and (min-width: 768px) {
+            background-image: url(/images/badoo-logo.jpg);
+        }
     }
 
     p {
@@ -212,9 +216,9 @@ header {
 
 #page-content {
     .Default-padding();
-    min-height: 900px;
 
     @media all and (min-width: 768px) {
+        min-height: 900px;
         position: relative;
         margin-left: 26%;
         border-left: 1px solid @BORDER_COLOR;
@@ -268,9 +272,12 @@ pre {
 }
 
 .post-summary {
-    border-bottom: 1px solid @BORDER_COLOR;
-    header {
-        border-bottom: none;
+
+    position: relative;
+    border-bottom: 3px solid @TEXT_COLOR;
+
+    .post-header {
+        padding-right: 100px;
     }
     a {
         color: @TEXT_COLOR;
@@ -282,6 +289,11 @@ pre {
     &:last-of-type {
         border-bottom: none;
     }
+}
+
+.post-header {
+    position: relative;
+    padding-right: 100px;
 }
 
 .post-title {
@@ -314,6 +326,17 @@ pre {
             color: white;
         }
     }
+}
+
+.post-author-image {
+    .Border-radius(50%);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 90px;
+    height: 90px;
+    background: transparent none center center no-repeat;
+    background-size: contain;
 }
 
 .post-content {

@@ -23,6 +23,8 @@ git remote add upstream git@git.ukoffice:mobile/techblog.git
 
 ### Contributing a Post
 
+First make sure there is a nice picture of you in the **/images/authors/** directory. If your name is "Joe Bloggs" then there should be a file called "joe-bloggs.jpeg". It **MUST** be a .jpeg file.
+
 Assuming you want to write a new post with a title of "I am awesome", first make sure you are in branch **master** and have pulled from upstream, then create a new branch.
 ```sh
 git checkout master
@@ -30,7 +32,36 @@ git pull upstream master
 git checkout -b i-am-awesome
 ```
 
-Read http://jekyllrb.com/docs/posts/ for an explanation of the basics of adding a post.
+Create a file in **/_posts/** in the format: **2013-06-13-i-am-awesome.markdown**
+
+At the top of the file you need to include a YAML front-matter block like this:
+```
+---
+layout: post
+title:  I Am Awesome
+author: Joe Bloggs
+date:   2013-06-27
+categories: javascript performance
+---
+```
+This post has two categories, **javascript** and **performance**. Categories must be lowercase and a single word. Categories can be whatever you want but try to avoid creating really obscure ones. A post must have at least one category.
+
+The body of a post is written in standard Markdown with the exception of code blocks, which should be included like this:
+```html
+{% highlight java %}
+public static String getName () {
+    return "Bob";
+}
+{% endhighlight %}
+```
+You must specify the language, some examples are:
+* javascript
+* java
+* html
+* css
+* obj-c
+* sh (Bash scripts or terminal commands)
+
 
 When you are done and have committed all your work, push your branch to your forked repository.
 ```sh
