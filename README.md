@@ -80,7 +80,6 @@ If you are on Mac OSX then run the following command. It will take a few minutes
 ```sh
 gem install jekyll
 ```
-After this just run `jekyll -v` to confirm it has installed correctly. If it hasn't then someone from the mobile web team will ~~begrudgingly~~ be happy to help you.
 
 Then from the root of the **techblog** directory run:
 ```sh
