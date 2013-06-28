@@ -1,6 +1,12 @@
 # name of the site
 name: Badoo Tech Blog
 
+# description of the site used in feed.xml and in the header
+description: Tech blog from the engineers behind Badoo, Hot or Not, and Chat or Not.
+
+# url of the production site
+url: http://techblog.badoo.com
+
 # format of the links - do not change this as it will break all existing links!
 permalink: /blog/:year/:month/:day/:title/
 
@@ -11,5 +17,9 @@ compress_less: true
 # in this case less.js is used to compile in the browser.
 use_lessjs: false
 
+# our shortname for the disqus plugin
+disqus_shortname: badootechblog
 
+# files to exclude
 exclude: ["pom.xml", "assembly.xml", "target", "README.md"]
+

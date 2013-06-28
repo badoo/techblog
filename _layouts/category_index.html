@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<h3>Posts in the <strong>{{ page.category }}</strong> category</h3>
+<hr>
 {% for post in site.categories[page.category] %}
     {% include post-summary.html %}
 {% endfor %}

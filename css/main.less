@@ -111,6 +111,7 @@ p {
 }
 
 a {
+    .Transition(all 250ms ease);
     color: @LINK_COLOR;
     text-decoration: none;
 }
@@ -141,34 +142,120 @@ blockquote {
                     MAIN STYLES
 ************************************************************/
 #container {
-    .Default-padding();
     margin: 0 auto;
-
-    @media all and (min-width: 960px) {
-        padding: 1em 10px;
-        width: 940px;
-    }
 }
 
 header {
     border-bottom: 1px solid @BORDER_COLOR;
 }
 
-#page-header h1 {
-    @media all and (max-width: 320px) {
-        font-size: 2em;
+#page-header {
+
+    h1 {
+        margin-bottom: 0;
+    }
+
+    h1 a {
+        display: block;
+        background: transparent url(/images/badoo-logo-small.jpg) center center no-repeat;
+        background-size: contain;
+        text-indent: -9999px;
+
+        @media all and (min-width: 768px) {
+            background-image: url(/images/badoo-logo.jpg);
+        }
+    }
+
+    p {
+        text-align: center;
+    }
+
+    @media all and (min-width: 768px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 26%;
+        padding: 0 3%;
     }
 }
 
-.badoo-logo {
-    background: transparent url(/images/badoo-logo.jpg) 0 center no-repeat;
-    background-size: contain;
-    color: transparent;
+#user-nav {
+    padding-left: 0;
+    text-align: center;
+
+    li {
+        display: inline-block;
+        margin: 0 5px 0.5em 0;
+    }
+
+    li a {
+        .Border-radius(5px);
+        padding: 0.25em 5px;
+        border: 1px solid @BORDER_COLOR;
+
+        &:hover {
+            background-color: @LINK_HOVER_COLOR;
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    @media all and (min-width: 768px) {
+
+        li {
+            display: block;
+            margin-bottom: 1em;
+        }
+
+        .categories-link {
+            display: none;
+        }
+
+    }
+}
+
+#page-content {
+    .Default-padding();
+
+    @media all and (min-width: 768px) {
+        min-height: 900px;
+        position: relative;
+        margin-left: 26%;
+        border-left: 1px solid @BORDER_COLOR;
+    }
 }
 
 footer {
+    .Default-padding();
     border-top: 1px solid @BORDER_COLOR;
     margin-top: 1em;
+}
+
+#page-footer {
+    @media all and (min-width: 768px) {
+        position: relative;
+        margin-left: 26%;
+        border-left: 1px solid @BORDER_COLOR;
+        margin-top: 0;
+
+        #categories {
+            position: fixed;
+            top: 220px;
+            left: 0;
+            padding: 0 3%;
+            width: 26%;
+
+            h3 {
+                text-align: center;
+            }
+        }
+    }
+
+    @media all and (min-width: 960px) {
+        #categories {
+            top: 270px;
+        }
+    }
 }
 
 .highlight {
@@ -185,45 +272,80 @@ pre {
 }
 
 .post-summary {
-    border-bottom: 1px solid @BORDER_COLOR;
-    header {
-        border-bottom: none;
+
+    position: relative;
+    border-bottom: 3px solid @TEXT_COLOR;
+
+    .post-header {
+        padding-right: 100px;
     }
-    a, a:hover {
+    a {
         color: @TEXT_COLOR;
+    }
+    a:hover {
+        color: @LINK_HOVER_COLOR;
         text-decoration: none;
     }
-
     &:last-of-type {
         border-bottom: none;
     }
 }
 
+.post-header {
+    position: relative;
+    padding-right: 100px;
+}
+
 .post-title {
     margin-bottom: 0;
 }
-.post-meta {
-    margin-top: 0;
+.post-meta,
+.post-comment-count {
     font-size: 0.9em;
     color: @LIGHTER_TEXT_COLOR;
+}
+.post-meta {
+    margin: 0.25em 0;
+}
+.post-comment-count {
+    margin-top: 0;
 }
 .post-tags {
     padding-left: 0;
 
     li {
-        .Border-radius(5px);
-        font-size: 0.9em;
-        padding: @VERTICAL_PADDING 10px;
-        margin-bottom: 5px;
         display: inline-block;
-        background-color: @TAG_COLOR;
-        color: white;
+
+        a {
+            .Border-radius(5px);
+            font-size: 0.9em;
+            padding: @VERTICAL_PADDING 10px;
+            margin-bottom: 5px;
+            display: inline-block;
+            background-color: @TAG_COLOR;
+            color: white;
+        }
     }
+}
+
+.post-author-image {
+    .Border-radius(50%);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 90px;
+    height: 90px;
+    background: transparent none center center no-repeat;
+    background-size: contain;
 }
 
 .post-content {
     img {
         border: 5px solid @TEXT_COLOR;
     }
+}
+
+.post-footer {
+    padding: 1em 0;
 }
 
