@@ -11,9 +11,7 @@ module Jekyll
             self.process(@name)
             self.read_yaml(File.join(base, '_layouts'), 'category_index.html')
             self.data['category'] = category
-
-            category_title_prefix = site.config['category_title_prefix'] || 'Category: '
-            self.data['title'] = "#{category_title_prefix}#{category}"
+            self.data['title'] = "Posts about #{category}"
         end
 
     end
