@@ -1,0 +1,19 @@
+<assembly>
+  <id>site</id>
+
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+
+  <includeBaseDirectory>no</includeBaseDirectory>
+
+  <fileSets>
+
+      <fileSet>
+          <directory>_site</directory>
+          <outputDirectory>techblog</outputDirectory>
+      </fileSet>
+
+  </fileSets>
+
+</assembly>
