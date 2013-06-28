@@ -23,3 +23,8 @@ disqus_shortname: badootechblog
 # files to exclude
 exclude: ["pom.xml", "assembly.xml", "target", "README.md"]
 
+# Google Analytics tracking code and domain
+google_analytics:
+    code: UA-25578576-18
+    domain: badoo.com
+

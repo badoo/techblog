@@ -7,14 +7,14 @@
 /***********************************************************
                         VARIABLES
 ************************************************************/
-@BACKGROUND_COLOR: #FFF;
-@TEXT_COLOR: #333;
-@LIGHTER_TEXT_COLOR: lighten(@TEXT_COLOR, 10%);
-@LINK_COLOR: #09C;
+@BODY_BACKGROUND_COLOR: #FFF;
+@BODY_TEXT_COLOR: #333;
+@SIDEBAR_BACKGROUND_COLOR: #1c1f23;
+@SIDEBAR_TEXT_COLOR: #e4e7ea;
+@LINK_COLOR: #03acd7;
 @LINK_HOVER_COLOR: #369;
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
-@TAG_COLOR: #00805B;;
 @LINE_HEIGHT: 1.5em;
 @VERTICAL_PADDING: 0.25em;
 @HORIZONTAL_PADDING: 5%;
@@ -68,8 +68,12 @@ body {
     font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
     line-height: 1.5em;
     font-size: 100%;
-    background-color: @BACKGROUND_COLOR;
-    color: @TEXT_COLOR;
+    background-color: @BODY_BACKGROUND_COLOR;
+    color: @BODY_TEXT_COLOR;
+
+    @media all and (min-width: 768px) {
+        background-color: @SIDEBAR_BACKGROUND_COLOR;
+    }
 
     @media all and (min-width: 960px) {
         font-size: 125%;
@@ -123,14 +127,14 @@ a:hover {
 
 h1, h2, h3, h4 {
     a, a:hover {
-        color: @TEXT_COLOR;
+        color: @BODY_TEXT_COLOR;
     }
 }
 
 blockquote {
+    .Default-padding;
     margin-left: 0;
     margin-right: 0;
-    .Default-padding;
     padding-left: 40px;
     background-color: @WELL_COLOR;
     border-left: 5px solid #F3A500;
@@ -150,19 +154,23 @@ header {
 }
 
 #page-header {
+    background-color: @SIDEBAR_BACKGROUND_COLOR;
+    color: @SIDEBAR_TEXT_COLOR;
 
     h1 {
         margin-bottom: 0;
+        margin-top: 0;
+        padding-top: 0.67em;
     }
 
     h1 a {
         display: block;
-        background: transparent url(/images/badoo-logo-small.jpg) center center no-repeat;
+        background: transparent url(/images/badoo-logo.png) center center no-repeat;
         background-size: contain;
         text-indent: -9999px;
 
         @media all and (min-width: 768px) {
-            background-image: url(/images/badoo-logo.jpg);
+            background-image: url(/images/badoo-logo.png);
         }
     }
 
@@ -189,13 +197,11 @@ header {
     }
 
     li a {
-        .Border-radius(5px);
         padding: 0.25em 5px;
-        border: 1px solid @BORDER_COLOR;
+        color: @LINK_COLOR;
 
         &:hover {
-            background-color: @LINK_HOVER_COLOR;
-            color: white;
+            color: @SIDEBAR_TEXT_COLOR;
             text-decoration: none;
         }
     }
@@ -218,6 +224,7 @@ header {
     .Default-padding();
 
     @media all and (min-width: 768px) {
+        background-color: @BODY_BACKGROUND_COLOR;
         min-height: 900px;
         position: relative;
         margin-left: 26%;
@@ -232,7 +239,9 @@ footer {
 }
 
 #page-footer {
+
     @media all and (min-width: 768px) {
+        background-color: @BODY_BACKGROUND_COLOR;
         position: relative;
         margin-left: 26%;
         border-left: 1px solid @BORDER_COLOR;
@@ -240,20 +249,21 @@ footer {
 
         #categories {
             position: fixed;
-            top: 220px;
+            top: 250px;
             left: 0;
             padding: 0 3%;
             width: 26%;
 
             h3 {
                 text-align: center;
+                color: @SIDEBAR_TEXT_COLOR;
             }
         }
     }
 
     @media all and (min-width: 960px) {
         #categories {
-            top: 270px;
+            top: 320px;
         }
     }
 }
@@ -274,13 +284,13 @@ pre {
 .post-summary {
 
     position: relative;
-    border-bottom: 3px solid @TEXT_COLOR;
+    border-bottom: 3px solid @BODY_TEXT_COLOR;
 
     .post-header {
         padding-right: 100px;
     }
     a {
-        color: @TEXT_COLOR;
+        color: @BODY_TEXT_COLOR;
     }
     a:hover {
         color: @LINK_HOVER_COLOR;
@@ -302,7 +312,7 @@ pre {
 .post-meta,
 .post-comment-count {
     font-size: 0.9em;
-    color: @LIGHTER_TEXT_COLOR;
+    color: lighten(@BODY_TEXT_COLOR, 25%);
 }
 .post-meta {
     margin: 0.25em 0;
@@ -322,7 +332,7 @@ pre {
             padding: @VERTICAL_PADDING 10px;
             margin-bottom: 5px;
             display: inline-block;
-            background-color: @TAG_COLOR;
+            background-color: @LINK_COLOR;
             color: white;
         }
     }
@@ -341,7 +351,7 @@ pre {
 
 .post-content {
     img {
-        border: 5px solid @TEXT_COLOR;
+        border: 5px solid @BODY_TEXT_COLOR;
     }
 }
 
