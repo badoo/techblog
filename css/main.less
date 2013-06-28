@@ -185,6 +185,11 @@ header {
         width: 26%;
         padding: 0 3%;
     }
+
+    @media all and (min-width: 1200px) {
+        width: 340px;
+        padding: 0 10px;
+    }
 }
 
 #user-nav {
@@ -230,6 +235,10 @@ header {
         margin-left: 26%;
         border-left: 1px solid @BORDER_COLOR;
     }
+
+    @media all and (min-width: 1200px) {
+        margin-left: 340px;
+    }
 }
 
 footer {
@@ -258,12 +267,29 @@ footer {
                 text-align: center;
                 color: @SIDEBAR_TEXT_COLOR;
             }
+
+            ul {
+                padding-left: 0;
+            }
+            li {
+                text-align: center;
+                list-style-type: none;
+            }
         }
     }
 
     @media all and (min-width: 960px) {
         #categories {
             top: 320px;
+        }
+    }
+
+    @media all and (min-width: 1200px) {
+        margin-left: 340px;
+
+        #categories {
+            width: 340px;
+            padding: 0 10px;
         }
     }
 }
@@ -357,5 +383,12 @@ pre {
 
 .post-footer {
     padding: 1em 0;
+}
+
+.post-summary,
+.post-title,
+.post-content,
+.post-footer {
+    max-width: 750px;
 }
 
