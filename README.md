@@ -23,7 +23,7 @@ git remote add upstream git@git.ukoffice:mobile/techblog.git
 
 ### Contributing a Post
 
-First make sure there is a nice picture of you in the **/images/authors/** directory. If your name is "Joe Bloggs" then there should be a file called "joe-bloggs.jpeg". It **MUST** be a .jpeg file.
+First make sure there is a nice picture of you in the **images/authors/** directory. If your name is "Joe Bloggs" then there should be a file called "joe-bloggs.jpeg". It **MUST** be a 200x200px **.jpeg** file.
 
 Assuming you want to write a new post with a title of "I am awesome", first make sure you are in branch **master** and have pulled from upstream, then create a new branch.
 ```sh
@@ -32,7 +32,7 @@ git pull upstream master
 git checkout -b i-am-awesome
 ```
 
-Create a file in **/_posts/** in the format: **2013-06-13-i-am-awesome.markdown**
+Create a file in the **_posts** directory in the format: **2013-06-13-i-am-awesome.markdown**
 
 At the top of the file you need to include a YAML front-matter block like this:
 ```
@@ -44,7 +44,7 @@ date:   2013-06-27
 categories: javascript performance
 ---
 ```
-This post has two categories, **javascript** and **performance**. Categories must be lowercase and a single word. Categories can be whatever you want but try to avoid creating really obscure ones. A post must have at least one category.
+This post has two categories, **javascript** and **performance**. Categories must be lowercase and a single word. Categories can be whatever you want but try to avoid creating really obscure ones. A post **MUST** have at least one category.
 
 The body of a post is written in standard Markdown with the exception of code blocks, which should be included like this:
 ```html
@@ -90,6 +90,6 @@ Now go to **http://localhost:4000** in your browser. The `--watch` flag means th
 
 ***
 
-### Very Important!
+### Post Titles and Dates - Very Important!
 
 Once a post has has gone live **DO NOT CHANGE THE TITLE OR DATE**. If you do the link will change and then the internets will have broken links and everyone will be sad.
