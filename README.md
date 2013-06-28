@@ -1,6 +1,6 @@
 ## Badoo Tech Blog
 
-This is the source code for the Badoo Tech Blog. It is built using Jekyll.
+This is the source code for the Badoo Tech Blog, it is built using [Jekyll](http://jekyllrb.com/).
 
 ***
 
@@ -74,7 +74,19 @@ Submit a pull request back to the origin repository and someone (or lots of peop
 
 ### Running Locally
 
-To run a local version of the blog you need to install Jekyll, which is a Ruby gem.
+To run a local version of the blog you need to install Jekyll, which is a Ruby gem. If you are running Windows see this [blog post](http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html) for instructions on how to set it up.
+
+If you are on Mac OSX then run:
+```sh
+gem install jekyll
+```
+
+Then from the root of the **techblog** directory run:
+```sh
+jekyll serve --watch
+```
+Now go to **http://localhost:4000** in your browser. The `--watch` flag means that Jekyll will rebuild the project when you make a change to any file.
+
 
 ***
 
