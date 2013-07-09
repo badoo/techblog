@@ -6,20 +6,20 @@ date:   2013-07-08
 categories: javascript
 ---
 
-With the increase in variety of mobile operating systems it's becoming harder for developers to build native applications for each platform. Apache Cordova/Phonegap have made is significantly easier to build native looking applications for mobile devices using web technologies like Javascript/CSS and HTML by effectively providing native "wrappers" around your webapp.
+With increasing variety of mobile operating systems it's becoming harder for developers to build native applications for each platform. Apache Cordova/Phonegap have made it significantly easier to build native looking applications for mobile devices using web technologies like Javascript/CSS/HTML by effectively providing native "wrappers" around the webapp.
 
-However there are still some problems when it comes to giving the perfect illusion of a native application when you are using web technologies. Today we will try to fix one of them: fixed headers.
+However there are still some problems when it comes to giving the perfect illusion of a native application when you are using web technologies. Today we will try to tackle one of them: fixed headers.
 
-Normally you would expect fixed headers to work by setting their css to ```position: fixed;```, which works in most of the cases except for when you need to type something in a form element. Almost all mobile browsers push your page up to make room for the keyboard and your text element to be on the screen thus pushing your fixed header out of the way. This is a bad user experience because headers in mobile applications are the entrypoints for most user interactions.
+Normally you would expect fixed headers to work by setting their css to ```position: fixed;``` which works in most of the cases except for when you need to type something in a form element. Almost all mobile browsers push your page up to make room for the keyboard and your text element to be on the screen thus pushing your fixed header out of the way. This is a bad user experience because headers in mobile applications are the entrypoints for most user interactions.
 
 When developing the chat page for our Hot or Not application for iOS we ran into the same problem. Here is an example of what it looks like:
 
 ![Fail](/demo/static-header/1.gif)
 
 <a class="button" href="/demo/static-header/problem.html">Demo</a>
-Make sure you are viewing the demo page in a mobile browser to actually see it work :-)
+*Make sure you are viewing the demo page in a mobile browser to actually see it work*
 
-Before we start to fix this problem there are two things we need to do first:
+Before we start to fix this problem there are two things we need to do first.
 
 ### Hide the browser address bar
 
