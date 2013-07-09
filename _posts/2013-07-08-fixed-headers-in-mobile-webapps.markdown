@@ -6,21 +6,24 @@ date:   2013-07-08
 categories: javascript
 ---
 
-### TODO\: Introduction to webapps in general, a bit of information about problems faced when building webapps that emulate native apps
-### TODO\: Show an animated image describing the problem in general
+With the increase in variety of mobile operating systems it's becoming harder for developers to build native applications for each platform. Apache Cordova/Phonegap have made is significantly easier to build native looking applications for mobile devices using web technologies like Javascript/CSS and HTML by effectively providing native "wrappers" around your webapp.
 
-When developing the chat page for Hot or Not we ran into the problem where they keyboard appearance would scroll the whole page up thus making the chat experience jerky and not very user friendly. This article will attempt to explain how we fixed that problem.
+However there are still some problems when it comes to giving the perfect illusion of a native application when you are using web technologies. Today we will try to fix one of them: fixed headers.
+
+Normally you would expect fixed headers to work by setting their css to ```position: fixed;```, which works in most of the cases except for when you need to type something in a form element. Almost all mobile browsers push your page up to make room for the keyboard and your text element to be on the screen thus pushing your fixed header out of the way. This is a bad user experience because headers in mobile applications are the entrypoints for most user interactions.
+
+When developing the chat page for our Hot or Not application for iOS we ran into the same problem. Here is an example of what it looks like:
 
 ![Fail](/demo/static-header/1.gif)
 
-Before we start there are two things we need to consider first:
+<a class="button" href="/demo/static-header/problem.html">Demo</a>
+Make sure you are viewing the demo page in a mobile browser to actually see it work :-)
 
-### We need to hide the browser address bar
+Before we start to fix this problem there are two things we need to do first:
 
-### TODO\: Describe why hiding the addressbar is important and how the code works
+### Hide the browser address bar
 
-To do that we can use the code snippet below.
-Note: The snippet is only for the purposes of this demo and not something you should use as it is on production.
+If a user is visiting your website from a mobile browser, you can hide the address bar in certain cases to give you more screen space and make your webapp look less cluttered. There are plenty of good solutions you can find on the internets that will help you do that. For the sake of our demo we will use the snippet below.
 
 {% highlight javascript %}
 var hideAddressbar = function(){
@@ -36,12 +39,13 @@ window.addEventListener('load', function() {
 window.addEventListener('touchstart', hideAddressbar);
 {% endhighlight %}
 
-### There is ~300ms delay on mobile browsers before any touch event progresses to allow double taps.
+### Remove the user interaction delay on mobile browsers
 
-### TODO\: Give a brief history and reason for this 300ms delay and why we need hacky solutions to this
-### TODO\: Find and give links to good examples demonstrating the delay
+In short, the mobile browsers have a noticieable lag (~300 milliseconds) from when you tap on something to an action being taken for that tap. That's because the browser is waiting to see if you wanted to do a double tap. This shouldn't have been an issue if mobile browsers respected the ```user-scalable``` and ```device-width``` property better. Chromium has a [ticket](https://code.google.com/p/chromium/issues/detail?id=169642) on it already.
 
-To fix the 300ms delay I recommend the usage of [FastClick](https://github.com/ftlabs/fastclick), however be aware that there is a bug on FastClick which makes it fail sometimes on input elements. There is a ticket for that [here](https://github.com/ftlabs/fastclick/issues/132).
+But in the meanwhile we have to fix this, because if you let the browser delay you for that long before you can take an action on keeping the header fixed, it's already too late and your page would have begun it's scroll animation.
+
+To fix the delay I recommend the usage of [FastClick](https://github.com/ftlabs/fastclick), however be aware that there is a bug in the library which makes it fail sometimes on input elements. There is a ticket for that [here](https://github.com/ftlabs/fastclick/issues/132).
 
 For the sake of this demo we will be using a simple script to emulate what FastClick does.
 
@@ -51,16 +55,17 @@ document.querySelector('input').addEventListener('touchend', function(){
 });
 {% endhighlight %}
 
-Now to keep the page from scrolling, we have to listen to the ```window.onscroll``` event and set the scroll to 0 everytime it happens.
-
-### TODO\: Describe the code below a bit more
+Now to prevent the page from scrolling, we have to listen to the ```window.onscroll``` event and set the scroll to 0 everytime it happens to prevent the browser from moving the page.
 
 {% highlight javascript %}
 var preventScrolling = function() {
-    document.body.scrollTop = 0;
-    window.onscroll = function(){
+    window.onscroll = function() {
+        // prevent further scrolling
         document.body.scrollTop = 0;
     }
+
+    // set the scroll to 0 initially
+    document.body.scrollTop = 0;
 }
 
 var allowScrolling = function() {
@@ -71,17 +76,13 @@ window.addEventListener('focus', preventScrolling, true);
 window.addEventListener('blur', allowScrolling, true);
 {% endhighlight %}
 
-To see a demo page in action click on the link below. Make sure you are viewing the page in a mobile browser to actually see it work :-)
+So on the focus of an input element we prevent any kind of page scrolling, and enable it back when the user has finished typing. Here is how it looks like now:
+
+![Fail again](/demo/static-header/2.gif)
 
 <a class="button" href="/demo/static-header/1.html">Demo</a>
 
-![Fail](/demo/static-header/2.gif)
-
-Well that wasn't very helpful was it? The keyboard completely hides our input when it comes up.
-
-This happens because mobile browsers scroll the page up on focus so that the focussed element can come into the view of the user. We can work around this problem by measuring the scroll height right after the keyboard pops up and moving our text input to the correct position accordingly.
-
-### TODO\: Describe the code a bit more and document it as well
+Well that wasn't very helpful was it? The keyboard completely hides our input when it comes up because we didn't let it scroll. To fix that problem we simply have to measure the amount by which our page scrolled when the user input came in focus, that will tell us the height of the keyboard so that we can move our input element into the view manually.
 
 {% highlight javascript %}
 var focusHeight = 0;
@@ -103,10 +104,11 @@ var preventScrolling = function () {
     }
     document.body.scrollTop = 0;
 
+    // move the input into the view
     input.style.marginBottom = focusHeight + 'px';
 };
 
- // Allow page scrolling
+// Allow page scrolling
 var allowScrolling = function () {
     window.onscroll = null;
     input.style.marginBottom = '0px';
@@ -116,8 +118,10 @@ document.body.addEventListener('focus', preventScrolling, true);
 document.body.addEventListener('blur', allowScrolling, true);
 {% endhighlight %}
 
+Let's see how that looks now:
+
+![Great Success](/demo/static-header/3.gif)
+
 <a class="button" href="/demo/static-header/2.html">Demo</a>
 
-![Fail](/demo/static-header/3.gif)
-
-Now our page doesn't scroll and the keyboard animates up into the view.
+Great Success ! We now have a fixed header.
