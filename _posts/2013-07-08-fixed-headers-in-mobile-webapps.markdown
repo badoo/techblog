@@ -43,7 +43,7 @@ window.addEventListener('touchstart', hideAddressbar);
 
 In short, the mobile browsers have a noticieable lag (~300 milliseconds) from when you tap on something to an action being taken for that tap. That's because the browser is waiting to see if you wanted to do a double tap. This shouldn't have been an issue if mobile browsers respected the ```user-scalable``` and ```device-width``` property better. Chromium has a [ticket](https://code.google.com/p/chromium/issues/detail?id=169642) on it already.
 
-But in the meanwhile we have to fix this, because if you let the browser delay you for that long before you can take an action on keeping the header fixed, it's already too late and your page would have begun it's scroll animation.
+In the meanwhile we have to fix this because if you let the browser delay you for that long, it's already too late and your page would have begun it's scroll animation.
 
 To fix the delay I recommend the usage of [FastClick](https://github.com/ftlabs/fastclick), however be aware that there is a bug in the library which makes it fail sometimes on input elements. There is a ticket for that [here](https://github.com/ftlabs/fastclick/issues/132).
 
