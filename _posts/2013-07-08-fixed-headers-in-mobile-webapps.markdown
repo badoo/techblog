@@ -6,9 +6,7 @@ date:   2013-07-08
 categories: javascript
 ---
 
-With increasing variety of mobile operating systems it's becoming harder for developers to build native applications for each platform. Apache Cordova/Phonegap have made it significantly easier to build native looking applications for mobile devices using web technologies like Javascript/CSS/HTML by effectively providing native "wrappers" around the webapp.
-
-However there are still some problems when it comes to giving the perfect illusion of a native application when you are using web technologies. Today we will try to tackle one of them: fixed headers.
+When building mobile web apps there is often a desire to try and make it look and feel as "native" as possible. Whether it is the styling of components, the use of transitions, or just general speed and performance, actually achieving these things can often be much more difficult than it first seems. This article explains some of the challenges we faced when trying to implement one of these "native" features - a fixed header.
 
 Normally you would expect fixed headers to work by setting their css to ```position: fixed;``` which works in most of the cases except for when you need to type something in a form element. Almost all mobile browsers push your page up to make room for the keyboard and your text element to be on the screen thus pushing your fixed header out of the way. This is a bad user experience because headers in mobile applications are the entrypoints for most user interactions.
 
@@ -23,7 +21,7 @@ Before we start to fix this problem there are two things we need to do first.
 
 ### Hide the browser address bar
 
-If a user is visiting your website from a mobile browser, you can hide the address bar in certain cases to give you more screen space and make your webapp look less cluttered. There are plenty of good solutions you can find on the internets that will help you do that. For the sake of our demo we will use the snippet below.
+If a user is visiting your website from a mobile browser, you can hide the address bar in certain cases to give you more screen space. There are plenty of good solutions you can find on the internets that will help you do that. For the sake of our demo we will use the snippet below.
 
 {% highlight javascript %}
 var hideAddressbar = function(){
@@ -41,13 +39,13 @@ window.addEventListener('touchstart', hideAddressbar);
 
 ### Remove the user interaction delay on mobile browsers
 
-In short, the mobile browsers have a noticieable lag (~300 milliseconds) from when you tap on something to an action being taken for that tap. That's because the browser is waiting to see if you wanted to do a double tap. This shouldn't have been an issue if mobile browsers respected the ```user-scalable``` and ```device-width``` property better. Chromium has a [ticket](https://code.google.com/p/chromium/issues/detail?id=169642) on it already.
+In short, the mobile browsers have a noticieable lag (~300 milliseconds) from when you tap on something to an action being taken for that tap. That's because the browser is waiting to see if you wanted to do a double tap. This shouldn't have been an issue if mobile browsers respected the ```user-scalable``` and ```device-width``` property better. Chromium has a [ticket](https://code.google.com/p/chromium/issues/detail?id=169642) and a [patch](https://codereview.chromium.org/18850005/) for it already.
 
 In the meanwhile we have to fix this because if you let the browser delay you for that long, it's already too late and your page would have begun it's scroll animation.
 
 To fix the delay I recommend the usage of [FastClick](https://github.com/ftlabs/fastclick), however be aware that there is a bug in the library which makes it fail sometimes on input elements. There is a ticket for that [here](https://github.com/ftlabs/fastclick/issues/132).
 
-For the sake of this demo we will be using a simple script to emulate what FastClick does.
+As well as removing the delay for click events, FastClick also speeds up focus events on form fields. The snippet below is a very simplified version of what's going on inside FastClick.
 
 {% highlight javascript %}
 document.querySelector('input').addEventListener('touchend', function(){
