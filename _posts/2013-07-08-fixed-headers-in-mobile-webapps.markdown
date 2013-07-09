@@ -88,7 +88,7 @@ Well that wasn't very helpful was it? The keyboard completely hides our input wh
 var focusHeight = 0;
 
 var preventScrolling = function () {
-    // Android devices don't deploy their keyboards immidiately, so we wait
+    // Android devices don't deploy their keyboards immediately, so we wait
     // for them to deploy every 100ms
     if (document.body.scrollTop < 1) {
         setTimeout(function () {
