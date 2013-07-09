@@ -1,16 +1,22 @@
 ---
 layout: post
-title:  Static Headers in Mobile Webapps
+title:  Fixed Headers in Mobile Webapps
 author: Nikhil Verma
 date:   2013-07-08
 categories: javascript
 ---
 
-When developing the chat page for HotorNot we ran into the problem where they keyboard appearance would scroll the whole page up thus making the chat experience jerky and not very user friendly. This article will attempt to explain how we fixed that problem.
+### TODO\: Introduction to webapps in general, a bit of information about problems faced when building webapps that emulate native apps
+### TODO\: Show an animated image describing the problem in general
+
+When developing the chat page for Hot or Not we ran into the problem where they keyboard appearance would scroll the whole page up thus making the chat experience jerky and not very user friendly. This article will attempt to explain how we fixed that problem.
 
 Before we start there are two things we need to consider first:
 
 ### We need to hide the browser address bar
+
+### TODO\: Describe why hiding the addressbar is important and how the code works
+### TODO\: Add an animated image showing why we need to remove the addressbar
 
 To do that we can use the code snippet below.
 Note: The snippet is only for the purposes of this demo and not something you should use as it is on production.
@@ -31,6 +37,9 @@ window.addEventListener('touchstart', hideAddressbar);
 
 ### There is ~300ms delay on mobile browsers before any touch event progresses to allow double taps.
 
+### TODO\: Give a brief history and reason for this 300ms delay and why we need hacky solutions to this
+### TODO\: Find and give links to good examples demonstrating the delay
+
 To fix the 300ms delay I recommend the usage of [FastClick](https://github.com/ftlabs/fastclick), however be aware that there is a bug on FastClick which makes it fail sometimes on input elements. There is a ticket for that [here](https://github.com/ftlabs/fastclick/issues/132).
 
 For the sake of this demo we will be using a simple script to emulate what FastClick does.
@@ -42,6 +51,8 @@ document.querySelector('input').addEventListener('touchend', function(){
 {% endhighlight %}
 
 Now to keep the page from scrolling, we have to listen to the ```window.onscroll``` event and set the scroll to 0 everytime it happens.
+
+### TODO\: Describe the code below a bit more
 
 {% highlight javascript %}
 var preventScrolling = function() {
@@ -61,11 +72,15 @@ window.addEventListener('blur', allowScrolling, true);
 
 To see a demo page in action click on the link below. Make sure you are viewing the page in a mobile browser to actually see it work :-)
 
+### TODO\: Show an animated image of the result
+
 <a class="button" href="/demo/static-header/1.html">Demo</a>
 
 Well that wasn't very helpful was it? The keyboard completely hides our input when it comes up.
 
 This happens because mobile browsers scroll the page up on focus so that the focussed element can come into the view of the user. We can work around this problem by measuring the scroll height right after the keyboard pops up and moving our text input to the correct position accordingly.
+
+### TODO\: Describe the code a bit more and document it as well
 
 {% highlight javascript %}
 var focusHeight = 0;
@@ -101,5 +116,7 @@ document.body.addEventListener('blur', allowScrolling, true);
 {% endhighlight %}
 
 Now our page doesn't scroll and the keyboard animates up into the view.
+
+### TODO\: Show an animated image of the result
 
 <a class="button" href="/demo/static-header/2.html">Demo</a>
