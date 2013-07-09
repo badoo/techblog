@@ -11,12 +11,13 @@ categories: javascript
 
 When developing the chat page for Hot or Not we ran into the problem where they keyboard appearance would scroll the whole page up thus making the chat experience jerky and not very user friendly. This article will attempt to explain how we fixed that problem.
 
+![Fail](/demo/static-header/1.gif)
+
 Before we start there are two things we need to consider first:
 
 ### We need to hide the browser address bar
 
 ### TODO\: Describe why hiding the addressbar is important and how the code works
-### TODO\: Add an animated image showing why we need to remove the addressbar
 
 To do that we can use the code snippet below.
 Note: The snippet is only for the purposes of this demo and not something you should use as it is on production.
@@ -72,9 +73,9 @@ window.addEventListener('blur', allowScrolling, true);
 
 To see a demo page in action click on the link below. Make sure you are viewing the page in a mobile browser to actually see it work :-)
 
-### TODO\: Show an animated image of the result
-
 <a class="button" href="/demo/static-header/1.html">Demo</a>
+
+![Fail](/demo/static-header/2.gif)
 
 Well that wasn't very helpful was it? The keyboard completely hides our input when it comes up.
 
@@ -115,8 +116,8 @@ document.body.addEventListener('focus', preventScrolling, true);
 document.body.addEventListener('blur', allowScrolling, true);
 {% endhighlight %}
 
-Now our page doesn't scroll and the keyboard animates up into the view.
-
-### TODO\: Show an animated image of the result
-
 <a class="button" href="/demo/static-header/2.html">Demo</a>
+
+![Fail](/demo/static-header/3.gif)
+
+Now our page doesn't scroll and the keyboard animates up into the view.
