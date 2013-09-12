@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimum-scale=1.0, width=device-width, target-densitydpi=medium-dpi" />
+    <title>Static Header</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+        header {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            height: 30px;
+            line-height: 30px;
+            background: #eee;
+            text-align: center;
+            border-bottom: 1px solid #aaa;
+        }
+        body {
+            padding: 40px 10px 0;
+            position: relative;
+            font-family: arial, sans-serif;
+            box-sizing: border-box;
+        }
+        input {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            line-height: 30px;
+            border: 1px solid #eee;
+            box-shadow: none;
+            border-radius: 0;
+            -webkit-transition: all 250ms ease;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <header>Fixed Header</header>
+
+    <p>This is my awesome webapp</p>
+    <br/>
+    <p>But I don't want the header to move around as it's a key part of the user's interaction with my app.</p>
+
+    <input type="text" placeholder="Tap Me!" />
+
+    <!-- Hiding the address bar -->
+    <script type="text/javascript">
+        var hideAddressbar = function () {
+            document.body.style.minHeight = '1000px';
+            window.scrollTo(0, 0);
+            document.body.style.minHeight = window.innerHeight + 'px';
+        }
+
+        window.addEventListener('load', function () {
+            hideAddressbar();
+        }, false);
+
+        window.addEventListener('touchstart', hideAddressbar);
+    </script>
+
+    <!-- Fast Click -->
+    <script type="text/javascript">
+        var input = document.querySelector('input');
+
+        input.addEventListener('touchend', function () {
+            this.focus();
+        });
+    </script>
+
+    <!-- Prevent page scrolling -->
+    <script>
+        var focusHeight = 0;
+
+        var preventScrolling = function () {
+            // Android devices don't deploy their keyboards immidiately, so we wait
+            // for them to deploy every 100ms
+            if (document.body.scrollTop < 1) {
+                setTimeout(function () {
+                    preventScrolling();
+                }, 100);
+                return;
+            }
+
+            focusHeight = document.body.scrollTop;
+
+            window.onscroll = function () {
+                document.body.scrollTop = 0;
+            }
+            document.body.scrollTop = 0;
+
+            input.style.marginBottom = focusHeight + 'px';
+        };
+
+         // Allow page scrolling
+        var allowScrolling = function () {
+            window.onscroll = null;
+            input.style.marginBottom = '0px';
+        };
+
+        document.body.addEventListener('focus', preventScrolling, true);
+        document.body.addEventListener('blur', allowScrolling, true);
+    </script>
+
+</body>
+
+</html>

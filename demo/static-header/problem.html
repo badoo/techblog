@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimum-scale=1.0, width=device-width, target-densitydpi=medium-dpi" />
+    <title>Static Header</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+
+        header {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            height: 30px;
+            line-height: 30px;
+            background: #eee;
+            text-align: center;
+            border-bottom: 1px solid #aaa;
+        }
+
+        body {
+            padding: 40px 10px 0;
+            position: relative;
+            font-family: arial, sans-serif;
+        }
+
+        input {
+            position: fixed;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            line-height: 30px;
+            border: 1px solid #eee;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>Fixed Header</header>
+
+    <p>This is my awesome webapp</p>
+    <br/>
+    <p>But I don't want the header to move around as it's a key part of the user's interaction with my app.</p>
+
+    <input type="text" placeholder="Tap Me!" />
+
+</body>
+
+</html>
