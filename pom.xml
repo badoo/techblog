@@ -17,7 +17,7 @@
   <name>Badoo Techblog</name>
   
   <scm>
-    <connection>scm:git:git@git.ukoffice:mobile/techblog.git</connection>
+    <connection>scm:git:git@github.com:badoo/techblog.git</connection>
     <tag>HEAD</tag>
   </scm>
   
