@@ -6,17 +6,17 @@ This is the source code for the Badoo Tech Blog, it is built using [Jekyll](http
 
 ### Getting Set Up
 
-First fork the [mobile/techblog](http://git.ukoffice/mobile/techblog) repository on GitHub.
+First fork the [badoo/techblog](https://github.com/badoo/techblog) repository on GitHub.
 
 Then clone your fork of the project locally by running the following command, with `<yourusername>` replaced with your GitHub username:
 ```sh
-git clone git@git.ukoffice:<yourusername>/techblog.git techblog
+git clone git@github.com:<yourusername>/techblog.git techblog
 ```
 
 Then move into the **techblog** directory and add the original repository as a remote:
 ```sh
 cd techblog
-git remote add upstream git@git.ukoffice:mobile/techblog.git
+git remote add upstream git@github.com:badoo/techblog.git
 ```
 
 ***
