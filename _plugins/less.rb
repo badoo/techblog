@@ -29,11 +29,11 @@ module Jekyll
             puts
 
             # if less is not available on the PATH then set use_lessjs to true
-            if not which('lessc')
+            if which('lessc').nil? then
                 site.config['use_lessjs'] = true
                 puts 'LessGenerator: less is not installed.'
                 return
-            end if
+            end
 
             puts 'LessGenerator: compiling...'
 
