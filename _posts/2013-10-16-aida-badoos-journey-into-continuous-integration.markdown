@@ -6,6 +6,7 @@ date:   2013-10-16
 categories: release ci git testing aida
 ---
 
+<img alt="AIDA" src="{{page.imgdir}}/aida.png" style="float: right" />
 It’s hardly news to anyone that product development and testing involve a lot of boring routine work, which can lead to human error. To avoid complications stemming from this, we use AIDA.
 
 **AIDA** (Automated Interactive Deploy Assistant) is a utility that automatically performs many of the processes in Git, TeamCity and JIRA.
