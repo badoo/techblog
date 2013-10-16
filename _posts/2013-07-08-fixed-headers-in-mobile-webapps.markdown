@@ -12,9 +12,9 @@ Normally you would expect fixed headers to work by setting their css to ```posit
 
 When developing the chat page for our Hot or Not application for iOS we ran into the same problem. Here is an example of what it looks like:
 
-![Fail](/demo/static-header/1.gif)
+![Fail]({{page.imgdir}}/1.gif)
 
-<a class="button" href="/demo/static-header/problem.html">Demo</a>
+<a class="button" href="{{page.demodir}}/problem.html">Demo</a>
 *Make sure you are viewing the demo page in a mobile browser to actually see it work*
 
 Before we start to fix this problem there are two things we need to do first.
@@ -76,9 +76,9 @@ window.addEventListener('blur', allowScrolling, true);
 
 So on the focus of an input element we prevent any kind of page scrolling, and enable it back when the user has finished typing. Here is how it looks like now:
 
-![Fail again](/demo/static-header/2.gif)
+![Fail again]({{page.imgdir}}/2.gif)
 
-<a class="button" href="/demo/static-header/1.html">Demo</a>
+<a class="button" href="{{page.demodir}}/1.html">Demo</a>
 
 Well that wasn't very helpful was it? The keyboard completely hides our input when it comes up because we didn't let it scroll. To fix that problem we simply have to measure the amount by which our page scrolled when the user input came in focus, that will tell us the height of the keyboard so that we can move our input element into the view manually.
 
@@ -118,8 +118,8 @@ document.body.addEventListener('blur', allowScrolling, true);
 
 Let's see how that looks now:
 
-![Great Success](/demo/static-header/3.gif)
+![Great Success]({{page.imgdir}}/3.gif)
 
-<a class="button" href="/demo/static-header/2.html">Demo</a>
+<a class="button" href="{{page.demodir}}/2.html">Demo</a>
 
 Great Success ! We now have a fixed header.
