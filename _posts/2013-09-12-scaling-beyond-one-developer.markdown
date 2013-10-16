@@ -10,4 +10,4 @@ Yesterday I gave a talk to the London iPhone Developer Group ([#lidg](https://tw
 
 Hopefully it was interesting to other developers; I certainly enjoyed talking to many of you afterwards. We're all facing the same challenges, and I think it's great to share these 'war stories'. And, I'll be looking to share more in the future.
 
-I'm attaching the slides [here](/files/Scaling_Beyond_One_Developer.pdf "Scaling beyond one developer"), for those who are interested.
+I'm attaching the slides [here]({{page.filesdir}}/Scaling_Beyond_One_Developer.pdf "Scaling beyond one developer"), for those who are interested.

@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  AIDA: Badoo’s journey into Continuous Integration
+title:  AIDA - Badoo's journey into Continuous Integration
 author: Vladislav Chernov
 date:   2013-10-16
 categories: release ci git testing aida
 ---
-## AIDA: Badoo’s journey into Continuous&nbsp;Integration
 
-![](http://habrastorage.org/storage3/9d7/3af/23f/9d73af23f2c8aefdd8a6a2931b65daae.jpg?__SQUARESPACE_CACHEVERSION=1381482412188)It’s hardly news to anyone that product development and testing involve a lot of boring routine work, which can lead to human error. To avoid complications stemming from this, we use AIDA.
+<img alt="AIDA" src="{{page.imgdir}}/aida.png" style="float: right" />
+It’s hardly news to anyone that product development and testing involve a lot of boring routine work, which can lead to human error. To avoid complications stemming from this, we use AIDA.
 
 **AIDA** (Automated Interactive Deploy Assistant) is a utility that automatically performs many of the processes in Git, TeamCity and JIRA.
 
@@ -33,14 +33,14 @@ Our master branch is a copy of production. As soon as a code from ‘Build’ is
 
 The scheme we use is shown below:
 
-![](http://habrastorage.org/storage3/7dc/6b4/065/7dc6b4065579ca0e0f74a680a1335612.png?__SQUARESPACE_CACHEVERSION=1381482498420)</span></span>
+![]({{page.imgdir}}/image1.png)
 
 ### Six stages of testing
 
 *   **Code Review: **Every task undergoes code review.&nbsp;Each department’s reviewer is chosen according to varying criteria; i.e.it may be the person with the most experience or the development team leader.
 *   **Unit Tests:** Unit tests are run in each branch. They occur automatically when the reviewer changes status to ‘resolved’. After performing tests (22,000 tests in 3-4 minutes) AIDA provides a report in Jira, in spreadsheet form.
 
-![](http://habrastorage.org/storage3/a05/57f/14a/a0557f14a7bec92342b0f18b03b67219.png?__SQUARESPACE_CACHEVERSION=1381482569127)
+![]({{page.imgdir}}/image2.png)
 
 *   **Devel:** The first stage of manual testing. Each task is checked in development environment and databases for testing.
 *   **Shot:** The task is checked on the battlefield. Shot is a folder on the server that is а cloned branch repository and configured Nginx, and has its own top-level domain:&nbsp;**- . shot**. At this stage, translations to major languages are generated, and the issue is tested in the production environment (databases, scripts, services).
@@ -51,8 +51,6 @@ If a task in the release contains an error we remove its branch from the release
 
 _Note:_
 
-_ _
-
 _We don’t use Git revert in release branches. If we removed a task from the release branch with Git revert, after the release was merged into the master, the developer of the problematic task would have to revert the commit in order to get his or her changes back._
 
 ### AIDA and Git
@@ -61,19 +59,19 @@ Due to the sheer number of branches in the described model, a lot of issues aris
 
 *   **Automatic creation of a new release** - first of all, AIDA creates a ‘release’ branch. AIDA tracks changes in the master branch, and once the previous release branch is merged into the master, a new release branch is created.
 
-![](http://habrastorage.org/storage3/f9e/e80/3fd/f9ee803fde68f4a864502a8deb4f753b.png?__SQUARESPACE_CACHEVERSION=1381482624259)
+![]({{page.imgdir}}/image3.png)
 
 *   **Automatic generation of a new release** - Every minute, JIRA tasks that have been resolved and tested are merged into a release branch (with the exception of tasks specifically marked in JIRA flow). In case of a conflict, the developer and release engineer are notified, and the task is forwarded to the developer.
 
-![](http://habrastorage.org/storage3/749/2f4/472/7492f4472962cc11bdb3b58e13678b8a.png?__SQUARESPACE_CACHEVERSION=1381482661584)
+![]({{page.imgdir}}/image4.png)
 
 *   **Release automatically kept up to date with master **- Since the master branch is a copy of the code production, and developers add hot fixes to it via the special tool Deploy Dashboard, the master branch needs to continuously be merged with the branch release. AIDA completes this merge when new changes are executed in the master branch. A message appears if a conflict arises.
 
-![](http://habrastorage.org/storage3/e27/d32/da1/e27d32da153213e504b476e433ad9c27.png?__SQUARESPACE_CACHEVERSION=1381482741264)
+![]({{page.imgdir}}/image5.png)
 
 *   If the developer adds a change to the task branch&nbsp;after a merger with a branch release, this will be caught and AIDA will report it.
 
-![](http://habrastorage.org/storage3/ccf/f28/6ab/ccff286abd2d2f9e9c88a833b8378c03.png?__SQUARESPACE_CACHEVERSION=1381482771958)
+![]({{page.imgdir}}/image6.png)
 
 ### Deploy Dashboard
 
@@ -81,7 +79,7 @@ For hot fixes to production servers, we use patches.&nbsp;Applying a patch to th
 
 Deploy Dashboard is a special web interface for data collection, monitoring and recording, as well as formalisation of patches with a full list of information, and automatic notification.
 
-![](http://habrastorage.org/storage3/a2e/90e/0a5/a2e90e0a57abe9bf45160333a71752d7.png?__SQUARESPACE_CACHEVERSION=1381482805590)
+![]({{page.imgdir}}/image7.png)
 
 If we need to fix something in production, the developer creates and attaches the patch. Then the release engineer checks and applies it to the master branch in the central repository. Following this the patch will deploy to our production servers.
 
@@ -105,11 +103,11 @@ This automation greatly simplifies workflow and eliminates routine activities.
 
 ### Continuous integration
 
-Earlier, we wanted to get rid of routine activities related to the assembly and automatic deployment to a test environment, but were stuck with manually assigning new names to the branches of each release in the project’s CI-server. Now TeamCity catches changes in all branches on a given mask (in this case mask _build_ *_) and starts the build.
+Earlier, we wanted to get rid of routine activities related to the assembly and automatic deployment to a test environment, but were stuck with manually assigning new names to the branches of each release in the project’s CI-server. Now TeamCity catches changes in all branches on a given mask (in this case mask _build\_\*_) and starts the build.
 
 Consider the process of automatic assembly and deploy in the test environment:
 
-1. The project is set up in TeamCity for a branch with a mask _build_ *_.
+1. The project is set up in TeamCity for a branch with a mask _build\_\*_.
 
 2. If there’s a new change in the release branch, TeamCity starts automatic build.
 
@@ -119,7 +117,7 @@ Consider the process of automatic assembly and deploy in the test environment:
 
 5. If the tests don't pass, the release version is marked as bad and is rolled back to the previous (good) version of the release.
 
-![](http://habrastorage.org/storage3/ed6/84c/029/ed684c029f201a8a7e58caae3383f002.png?__SQUARESPACE_CACHEVERSION=1381482919338)
+![]({{page.imgdir}}/image8.png)
 
 The entire process takes three minutes. Tests reveal only fatal errors.
 
@@ -147,5 +145,4 @@ If you are interested in reading a more detailed report on each type of automati
 
 P.S Create good assistants, which won’t let you down when you’re in a pinch!
 
-**Vladislav Chernov, Release engineer,<span> </span>[Badoo](http://corp.badoo.com/)
-**
+**Vladislav Chernov, Release engineer, [Badoo](http://corp.badoo.com/)**
