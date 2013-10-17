@@ -11,7 +11,7 @@ layout: default
         <li class="post-category post-category-{{ tag }}"><a href="/categories/{{ tag }}">{{ tag }}</a></li>
         {% endfor %}
     </ul>
-    <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-width="450" data-show-faces="false"></div>
+    <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-layout="button_count" data-show-faces="false"></div>
     <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="badootechblog">Tweet</a>
     <span class="post-author-image" style="background-image: url(/images/authors/{{ page.author | downcase | replace:' ','-' }}.jpeg)"></span>
 
