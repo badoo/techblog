@@ -28,7 +28,7 @@ layout: default
     <script type="text/javascript">
 
         var disqus_identifier = '{{ page.url }}';
-        var disqus_title = '{{ page.title }}';
+        var disqus_title = '{{ page.title | replace: "'","\\'"}}';
         var disqus_url = '{{ site.url }}{{ page.url }}';
 
         (function() {
