@@ -20,7 +20,7 @@ We'll start by looking at the version control system (VCS) we use here at Badoo,
 The Badoo Team uses Git as a version control system. Our model ensures each task is developed and tested in a separate branch. The branch name consists of the ticket number in JIRA and a description of the problem.
 
 
-{% highlight sh %}
+{% highlight html %}
 BFG-9000_All_developers_should_be_given_a_years_holiday_(paid)
 {% endhighlight %}
 
@@ -28,7 +28,7 @@ A release is built and tested in its own branch, which is then merged with the b
 
 Names of release branches are simple:
 
-{% highlight sh %}
+{% highlight html %}
 build_{name of the component}_{release date}_{time}
 {% endhighlight %}
 
