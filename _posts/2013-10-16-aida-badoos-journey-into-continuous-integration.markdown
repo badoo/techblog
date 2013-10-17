@@ -6,7 +6,7 @@ date:   2013-10-16
 categories: release ci git testing aida
 ---
 
-<img alt="AIDA" src="{{page.imgdir}}/aida.png" style="float: right" />
+<img alt="AIDA" src="{{page.imgdir}}/aida.png" style="float: right; max-width: 50%; margin-left: 10px;" />
 It's hardly news to anyone that product development and testing involves a lot of boring routine work, which can lead to human error. To avoid complications stemming from this, we use AIDA.
 
 **AIDA** (Automated Interactive Deploy Assistant) is a utility that automatically performs many of the processes in Git, TeamCity and JIRA.
@@ -19,13 +19,18 @@ We'll start by looking at the version control system (VCS) we use here at Badoo,
 
 The Badoo Team uses Git as a version control system. Our model ensures each task is developed and tested in a separate branch. The branch name consists of the ticket number in JIRA and a description of the problem.
 
-**BFG-9000_All_developers_should_be_given_a_years_holiday_(paid)**
+
+{% highlight sh %}
+BFG-9000_All_developers_should_be_given_a_years_holiday_(paid)
+{% endhighlight %}
 
 A release is built and tested in its own branch, which is then merged with the branches for completed issues. We deploy code to production servers twice a day, so two release branches are created daily.
 
 Names of release branches are simple:
 
-**build_{name of the component}_{release date}_{time}**
+{% highlight sh %}
+build_{name of the component}_{release date}_{time}
+{% endhighlight %}
 
 This structure means the team immediately knows the date and time of release from the branch name. The hooks that prevent changes being made to a release branch use the same time-stamp. For example, developers are prevented from adding a task to a branch release two hours before deploy to production servers. Without such restrictions the QA team wouldn't have time to check all the tasks on the release branch.
 
@@ -43,7 +48,7 @@ The scheme we use is shown below:
 ![]({{page.imgdir}}/image2.png)
 
 * **Devel:** The first stage of manual testing. Each task is checked in development environment and databases for testing.
-* **Shot:** The task is checked on the battlefield. Shot is a folder on the server that is а cloned branch repository and configured Nginx, and has its own top-level domain:**-.shot**. At this stage, translations to major languages are generated, and the issue is tested in the production environment (databases, scripts, services).
+* **Shot:** The task is checked on the battlefield. Shot is a folder on the server that is а cloned branch repository and configured Nginx, and has its own top-level domain: **-.shot**. At this stage, translations to major languages are generated, and the issue is tested in the production environment (databases, scripts, services).
 * **Staging:** The release is tested in the production environment, translated into all languages, and fully monitored. All tasks included in the build are re-tested.
 * **Production:** If the task is very important, it is checked again in the production environment.
 
