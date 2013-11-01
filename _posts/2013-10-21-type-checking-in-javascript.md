@@ -189,7 +189,3 @@ type.isRegExp(/abc/); // true
 {% endhighlight %}
 
 So that is how we handle type checking in JavaScript at Badoo. The code for `type` method explained in this post is available [here](https://gist.github.com/jonbretman/7259628).
-
-
-
-
