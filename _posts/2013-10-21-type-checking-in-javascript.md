@@ -13,7 +13,7 @@ As the MDN link above explains:
 
 > "A TypeError is thrown when an operand or argument passed to a function is incompatible with the type expected by that operator or function" - MDN
 
-So to avoid both these cases we need to be checking that the values we pass into functions are correct, and that any code we write checks the validity of an operand before using an operator on it. If you are coming from a statically typed language like Java then this may seem totally horrible, in which case you might want to consider using a compile to JavaScript language like TypeScript or Dart. If however you quite like writing JavaScript, or already have a large code base, all is not lost as performing this type checking does not need to be painful, and can also have a pleasant side effect of helping others to understand you code.
+So to avoid TypeError's we need to be checking that the values we pass into functions are correct, and that any code we write checks the validity of an operand before using an operator on it. For example the `.` operator is not compatible with `null` or `undefined` and the `instanceof` operator is not compatible with anything that isn't a function. Using these operators on an operand that is not compatible with it will throw a TypeError. If you are coming from a statically typed language like Java where you normally don't need to worry about things like this then this may seem totally horrible, in which case you might want to consider using a "compile to JavaScript" language that has static typing, for example [Dart](https://www.dartlang.org/) or [TypeScript](http://www.typescriptlang.org/). If however you quite like writing JavaScript, or already have a large JavaScript code base, all is not lost as performing this type checking does not need to be painful, and can also have a pleasant side effect of helping others to understand you code.
 
 Lets start by looking a fairly straight forward example of getting some data from the server, performing some operations on that data, and then using it to render some HTML.
 
@@ -31,9 +31,9 @@ Api.get('/conversations', function (conversations) {
 });
 {% endhighlight %}
 
-The first thing to note is that from looking at this code we don't actually know what `messages` is supposed to be. We could assume that since it's obviously expected to have a `map` function that it should be an array, but assumptions are bad and in reality it could be anything that implements a `map` method.
+The first thing to note is that from looking at this code we don't actually know what `conversations` is supposed to be. We could assume that since it's obviously expected to have a `map` function that it should be an array, but assumptions are bad and in reality it could be anything that implements a `map` method. The function passed to `map` makes a lot of assumptions about the `c` variable. If any of those assumptions are wrong then a TypeError will be thrown and `renderMessages()` will never be called.
 
-Let's assume that `conversations` is supposed to be an array though and see how we can go about checking the validity of it's type. Before going any further let's look at the different methods of checking for types in JavaScript.
+So how we can go about checking the validity of types in this example? Well first let's look at the different methods of checking for types in JavaScript.
 
 ### typeof
 The `typeof` operator returns a string indicating the type of the operand, but the types it returns are very limited. For example the following all return **"object"**
@@ -47,17 +47,20 @@ typeof /abcd/;
 {% endhighlight %}
 
 ### instanceof
-The `instanceof` operator is used to determine if an objects prototype chain contains the prototype property of a given constructor. So to test for an array we could do the following.
+The `instanceof` operator is used to determine if an objects prototype chain contains the prototype property of a given constructor.
 
 {% highlight javascript %}
-conversations instanceof Array;
+[] instanceof Array; // true
+
+var Foo = function () {};
+new Foo() instanceof Foo; // true
 {% endhighlight %}
 
-Although this will work, using `instanceof` for checking the type of a native object is not a great idea as it does not work correctly for primitives, as shown below.
+Although this will work, using `instanceof` for checking the type of a native object is not a great idea as it does not work for primitives values.
 
 {% highlight javascript %}
-'a' instanceof String; //false
-5 instanceof NUmber; // false
+'a' instanceof String; // false
+5 instanceof Number; // false
 true instanceof Boolean; //false
 {% endhighlight %}
 
@@ -70,7 +73,7 @@ The `toString` method on `Object.prototype` is used by many JavaScript framework
 * Let class be the value of the \[\[Class\]\] internal property of O.
 * Return the String value that is the result of concatenating the three Strings `"[object "`, class, and `"]"`.
 
-So basically this method will always return a String in the form "\[object Foo\]" where **Foo** is going to be the internal Class used to create `this`. By using `Function.prototype.call` and a simple regular expression we can write a little method that will return the internal class property of any object.
+So basically this method will always return a String in the form "\[object Foo\]" where **Foo** is going to be **"Null"**, **"Undefined"**, or the internal Class used to create `this`. By using the `call` method to change the `this` value and a simple regular expression to parse the result we can get a string representing the type of anything.
 
 {% highlight javascript %}
 var type = function (o) {
@@ -87,14 +90,14 @@ type(/abcd/); // "regex"
 type(new Date()); // "date"
 {% endhighlight %}
 
-So this must be problem solved, right? Sadly no. There are still a few instances where this method will return values other than we would expect.
+So this must be problem solved, right? Sadly not quite yet. There are still a few instances where this method will return values other than we would expect.
 
 {% highlight javascript %}
 type(NaN); // "number"
 type(document.body); // "htmlbodyelement"
 {% endhighlight %}
 
-Both of these cases return values that we probably wouldn't expect. In the case of `NaN` it returns `"number"` because technically `NaN` is a type of number, although in nearly all cases we want to know if something is a number, not **NOT** a number. The internal class used to implement the `<body>` element is `HTMLBodyElement` (at least in Chrome and Firefox) and there are specific classes for every element, meaning that the `type` method can't be reliably used to check something is an element. However we can modify our existing method to handle these cases.
+Both of these cases return values that we probably wouldn't expect. In the case of `NaN` it returns `"number"` because technically `NaN` is a type of number, although in nearly all cases we want to know if something is a number, not **NOT** a number. The internal class used to implement the `<body>` element is `HTMLBodyElement` (at least in Chrome and Firefox) and there are specific classes for every element. In most cases we would just want to know if something is an element or not, if we then cared about the tag name of that element we can use the `tagName` property to retrieve it. However we can modify our existing method to handle these cases.
 
 {% highlight javascript %}
 var type = function (o) {
@@ -156,19 +159,22 @@ Api.get('/conversations', function (conversations) {
         return name + ': ' + mostRecent;
     });
 
+    // much more likely to make it here now
     App.renderMessages(intros);
-
 });
 {% endhighlight %}
 
-Obviously there is no getting away from the fact that we have had to add quite a lot of additional code to avoid the risk of `TypeError`'s, but here at Badoo we would always rather send a few extra KB's of JavaScript down the wire if it means our application is a bit more stable.
+Obviously there is no getting away from the fact that we have had to add quite a lot of additional code to avoid the risk of `TypeError`'s, but at Badoo we would always rather send a few extra bytes of JavaScript down the wire if it means our application is more stable.
 
 Finally, the rather obvious downside of the `type` method is that it requires checking the return value against a string every time. This is easily improved though. We can create an API similar to Underscore / LoDash / jQuery by doing the following:
 
 {% highlight javascript %}
 ['Null',
  'Undefined',
+ 'Object',
+ 'Array',
  'String',
+ 'Number',
  'Boolean',
  'Function',
  'RegExp',
@@ -188,4 +194,4 @@ type.isElement(document.createElement('div')); // true
 type.isRegExp(/abc/); // true
 {% endhighlight %}
 
-So that is how we handle type checking in JavaScript at Badoo. The code for `type` method explained in this post is available [here](https://gist.github.com/jonbretman/7259628).
+This is the approach we take to type checking in JavaScript in our mobile web application and we have found it makes code easier to read and less likely to fail. The code for the `type` method explained in this post is available as a [gist](https://gist.github.com/jonbretman/7259628).
