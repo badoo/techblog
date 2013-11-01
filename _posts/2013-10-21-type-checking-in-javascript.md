@@ -47,7 +47,7 @@ typeof /abcd/;
 {% endhighlight %}
 
 ### instanceof
-The `instanceof` operator is used to determine if an objects prototype chain contains the prototype property of a given constructor.
+The `instanceof` operator is used to determine if an object's prototype chain contains the prototype property of a given constructor.
 
 {% highlight javascript %}
 [] instanceof Array; // true
