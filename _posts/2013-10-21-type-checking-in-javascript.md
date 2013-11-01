@@ -2,7 +2,7 @@
 layout: post
 title:  Type Checking in JavaScript
 author: Jon Bretman
-date:   2013-10-20
+date:   2013-11-01
 categories: javascript
 summary: Type checking in JavaScript
 ---
