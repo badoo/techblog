@@ -2,7 +2,7 @@
 layout: post
 title:  5 Advanced Javascript and Web Debugging Techniques You Should Know About
 author: Nikhil Verma
-date:   2013-11-01
+date:   2013-11-06
 categories: javascript debugging
 ---
 
