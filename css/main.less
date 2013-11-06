@@ -15,7 +15,7 @@
 @LINK_HOVER_COLOR: #369;
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
-@LINE_HEIGHT: 1.5em;
+@LINE_HEIGHT: 1.6em;
 @VERTICAL_PADDING: 0.25em;
 @HORIZONTAL_PADDING: 5%;
 
@@ -67,16 +67,12 @@
 body {
     font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
     line-height: 1.5em;
-    font-size: 100%;
+    font-size: 110%;
     background-color: @BODY_BACKGROUND_COLOR;
     color: @BODY_TEXT_COLOR;
 
     @media all and (min-width: 768px) {
         background-color: @SIDEBAR_BACKGROUND_COLOR;
-    }
-
-    @media all and (min-width: 960px) {
-        font-size: 125%;
     }
 }
 
@@ -97,14 +93,20 @@ h1 {
 }
 
 h2 {
-    font-size: 2em;
-    line-height: @LINE_HEIGHT;
+    font-size: 1.8em;
+    line-height: @LINE_HEIGHT * 0.7;
 }
 
 h3 {
     font-size: 1.5em;
     line-height: @LINE_HEIGHT;
+    margin: 0.3em 0;
+
+    + p {
+        margin-top: 0;
+    }
 }
+
 h4 {
     font-size: 1em;
 }
@@ -258,7 +260,7 @@ footer {
 
         #categories {
             position: fixed;
-            top: 250px;
+            top: 290px;
             left: 0;
             padding: 0 3%;
             width: 26%;
@@ -270,17 +272,22 @@ footer {
 
             ul {
                 padding-left: 0;
+                text-align: center;
             }
+
             li {
                 text-align: center;
                 list-style-type: none;
+                display: inline-block;
+                background: @LINK_COLOR;
+                padding: 0.2em 1em;
+                margin: 0.3em 0.2em;
+                border-radius: 2px;
             }
-        }
-    }
 
-    @media all and (min-width: 960px) {
-        #categories {
-            top: 320px;
+            a {
+                color: white;
+            }
         }
     }
 
@@ -314,14 +321,21 @@ pre {
 
     .post-header {
         padding-right: 100px;
+
+        @media all and (max-width: 480px) {
+            padding-right: 60px;
+        }
     }
+
     a {
         color: @BODY_TEXT_COLOR;
     }
+
     a:hover {
         color: @LINK_HOVER_COLOR;
         text-decoration: none;
     }
+
     &:last-of-type {
         border-bottom: none;
     }
@@ -379,6 +393,11 @@ pre {
     height: 90px;
     background: transparent none center center no-repeat;
     background-size: contain;
+
+    @media all and (max-width: 480px) {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 .post-content {
@@ -395,6 +414,10 @@ pre {
     code {
         font-size: 0.8em;
         line-height: 1em;
+    }
+
+    li {
+        line-height: @LINE_HEIGHT * 1.2;
     }
 }
 
