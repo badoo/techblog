@@ -150,8 +150,8 @@ Api.get('/conversations', function (conversations) {
         var name = type(c.theirName) === 'string' ? c.theirName : '';
         var mostRecent = '';
 
-        if (type(c.messages) === 'array' ||
-            type(c.messages[0]) === 'object' ||
+        if (type(c.messages) === 'array' &&
+            type(c.messages[0]) === 'object' &&
             type(c.messages[0].text) === 'string') {
             mostRecent = c.messages[0].text.substring(0, 30);
         }
