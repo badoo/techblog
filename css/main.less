@@ -95,6 +95,11 @@ h1 {
 h2 {
     font-size: 1.8em;
     line-height: @LINE_HEIGHT * 0.7;
+
+    @media all and (max-width: 768px) {
+        font-weight: bold;
+        font-size: 1.2em;
+    }
 }
 
 h3 {
@@ -151,18 +156,24 @@ blockquote {
     margin: 0 auto;
 }
 
-header {
-    border-bottom: 1px solid @BORDER_COLOR;
-}
-
 #page-header {
+    border-bottom: 1px solid @BORDER_COLOR;
     background-color: @SIDEBAR_BACKGROUND_COLOR;
     color: @SIDEBAR_TEXT_COLOR;
 
     h1 {
-        margin-bottom: 0;
-        margin-top: 0;
-        padding-top: 0.67em;
+        margin: 0;
+        padding-top: 0.2em;
+
+        @media all and (min-width: 768px) {
+            margin-bottom: 0;
+            margin-top: 0;
+            padding-top: 0.67em;
+        }
+
+        @media all and (max-width: 768px) {
+            font-size: 1.5em;
+        }
     }
 
     h1 a {
@@ -178,6 +189,19 @@ header {
 
     p {
         text-align: center;
+        margin: 0;
+
+        @media all and (min-width: 768px) {
+            margin-bottom: 1em;
+        }
+
+        @media all and (max-width: 768px) {
+            font-size: 0.8em;
+        }
+    }
+
+    ul {
+        margin: 0.3em 0;
     }
 
     @media all and (min-width: 768px) {
@@ -186,6 +210,10 @@ header {
         left: 0;
         width: 26%;
         padding: 0 3%;
+    }
+
+    @media all and (max-height: 680px) and (min-width: 768px) {
+        position: absolute;
     }
 
     @media all and (min-width: 1200px) {
@@ -200,7 +228,12 @@ header {
 
     li {
         display: inline-block;
-        margin: 0 5px 0.5em 0;
+        font-weight: bold;
+
+        @media all and (min-width: 768px) {
+            margin: 0 5px 0.5em 0;
+            font-weight: normal;
+        }
     }
 
     li a {
@@ -243,61 +276,73 @@ header {
     }
 }
 
-footer {
-    .Default-padding();
-    border-top: 1px solid @BORDER_COLOR;
-    margin-top: 1em;
-}
-
 #page-footer {
+    margin-top: 1em;
+
+    p {
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    a {
+        background: @WELL_COLOR;
+        border-radius: 2px;
+        display: inline-block;
+        font-size: 0.9em;
+        min-width: 6em;
+        margin: 0.2em 0.1em;
+        padding: 0.2em 0.5em;
+    }
+
+    li {
+        list-style-type: none;
+        text-align: center;
+        display: inline-block;
+    }
+
+    ul {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    #categories {
+        padding: 0 3%;
+    }
 
     @media all and (min-width: 768px) {
-        background-color: @BODY_BACKGROUND_COLOR;
-        position: relative;
-        margin-left: 26%;
-        border-left: 1px solid @BORDER_COLOR;
+        position: fixed;
+        top: 290px;
+        left: 0;
+        width: 26%;
         margin-top: 0;
 
+        p {
+            color: white;
+        }
+
         #categories {
-            position: fixed;
-            top: 290px;
-            left: 0;
-            padding: 0 3%;
-            width: 26%;
 
             h3 {
-                text-align: center;
                 color: @SIDEBAR_TEXT_COLOR;
-            }
-
-            ul {
-                padding-left: 0;
-                text-align: center;
-            }
-
-            li {
-                text-align: center;
-                list-style-type: none;
-                display: inline-block;
-                background: @LINK_COLOR;
-                padding: 0.2em 1em;
-                margin: 0.3em 0.2em;
-                border-radius: 2px;
             }
 
             a {
                 color: white;
+                background: @LINK_COLOR;
+                min-width: 3em;
             }
         }
     }
 
-    @media all and (min-width: 1200px) {
-        margin-left: 340px;
+    @media all and (max-height: 680px) and (min-width: 768px) {
+        position: absolute;
+    }
 
-        #categories {
-            width: 340px;
-            padding: 0 10px;
-        }
+    @media all and (min-width: 1200px) {
+        width: 340px;
     }
 }
 
