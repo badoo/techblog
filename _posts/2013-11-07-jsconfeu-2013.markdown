@@ -1,0 +1,50 @@
+---
+layout: post
+title:  JSConfEU 2013
+author: Jon Bretman
+date:   2013-11-07
+categories: javascript conferences
+summary: Notes from JSConfEU 2013 in Berlin
+---
+
+A few of us here at Badoo were lucky enough to travel to Berlin in October for JSConfEU. It was a fantastic conference, the quality of the talks was incredibly high covering topics from the [future of JavaScript](http://www.youtube.com/watch?v=IXIkTrq3Rgg), to why [sometimes you need to draw animals](http://www.youtube.com/watch?v=qaLcnzs1hcI). There were so many great talks, but I just want to give a little overview of the ones that those of us who went enjoyed the most.
+
+### Nat Duca: Advanced Jank Busting in Chrome
+
+When trying to get to the bottom of rendering issues we often turn to the Timeline panel in the Chrome dev tools, which is great for showing forced layouts or paints that are taking a long time. However Nat Duca gave a whistlestop tour of a relatively new feature in Chrome called Tracing which allows you to see right into the heart of the rendering process. It is available by visiting **chrome://tracing** in the browser, and it initially looks a bit underwhelming but don't be fooled, this is an incredibly powerful feature. In Nat's talk he is using Chrome Canary, but I think most of the new features he discusses are available in Chrome 30.
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/8S_Vlq3jLZ0"> </iframe>
+
+### Addy Osmani: Object.observe()
+
+Many popular JavaScript frameworks around at the moment have data binding built in and each implements it in a slightly different way, but all currently have to result to what Addy Osmani refers to as "dirty checking". This is because there has historically been no way to "watch" an object in JavaScript, and be notified when it changes, but that is changing with the introduction of `Object.observe()`. Although currently only available in Chrome Canary it should be landing in Chrome soon. Addy's talk contains some very detailed examples of `Object.observe()` could be used to improve the data binding implementations in JS frameworks.
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/mfOh-J-9BY0"> </iframe>
+
+### Forbes Lindsay: Promises and Generators
+
+I think that the introduction of Promises into JavaScript has to be one of the biggest single improvements to the language. The asynchronous nature of many operations leads many developers into a callback hell that makes code hard to read and error prone. Forbes's talk goes beyond Promises though and talks about generator functions and the `yield` keyword and how when all these things are brought together we can bring beauty and elegance to asynchronous JS code.
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/qbKWsbJ76-s"> </iframe>
+
+
+### Bartek Szopka: Everything you never wanted to know about JavaScript numbers
+
+This is an amazing delve into numbers in JavaScript and how they work. My personal favourite is at 22.00 where `NaN` is explained.
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/MqHDDtVYJRI"> </iframe>
+
+
+### Alex Feyerke: I have a Dreamcode: Build Apps, not Backends
+
+[Hood.ie](http://hood.ie/) recently posted a great [blog post](http://blog.hood.ie/2013/11/say-hello-to-offline-first/) about "offline first" which has had lots of positive feedback. Alex Feyerke is part of Hood.ie and made a compelling case at JSConfEU for a backend-as-a-service style architecture in which the web developer doesn't need to worry about the implementation of registering users or saving their data.
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/ARophKqA4E0"> </iframe>
+
+### Brendan Eich: JS Responsibilities
+
+If you can understand more than 50% of this talk you deserve a big shiny medal. It's really excellent to see that the creator (if you will, father) of JavaScript still so passionate about pushing it forward, and also to see Doom running inside of Unread Tournament running in Firefox (27mins in).
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/IXIkTrq3Rgg"> </iframe>
+
+I couldn't possibly list all the talks we enjoyed here, but they are all available on JSConfEU's [YouTube channel](http://www.youtube.com/playlist?list=UUzoVCacndDCfGDf41P-z0iA) so go watch them!
