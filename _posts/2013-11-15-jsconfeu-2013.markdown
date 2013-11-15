@@ -2,7 +2,7 @@
 layout: post
 title:  JSConfEU 2013
 author: Jon Bretman
-date:   2013-11-07
+date:   2013-11-15
 categories: javascript conferences
 summary: Notes from JSConfEU 2013 in Berlin
 ---
