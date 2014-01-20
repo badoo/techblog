@@ -44,9 +44,7 @@ Also there are different types of SMS-billing: MO (Mobile Originated) and MT (Mo
 The main goal of MT-billing is to add an additional check on our side before the user sends money, preventing errors that occur due to user-misspelled SMS texts. Using this method, the payment process consist of two phases. First, the user initiates payment and second, they receive confirmation. In some countries the payment process for MT-billing follows one of these variants:
 
 - the user sends an SMS on short number, we receive it and check that the text is correct, etc. We send a free message with custom text, which the user has to answer, confirming the payment. After that we send a message that they have been charged
-
 - same as above, but instead of responding directly to the free message the user has to enter a PIN code from it on the Badoo site
-
 - the user enters their phone number on Badoo, we send a free message with a PIN. The user then enters the PIN code on Badoo, and after checking this, we send the payment message
 
 For SMS payments we use only aggregators. Direct integrations with operators are not profitable, because you have to support a lot of contracts in many countries, which increasingly requires the involvement of accountants and lawyers.
@@ -59,9 +57,7 @@ As database servers we use two MySql Percona servers, working in master-master r
 The whole billing system can be divided into few big parts:
 
 - **Core** - the base entities needed for payment processing such as Order, Payment and Subscription
-
 - **Provider plugins** - all provider-related functionality such as implementation of API and internal interfaces
-
 - **Payment page** - where you can choose a product and payment method
 
 In order to integrate a new payment provider, we need to create a new plugin which is responsible for all communication between us and the payment gateway. These can be of two types, depending whether we initiate the request (pull requests) or the payment provider initiates it (push requests). The most popular protocol for pull-requests is HTTP, either in itself or as transport for JSON/XML. The REST API (which has gained a certain degree of popularity recently) we haven’t encountered very often. Only new companies or companies who reworked their API recently offer it. For example with the new PayPal API or the new payment system used by the UK’s GoCardless company. The second most popular transport for pull requests is SOAP. For push requests mostly HTTP is used (either pure or as transport), and SOAP only rarely. The only company that comes readily to mind that offers SOAP push notifications is the Russian payment system QIWI.
@@ -86,6 +82,3 @@ The second component of support is bug fixing or making changes to current integ
 In order to solve such cases quickly we maintain detailed logs. These contain all communications between us and payment providers, all important events, errors during query processing and so on. Each query has its own unique identifier through which we can find all rows in logs and reconstruct the steps of an execution query. It’s especially helpful when we have to investigate cases that happened a few weeks or months ago.
 
 So that’s how billing is organized at Badoo! There are still many interesting topics we plan to explore in future, such as monitoring, PCI DSS certification, and re-working bank-card payments. If you have questions or suggestions for future articles, please leave a comment for us below.
-
-
-Anatoly Panov, Lead developer
