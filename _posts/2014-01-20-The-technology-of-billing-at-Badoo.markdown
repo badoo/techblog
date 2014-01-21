@@ -6,7 +6,7 @@ date:   2014-01-20
 categories: billing payments
 ---
 
-There are a lot of way to monetize your project, but all of them have one thing in common – the transfer of money from the user to a company account. In this article we will discuss how this process works at Badoo.
+There are many ways to monetize your project, but all of them have one thing in common – the transfer of money from the user to a company account. In this article we will discuss how this process works at Badoo.
 
 ## What do we mean by ‘billing’?
 Billing for us concerns all things related to the transfer of money. For example: pricing, payment pages and payment processing, the rendering of services and promo campaigns as well as the monitoring all of these things.
