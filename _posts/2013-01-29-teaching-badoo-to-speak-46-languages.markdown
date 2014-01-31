@@ -12,7 +12,7 @@ The process of making your service available in other languages consists of two 
 
 Broadly speaking, internationalisation aka i18n is the part where you take out all hard coded strings from your code and replace them with reference keys. Once the strings have been translated, the reference keys will be used to fetch text in the requested language.
 
-Localisation aka l10n is the part of actually adapting your content for different locales. The bulk of this will be translation, however you should also adapt non-text content for each market. For example in promotional pictures such as app store screenshots, use screen shots of the app in local language. Also, user names in screenshots should be names that will look familiar to people in the area and people in photos should look like they are from that country or at least region.
+Localisation aka L10n is the part of actually adapting your content for different locales. The bulk of this will be translation, however you should also adapt non-text content for each market. For example in promotional pictures such as app store screenshots, use screen shots of the app in local language. Also, user names in screenshots should be names that will look familiar to people in the area and people in photos should look like they are from that country or at least region.
 
 That’s the theory, in practice the process is more complicated than that. Language translation aside, additional locale specific conventions need to be adhered to your app to make sense and feel completely native to its users in other locales.
 
@@ -56,7 +56,7 @@ The translated text snippet is a simple template that can accept parameters as i
 
 As a precaution to prevent truncation and to ensure that the translated text will be displayed within the allocated space we also specify a maximum length for the string. The translated text in the app is manually checked to ensure it fits well and works in the context. Where it’s not possible to create sensible translation within the limit, a layout adjustment may be required. To avoid problems for smaller screen sizes, we mostly test translations on small-screen ldpi devices / emulators.
 
-We generate unique language files for each app and platform on our network. To keep the size of these to a minimum you can specify which app/platform files need to have the particular key included.
+Since some there is some variation in the functionality between different platforms, we also specify which particular platform the text string is used in. This allows us to keep app size down by including only the required strings in the language file for each platform.
 
 As a final step, translation managers kick off a build and deploy a new version of the app to the test devices so that devs, testers and translators can see the latest version in action.
 
