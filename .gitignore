@@ -4,7 +4,6 @@ _site
 *.sublime-project
 .settings
 .idea
-!/.idea
 .idea/*
 !.idea/codeStyleSettings.xml
 *.DS_Store
