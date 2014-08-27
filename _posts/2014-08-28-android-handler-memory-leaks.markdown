@@ -2,7 +2,7 @@
 layout: post
 title:  Android Handler Memory Leaks
 author: Dmytro Voronkevych
-date:   2014-06-06
+date:   2014-08-28
 categories: android memory tools
 ---
 Android uses Java as a platform for development.
@@ -144,7 +144,17 @@ Nice, isn’t it? The code is cleaner than ever, and memory is clean as well! :)
 
 To use it, just add dependency to your build.gradle:
 {% highlight groovy %}
-compile 'com.badoo.mobile:android-weak-handler:1.0'
+repositories {
+    maven {
+        repositories {
+            url 'https://oss.sonatype.org/content/repositories/releases/'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.badoo.mobile:android-weak-handler:1.0'
+}
 {% endhighlight %}
 
 And import it in your java class:
@@ -153,7 +163,7 @@ import com.badoo.mobile.util.WeakHandler;
 {% endhighlight %}
 
 Visit Badoo's github page, where you can fork it, or study it's
-source code [http://https://github.com/badoo/android-weak-handler](http://https://github.com/badoo/android-weak-handler)
+source code [https://github.com/badoo/android-weak-handler](https://github.com/badoo/android-weak-handler)
 
 WeakHandler. How it works
 -------------------------
@@ -195,7 +205,7 @@ To achieve it we came up with three different methods:
 
 * Use a static inner `Runnable`/`Handler` with `WeakReference` to owner class
 * Clear all messages from `Handler` in `onDestroy` of `Activity`/`Fragment`
-* Use [`WeakHandler`](http://https://github.com/badoo/android-weak-handler) from Badoo as a silver bullet
+* Use [`WeakHandler`](https://github.com/badoo/android-weak-handler) from Badoo as a silver bullet
 
 It’s up to you to choose your preferred technique.
 The second seems very reasonable, but needs some extra work.
