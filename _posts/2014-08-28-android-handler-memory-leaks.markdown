@@ -6,7 +6,7 @@ date:   2014-08-28
 categories: android memory tools
 ---
 Android uses Java as a platform for development.
-This helps us to avoid about many issues like memory management,
+This helps us with many low level issues including memory management,
 platform type dependencies, and so on.
 However we still sometimes get crashes with *OutOfMemory*.
 So where’s the garbage collector?
