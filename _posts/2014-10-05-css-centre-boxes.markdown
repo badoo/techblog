@@ -6,11 +6,11 @@ date:   2014-10-05
 categories: javascript css frontend problem
 ---
 
-In this article I would like to discuss a UI problem 'n was faced with in the past, that I still have no elegant solution for. It seems completely reasonable for this
-problem to have a pure and simple css solution, yet I have not been able to come by one so far.
+In this article I would like to discuss a UI problem I was faced with in the past, that I still have no elegant solution for. It seems completely reasonable for this
+problem to have a pure and simple CSS solution, yet I have not been able to come by one so far.
 
-I ended up solving this problem in javascript; it felt wrong and it felt like a cop out. It was around the same time I started interviewing candidates for mobile web positions at Badoo, 
-so I thought, why not kill two birds with one stone? After roughly 20+ interviews, most candidates are able to solve the problem, but they all resort to javascript after failing to complete the problem with only css.
+I ended up solving this problem in Javascript; it felt wrong and it felt like a cop out. It was around the same time I started interviewing candidates for mobile web positions at Badoo, 
+so I thought, why not kill two birds with one stone? After roughly 20+ interviews, most candidates are able to solve the problem, but they all resort to Javascript after failing to complete the problem with only CSS.
 
 Is this possible? It is such a simple UI pattern we see used on the web all the time. Lemme talk you through the problem:
 
@@ -49,7 +49,7 @@ Our end goal is to render something pretty like this on multiple devices in eith
 
 # Markup
 
-Let's start by creating simple html markup and css as a starting point:
+Let's start by creating simple HTML markup and CSS as a starting point:
 
 HTML:
 
@@ -178,7 +178,7 @@ And no, please do not suggest adding even more media queries..
 
 ### Fixed width v 3.0
 
-Now this is where people start bringing javascript into the solution; using the equation set out earlier, we can calculate the container width by:
+Now this is where people start bringing Javascript into the solution; using the equation set out earlier, we can calculate the container width by:
  
 $$GridWidth = (floor(\frac{AvailableWidth}{(2y + z)}) \times (2y + z))$$
 
@@ -214,7 +214,7 @@ But its still oddly unsatisfying.
 
 # 'Solution' 3
 
-Now there is one thing we could do that only uses css. If we jig the previous equation around a bit we could calculate the GridWidth using:
+Now there is one thing we could do that only uses CSS. If we jig the previous equation around a bit we could calculate the GridWidth using:
 
 $$GridWidth = AvailableWidth - (AvailableWidth \text{ modulo } (2y + z))$$
 
@@ -239,6 +239,6 @@ Thus we fall over this hurdle:
 
 # Conclusion 
 
-We found two solutions, one using only css (but with a method that isn't yet wide adopted) then also with javascript. There must be another simple way!
+We found two solutions, one using only CSS (but with a method that isn't yet wide adopted) then also with Javascript. There must be another simple way!
 
 Please comment and let me know! :)
