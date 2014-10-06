@@ -32,11 +32,11 @@ If we depict these requirements graphically:
 
 And if we were to look at this problem mathematically, we see that the equation we are trying to satisfy is:
 
-![Output]({{page.imgdir}}/eq01.png)
+<img class="no-box-shadow" src="/images/css-centre-boxes/eq01.png"/>
 
 where
 
-![Output]({{page.imgdir}}/eq02.png)
+<img class="no-box-shadow" src="/images/css-centre-boxes/eq02.png"/>
 
 Our end goal is to render something pretty like this on multiple devices in either portrait or landscape satisfying all of the requirement in the list: 
 
@@ -176,7 +176,7 @@ And no, please do not suggest adding even more media queries..
 
 Now this is where people start bringing Javascript into the solution; using the equation set out earlier, we can calculate the container width by:
  
-![Output]({{page.imgdir}}/eq03.png)
+<img class="no-box-shadow" src="/images/css-centre-boxes/eq03.png"/>
 
 JS
 
@@ -212,7 +212,7 @@ But its still oddly unsatisfying.
 
 Now there is one thing we could do that only uses CSS. If we jig the previous equation around a bit we could calculate the GridWidth using:
 
-![Output]({{page.imgdir}}/eq04.png)
+<img class="no-box-shadow" src="/images/css-centre-boxes/eq04.png"/>
 
 let's use that in our CSS:
 
