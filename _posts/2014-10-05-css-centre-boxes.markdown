@@ -7,7 +7,7 @@ categories: javascript css frontend problem
 ---
 
 In this article I would like to discuss a UI problem 'n was faced with in the past, that I still have no elegant solution for. It seems completely reasonable for this
-problem to have a pure css solution, yet I have not been able to come by one so far.
+problem to have a pure and simple css solution, yet I have not been able to come by one so far.
 
 I ended up solving this problem in javascript; it felt wrong and it felt like a cop out. It was around the same time I started interviewing candidates for mobile web positions at Badoo, 
 so I thought, why not kill two birds with one stone? After roughly 20+ interviews, most candidates are able to solve the problem, but they all resort to javascript after failing to complete the problem with only css.
@@ -37,7 +37,9 @@ $$AvailableWidth = 2x + GridWidth$$
 where
 
 $$GridWidth = (FitAmount \times BoxSize)$$
+
 $$FitAmount = floor(\frac{AvailableWidth}{BoxSize})$$
+
 $$BoxSize =  2y + z$$
 
 Our end goal is to render something pretty like this on multiple devices in either portrait or landscape satisfying all of the requirement in the list: 
@@ -164,15 +166,13 @@ and (-webkit-min-device-pixel-ratio : 3) {
 
 {% endhighlight %}
 
-
 So, now it works on landscape on iPhone 6 Plus as well!
-
 
 ![Output]({{page.imgdir}}/solution_2_2.png)
 
 But we still have that last requirement:
 
-> Nr 7: This grid should work on "all" smart phones and desktop browsers.
+> Nr 7. The screen width is not fixed (ie. users can resize on desktop or change the device orientation on mobile)
 
 And no, please do not suggest adding even more media queries..
 
@@ -212,9 +212,33 @@ we'll end up satisfying all of product's requirements:
 
 But its still oddly unsatisfying.
 
+# 'Solution' 3
+
+Now there is one thing we could do that only uses css. If we jig the previous equation around a bit we could calculate the GridWidth using:
+
+$$GridWidth = AvailableWidth - (AvailableWidth \text{ modulo } (2y + z))$$
+
+let's use that in our CSS:
+
+{% highlight css %}
+
+.grid {
+    list-style: none;
+    padding: 0;    
+    width: calc(100% - ((100% mod 99px)));
+}
+
+{% endhighlight %}
+
+`CSS calc()` to the rescue!! Unfortunately it comes with a massive caveat though. It is not yet well adopted in mobile browsers, especially Android and also the `mod` operator 
+is only supported in the latest versions of IE.
+
+Thus we fall over this hurdle:
+
+> Nr 7: This grid should work on "all" smart phones and desktop browsers.
+
 # Conclusion 
 
-Does anybody out there have a css only solution that could be applied to this problem? Can you do something clever with flex boxes, css calc() or is there just
-a one-liner out there that for some reason has just not come to mind?
+We found two solutions, one using only css (but with a method that isn't yet wide adopted) then also with javascript. There must be another simple way!
 
-Please comment and let us know! :)
+Please comment and let me know! :)
