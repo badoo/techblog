@@ -206,7 +206,7 @@ we'll end up satisfying all of product's requirements:
 </tr>
 </table>
 
-But its still oddly unsatisfying.
+But it's still oddly unsatisfying.
 
 # 'Solution' 3
 
