@@ -168,7 +168,7 @@ So, now it works on landscape on iPhone 6 Plus as well!
 
 But we still have that last requirement:
 
-> Nr 7. The screen width is not fixed (ie. users can resize on desktop or change the device orientation on mobile)
+> Nr 6: The screen width is not fixed (ie. users can resize on desktop or change the device orientation on mobile)
 
 And no, please do not suggest adding even more media queries..
 
