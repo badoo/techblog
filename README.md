@@ -62,14 +62,6 @@ You must specify the language, any of the following are valid:
 * obj-c
 * sh (Bash scripts or terminal commands)
 
-To include mathematics formatting in your post, you can type:
-
-$${0}$$
-
-replacing {0} with the text you would like formatted. 
-
-See [MathJax](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference) for formatting options.
-
 When you are done and have committed all your work, push your branch to your forked repository.
 ```sh
 git push origin i-am-awesome
