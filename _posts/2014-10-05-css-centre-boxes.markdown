@@ -24,7 +24,7 @@ We want to be able to render a grid of images, such that:
 4. The items in the grid are left aligned.
 5. The amount of grid items are not predetermined.
 6. The screen width is not fixed (ie. users can resize on desktop or change the device orientation on mobile)
-7. This grid should work on "all" smart phones and desktop browsers.
+7. This grid should work on "all" smartphones and desktop browsers.
 
 If we depict these requirements graphically:
 
@@ -81,7 +81,7 @@ This would output the following:
 
 ![Output]({{page.imgdir}}/initial.png)
 
-And it voilates:
+And it violates:
 
 > Nr 3: The grid itself should be centred on the screen, thus the margin on either sides of the grid should be the same.
 
@@ -226,12 +226,12 @@ let's use that in our CSS:
 
 {% endhighlight %}
 
-`CSS calc()` to the rescue!! Unfortunately it comes with a massive caveat though. It is not yet well adopted in mobile browsers, especially Android and also the `mod` operator 
+`CSS calc()` to the rescue!! Unfortunately it comes with a massive caveat. It is not yet well adopted in mobile browsers, especially Android and also the `mod` operator 
 is only supported in the latest versions of IE.
 
 Thus we fall over this hurdle:
 
-> Nr 7: This grid should work on "all" smart phones and desktop browsers.
+> Nr 7: This grid should work on "all" smartphones and desktop browsers.
 
 # Conclusion 
 
