@@ -80,7 +80,7 @@ Due to the increased number of strings (and increased length of them) the output
 Using the deobfuscator application
 ----------------------------------
 
-Source code and builds for the deobfuscator application are available here: TODO LINK!
+Source code and builds for the deobfuscator application are available here: [https://github.com/badoo/hprof-deobfuscator](https://github.com/badoo/hprof-deobfuscator)
 
 First, make sure that you have downloaded the most recent release of deobfuscator from our Github page, then execute the following command from the command line:
 java -jar deobfuscator-all-x.y.jar <mapping file> <obfuscated hprof file> <output hprof file>
