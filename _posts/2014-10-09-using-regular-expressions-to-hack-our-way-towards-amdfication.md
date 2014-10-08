@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  How we used regular expressions to hack our way towards AMDfication
+title:  Using regular expressions to hack our way towards AMDfication
 author: Nikhil Verma
 date:   2014-10-09
 categories: javascript regex
