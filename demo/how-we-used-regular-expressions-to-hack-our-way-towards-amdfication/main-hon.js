@@ -1,5 +1,6 @@
 $(function () {
 
+    // Codemirror setup
     var myCodeMirror = window.mc = window.CodeMirror.fromTextArea($('#code').get(0), {
         mode: 'javascript',
         theme: 'monokai',
@@ -11,25 +12,43 @@ $(function () {
         }
     });
 
+    // Convert button
     var button = $('#magic');
 
+    /**
+     * Define helper, used to generate the define block
+     * @type {Object}
+     */
     var defineHelper = {
         define_: {},
 
+        /**
+         * Adds a dependancy
+         * @param {String} path
+         * @param {String} value
+         */
         add: function (path, value) {
             if (!this.define_[path]) {
                 this.define_[path] = [path, value];
             }
         },
 
+        /**
+         * Cleans up the define helper
+         */
         reset: function () {
             this.define_ = {};
         },
 
+        /**
+         * Generates a define block, formatting it and sorting it based on properties
+         * @return {String}
+         */
         getBlock: function () {
             var defBlock = 'define([';
             var i;
 
+            // Sort all the defines, because why not?
             var defines = _.values(this.define_).sort(function (a, b) {
                 if (a[0] < b[0]) {
                     return -1;
@@ -40,8 +59,8 @@ $(function () {
                 return 0;
             });
 
+            // Add the indented define paths
             var spaces = '';
-
             for (i = 0; i < defines.length; i++) {
                 defBlock += spaces + "'" + defines[i][0] + "',\n";
 
@@ -50,6 +69,7 @@ $(function () {
                 }
             }
 
+            // Add the define function block
             defBlock = defBlock.slice(0, -2) + '],\n\nfunction (';
 
             for (i = 0; i < defines.length; i++) {
@@ -140,7 +160,7 @@ $(function () {
         ],
 
         // Core stuff
-        [/B\.(View|UI|Session|Router|NativeBridge|Model|History|GlobalEvents|Events|Controller|Api)/g,
+        [/B\.(View|UI|Session|Router|Model|History|GlobalEvents|Events|Controller|Api)/g,
             function (str, match) {
                 defineHelper.add('Core/' + match, match);
                 return match;
@@ -160,6 +180,8 @@ $(function () {
         for (i = 0; i < magicRules.length; i++) {
             val = val.replace(magicRules[i][0], magicRules[i][1]);
         }
+
+        val = '    ' + val.trim();
 
         myCodeMirror.setValue(defineHelper.getBlock() + _.uniq(prepends).join('\n') + val);
     });
