@@ -105,7 +105,7 @@ You can do `query(“*”)` to find all the elements on the date picker dialog. 
 irb(main):001:0> query("DatePicker id:'datePicker'")
 {% endhighlight %}
 
-In the Android Api, DatePicker has the [updateDate](http://developer.android.com/reference/android/widget/DatePicker.html#updateDate(int, int, int)) method with three arguments `year`, `month` and `day`. To set the date, we should call this method on the `DatePicker` view.
+In the Android Api, DatePicker has the [updateDate](http://developer.android.com/reference/android/widget/DatePicker.html#updateDate%28int,%20int,%20int%29) method with three arguments `year`, `month` and `day`. To set the date, we should call this method on the `DatePicker` view.
 
 Now set any date for ex: 30-11-1990 (day-month-year) by running the following query
 
