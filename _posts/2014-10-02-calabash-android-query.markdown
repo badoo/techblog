@@ -2,7 +2,7 @@
 layout: post
 title:  Calabash Android - Unleash the power of Query
 author: Sathish Gogineni
-date:   2014-10-06
+date:   2014-10-08
 categories: automation mobile qa android calabash
 ---
 
