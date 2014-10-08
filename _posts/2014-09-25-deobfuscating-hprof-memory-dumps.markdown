@@ -2,7 +2,7 @@
 layout: post
 title:  Deobfuscating HPROF memory dumps
 author: Erik Andre
-date:   2014-09-25
+date:   2014-10-08
 categories: android memory tools obfuscation dexguard
 ---
 
@@ -85,7 +85,7 @@ Using the deobfuscator application
 Source code and builds for the deobfuscator application are available here: [https://github.com/badoo/hprof-deobfuscator](https://github.com/badoo/hprof-deobfuscator)
 
 First, make sure that you have downloaded the most recent release of deobfuscator from our Github page, then execute the following command from the command line:
-java -jar deobfuscator-all-x.y.jar <mapping file> <obfuscated hprof file> <output hprof file>
+:> java -jar deobfuscator-all-x.y.jar {mapping file} {obfuscated hprof file} {output hprof file}
 If everything goes well you can now open the output file in the memory analyzer of your choice.
 
 References
