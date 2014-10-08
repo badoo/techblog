@@ -2,43 +2,43 @@
 layout: post
 title:  Can you center a grid of images using only CSS?
 author: Anton Laurens
-date:   2014-10-05
+date:   2014-10-08
 categories: javascript css frontend problem
 ---
 
-In this article I would like to discuss a UI problem I was faced with in the past, that I still have no elegant solution for. It seems completely reasonable for this
-problem to have a pure and simple CSS solution, yet I have not been able to come by one so far. I ended up solving this problem in Javascript; it felt wrong and it felt like a cop out. 
+In this article I'd like to discuss a UI problem I was faced with in the past, which I still have no elegant solution for. It seems completely reasonable for this
+problem to have a simple CSS solution, yet I have not been able to discover one so far. I ended up solving the problem in Javascript; it felt wrong and it felt like a cop out. 
 
 I first came across this problem around the time I started interviewing candidates for mobile web positions at Badoo, 
-so I thought, why not kill two birds with one stone? After roughly 20+ interviews, most candidates are able to solve the problem, but they all resort to Javascript after failing to complete the problem with only CSS.
+so I thought, why not kill two birds with one stone? After roughly 20+ interviews, most candidates are able to solve the problem, but they all resort to Javascript after failing to complete the problem using only CSS.
 
-Is this possible? It is such a simple UI pattern we see used on the web all the time. Let me talk you through the problem:
+Is it possible? It is such a simple UI pattern we see used on the web all the time. Let me talk you through the problem:
 
 # Problem
 
-We want to be able to render a grid of images, such that:
+We want to be able to render a grid of images in such a way, that:
 
 1. The grid items are square and have a fixed width and height, with a fixed margin surrounding the image.
 2. The maximum amount of grid items should fit into the given screen width.
 3. The grid itself should be centred on the screen, thus the margin on either sides of the grid should be the same.
-4. The items in the grid are left aligned.
+4. The items in the grid are left-aligned.
 5. The amount of grid items are not predetermined.
 6. The screen width is not fixed (ie. users can resize on desktop or change the device orientation on mobile)
-7. This grid should work on "all" smartphones and desktop browsers.
+7. This grid should work on all smartphones and desktop browsers.
 
 If we depict these requirements graphically:
 
 ![Output]({{page.imgdir}}/boxes.png)
 
-And if we were to look at this problem mathematically, we see that the equation we are trying to satisfy is:
+And if we look at this problem mathematically, we see that the equation we are trying to satisfy is:
 
 <img class="no-box-shadow" src="/images/css-centre-boxes/eq01.png"/>
 
-where
+where:
 
 <img class="no-box-shadow" src="/images/css-centre-boxes/eq02.png"/>
 
-Our end goal is to render something pretty like this on multiple devices in either portrait or landscape satisfying all of the requirement in the list: 
+Our end goal is to render something like this on multiple devices in either portrait or landscape satisfying all the requirements in the list: 
 
 ![Output]({{page.imgdir}}/03.png)
 
@@ -87,17 +87,17 @@ And it violates:
 
 ## 'Solution' 1
 
-Usually people's first impulse would be to add `text-align: center` to `.grid`. I guess that's fair enough to try that initially, although at the moment our grid-items are floating left and adding text alignment will actually have no effect. Let's play devil's advocate anyway by removing `float: left;` from `.grid-item` and replace it with `display: inline-block;` and add `text-align: center` to `.grid`:
+Usually people's first impulse would be to add `text-align: center` to `.grid`. I guess it's fair enough to try that initially, although at the moment our grid-items are floating left and adding text alignment will actually have no effect. Let's play devil's advocate anyway by removing `float: left;` from `.grid-item` and replace it with `display: inline-block;` and add `text-align: center` to `.grid`:
 
 ![Output]({{page.imgdir}}/solution_1.png)
 
-This is not a bad solution, it ticks all our boxes, except for:
+This is not a bad solution, it ticks all our boxes, except:
 
-> Nr 4:  The items in the grid are left aligned.
+> Nr 4:  The items in the grid are left-aligned.
 
 ## 'Solution' 2
 
-Next people have an aha! moment and add `margin: 0 auto` to `.grid`. This has no effect as the grid has no fixed width, so no margin can be automatically calculated.
+People then have an 'aha!' moment and add `margin: 0 auto` to `.grid`. This has no effect as the grid has no fixed width, so no margin can be automatically calculated.
 
 Which then leads people to start adding fixed widths:
 
@@ -129,7 +129,7 @@ so now we are failing:
 
 ### Fixed width v 2.0
 
-Well, that's not a problem, let's solve it by adding media queries:
+Well that's not a problem, let's solve it by adding media queries:
 
 {% highlight css %}
 
@@ -162,7 +162,7 @@ and (-webkit-min-device-pixel-ratio : 3) {
 
 {% endhighlight %}
 
-So, now it works on landscape on iPhone 6 Plus as well!
+So now it works on landscape on iPhone 6 Plus as well!
 
 ![Output]({{page.imgdir}}/solution_2_2.png)
 
@@ -174,7 +174,7 @@ And no, please do not suggest adding even more media queries..
 
 ### Fixed width v 3.0
 
-Now this is where people start bringing Javascript into the solution; using the equation set out earlier, we can calculate the container width by:
+Now this is where people start bringing Javascript into the solution. Using the equation set out earlier, we can calculate the container width by:
  
 <img class="no-box-shadow" src="/images/css-centre-boxes/eq03.png"/>
 
@@ -195,7 +195,7 @@ JS
 {% endhighlight %}
 
 Of course this Javascript can be improved by getting the margin/ box width values on the fly, but you get the idea. If this function is then hooked to init, resize and orientation change events,
-we'll end up satisfying all of product's requirements:
+we'll end up satisfying all the requirements:
 
 <table>
 <tr>
@@ -231,7 +231,7 @@ is only supported in the latest versions of IE.
 
 Thus we fall over this hurdle:
 
-> Nr 7: This grid should work on "all" smartphones and desktop browsers.
+> Nr 7: This grid should work on all smartphones and desktop browsers.
 
 # Conclusion 
 
