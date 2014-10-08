@@ -2,7 +2,7 @@
 layout: post
 title:  Deobfuscating HPROF memory dumps
 author: Erik Andre
-date:   2014-09-25
+date:   2014-10-08
 categories: android memory tools obfuscation dexguard
 ---
 
