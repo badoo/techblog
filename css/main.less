@@ -7,7 +7,7 @@
 /***********************************************************
                         VARIABLES
 ************************************************************/
-@BODY_BACKGROUND_COLOR: #FFF;
+@BODY_BACKGROUND_COLOR: #eee;
 @BODY_TEXT_COLOR: #333;
 @SIDEBAR_BACKGROUND_COLOR: #1c1f23;
 @SIDEBAR_TEXT_COLOR: #e4e7ea;
@@ -16,8 +16,8 @@
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
 @LINE_HEIGHT: 1.6em;
-@VERTICAL_PADDING: 0.25em;
-@HORIZONTAL_PADDING: 5%;
+@VERTICAL_PADDING: 0.5em;
+@HORIZONTAL_PADDING: 1em;
 
 
 /***********************************************************
@@ -262,9 +262,15 @@ blockquote {
 
 #page-content {
     .Default-padding();
+    background-color: @BODY_BACKGROUND_COLOR;
+display: flex;
+flex-flow: row wrap;
+align-items: stretch;
+justify-content: space-around;
+align-content: stretch;
 
     @media all and (min-width: 768px) {
-        background-color: @BODY_BACKGROUND_COLOR;
+
         min-height: 900px;
         position: relative;
         margin-left: 26%;
@@ -361,11 +367,19 @@ pre {
 
 .post-summary {
 
+    flex: 0 1 49%;
     position: relative;
-    border-bottom: 3px solid @BODY_TEXT_COLOR;
+    background: #fff;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 1px 1px 1px #ddd;
 
     .post-header {
-        padding-right: 100px;
+        margin-bottom: 1em;
+
+        h2 {
+            margin: 0;
+        }
 
         @media all and (max-width: 480px) {
             padding-right: 60px;
@@ -392,7 +406,6 @@ pre {
 
 .post-header {
     position: relative;
-    padding-right: 100px;
 }
 
 .post-title {
@@ -434,8 +447,8 @@ pre {
     position: absolute;
     top: 0px;
     right: 0px;
-    width: 90px;
-    height: 90px;
+    width: 60px;
+    height: 60px;
     background: transparent none center center no-repeat;
     background-size: contain;
 
