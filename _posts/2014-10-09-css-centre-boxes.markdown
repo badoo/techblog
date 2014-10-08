@@ -2,7 +2,7 @@
 layout: post
 title:  Can you center a grid of images using only CSS?
 author: Anton Laurens
-date:   2014-10-08
+date:   2014-10-09
 categories: javascript css frontend problem
 ---
 
