@@ -170,7 +170,7 @@ But we still have that last requirement:
 
 > Nr 6: The screen width is not fixed (ie. users can resize on desktop or change the device orientation on mobile)
 
-And no, please do not suggest adding even more media queries..
+And no, please do not suggest adding even more media queries.
 
 ### Fixed width v 3.0
 
