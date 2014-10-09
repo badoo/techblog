@@ -6,7 +6,7 @@ date:   2014-10-09
 categories: javascript regex
 ---
 
-Badoo MobileWeb project started in early 2012. Due to the initial pace of development, coding conventions and modularisation weren’t given priority. Most of the "modules" lived inside a global object. As the project grew it became difficult to maintain. Bugs became harder to track down. After much internal discussion we found an opportunity to convert our codebase to use AMD modules [RequireJS](http://requirejs.org/docs/whyamd.html), and I'm here to tell you how we did it using regular expressions.
+Badoo MobileWeb project started in early 2012. Due to the initial pace of development, coding conventions and modularisation weren’t given priority. Most of the "modules" lived inside a global object. As the project grew it became difficult to maintain. Bugs became harder to track down. After much internal discussion we found an opportunity to convert our codebase to use AMD modules [RequireJS](http://requirejs.org/docs/whyamd.html). I'm here to tell you how we used the power of regular expressions to speed up our migration process.
 
 # The Problem
 
@@ -89,7 +89,7 @@ When you press "Convert", it reads the contents of the file, applies the Javascr
 
 > **Note:** <a href="{{page.demodir}}/index.html">If the iframe doesn't work you can visit this page by clicking me.</a>
 
-# Breadown of the solution
+# Breakdown of the solution
 
 First we need to have a method which lets us generate define blocks given the dependancies.
 
@@ -134,7 +134,7 @@ getBlock: function () {
 }
 {% endhighlight %}
 
-Fairly straightforward, next we need an array mapping of searches and replaces.
+Fairly straightforward, next we need an array mapping search terms to their replacements.
 
 {% highlight javascript %}
 var rules = [
@@ -188,6 +188,6 @@ for (i = 0; i < rules.length; i++) {
 
 It took me a day to code up this tool and it made our conversion process an order of magnitude faster. Using this we migrated two projects and their unit tests within a few weeks.
 
-It now allows us to have proper modules in the code, manage circular dependancies, generate subsets of the application and have an easier time developing it.
+It now allows us to have proper modules in the code, manage circular dependancies and generate subsets of the application. This all adds up to make development much easier.
 
 If you have any feedback please drop it in the comments below.
