@@ -41,7 +41,7 @@ var Badoo = Badoo || {};
 
 As you can see everything was "global", called directly and had no tracking of dependancies. Fortunately, we had a few good things going for us:
 
-1. The project structure was modular. (e.g ```B.View.Alert``` was inside ```Views/Alert```)
+1. The project structure was modular. (e.g ```B.Views.Alert``` was inside ```Views/Alert```)
 2. In most cases each file corresponded with it's object name.
 
 # Manual Attempts
@@ -60,7 +60,7 @@ What I needed was a quick solution that semi-automated the process.
 
 # Enter Regex
 
-Because most of our project followed predictable conventions I could try implementing something which matches those patterns and generates AMDfied versions. And one of the really cool features in javascript is that you can pass methods to Regex replace functions.
+Because most of our project followed predictable conventions I could try implementing something which matches those patterns and generates AMDfied versions. And one of the really cool features in Javascript is that you can pass methods to Regex replace functions.
 
 {% highlight javascript %}
 var sentence = 'I like turtles';
@@ -75,17 +75,17 @@ console.log(sentence.replace(/\w+/gi, function (word) {
 
 So I set out to make a tool which does the following:
 
-1. Uses a good GUI like CodeMirror to allow us to paste the content of files
+1. Uses [CodeMirror](http://codemirror.net/) as the editor
 2. Auto-AMDfies the project, lets us know of any errors using JSHint
 3. Requires minors tweaks to get the paste-able result
 
 # The Solution
 
-I am happy to present the final solution!
-
-When you press "Convert", it reads the contents of the file, applies the Javascript below and writes the final result. As you can see it leaves out some code that needs to be removed manually. I could have fixed that as well, but remembering the XKCD graph I decided it's faster to delete those bits than remove them via code.
+And I am happy to present the final solution!
 
 <iframe style="border: 0; width: 100%; min-height: 500px;" src="{{page.demodir}}/index.html"></iframe>
+
+When you press "Convert", it reads the contents of the file, applies the Javascript below and writes the final result. As you can see it leaves out some code that needs to be removed manually. I could have fixed that as well, but remembering the XKCD chart I decided it's faster to delete those bits than remove them via code.
 
 > **Note:** <a href="{{page.demodir}}/index.html">If the iframe doesn't work you can visit this page by clicking me.</a>
 
@@ -103,6 +103,7 @@ getBlock: function () {
     var i;
 
     // Sort all the defines, because why not?
+    // this.define_ is a path:name mapping
     var defines = _.values(this.define_).sort(function (a, b) {
         if (a[0] < b[0]) {
             return -1;
@@ -142,7 +143,7 @@ var rules = [
     ['})(Badoo);', '});'],
 
     // Definition
-    // Converts B.View.Alert = to var AlertView =
+    // Converts `B.Views.Alert =` to `var AlertView =`
     [/B\.(View|Model|Controller)s\.(\w+)( )?=/g,
         function (str, type, file) {
             return 'var ' + file + ' =';
@@ -150,7 +151,7 @@ var rules = [
     ],
 
     // MVC
-    // Converts B.Controller.XYZ to XYZController and adds a required module
+    // Converts `B.Controllers.XYZ` to `XYZController` and adds a required module
     [/B\.(View|Model|Controller)s\.(\w+)/g,
         function (str, type, file) {
             defineHelper.add(type + 's/' + file, file.indexOf(type) === -1 ? file + type : file);
@@ -159,7 +160,7 @@ var rules = [
     ],
 
     // Core stuff
-    // Matches and returns a required module
+    // Matches and saves a required module
     [/B\.(View|UI|Session|Router|Model|History|GlobalEvents|Events|Controller|Api)/g,
         function (str, match) {
             defineHelper.add('Core/' + match, match);
@@ -187,6 +188,6 @@ for (i = 0; i < rules.length; i++) {
 
 It took me a day to code up this tool and it made our conversion process an order of magnitude faster. Using this we migrated two projects and their unit tests within a few weeks.
 
-It now allows us to have proper modules in the code, manage circular dependancies, generate subsets of the application and have a good time :-)
+It now allows us to have proper modules in the code, manage circular dependancies, generate subsets of the application and have an easier time developing it.
 
 If you have any feedback please drop it in the comments below.
