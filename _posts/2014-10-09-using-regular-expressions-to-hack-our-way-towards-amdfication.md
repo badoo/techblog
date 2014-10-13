@@ -93,7 +93,7 @@ And I am happy to present the solution!
 
 When you press “Convert”, it reads the contents of the file, applies the JavaScript below and writes the result. It does leave out some code that needs to be removed manually. I could have fixed that as well, but remembering the XKCD chart I decided it’s faster to delete those bits than remove them via code.
 
-> **Note:** <a href="{{page.demodir}}/index.html">If the iframe doesn’t work you can visit this page by clicking me.</a>
+> **Note:** <a href="{{page.demodir}}/index.html">If the demo doesn’t work you can visit it by clicking me.</a>
 
 # Breakdown of the solution
 
