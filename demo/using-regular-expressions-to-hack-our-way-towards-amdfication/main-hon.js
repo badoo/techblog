@@ -1,5 +1,7 @@
 $(function () {
 
+    var originalText = $('#code').val();
+
     // Codemirror setup
     var myCodeMirror = window.mc = window.CodeMirror.fromTextArea($('#code').get(0), {
         mode: 'javascript',
@@ -184,6 +186,10 @@ $(function () {
         val = '    ' + val.trim();
 
         myCodeMirror.setValue(defineHelper.getBlock() + _.uniq(prepends).join('\n') + val);
+    });
+
+    $('#revert').on('click', function () {
+        myCodeMirror.setValue(originalText);
     });
 
 });

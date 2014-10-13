@@ -16,20 +16,26 @@ Let me share with you a snippet of the kind of code we were working with.
 var Badoo = Badoo || {};
 
 (function (B) {
+    // Local references to other modules and their properties
     var Session = B.Session;
     var History = B.History;
     var AppView = B.Views.App;
-
     var MESSAGES_FOLDER =  B.Models.Folders.TYPES.MESSAGES;
 
+    // App controller initialization
     var App = B.Controllers.App = Badoo.Controller.extend({
         init: function () {
-            B.GlobalEvents.on('force-logout', this.onForcedLogout_);
+            // Initialize some views and controllers
+            var controller = new B.Controllers.Landing();
+            var view = new B.Views.Alert();
+
+            // Write some cookies
+            Badoo.Utils.Cookie.set('test', 1000 * 42);
         }
     });
 
+    // Make it instanceable
     var instance;
-
     App.getInstance = function () {
         return instance || (instance = new App('app'));
     };
@@ -81,11 +87,11 @@ So I set out to make a tool which does the following:
 
 # The Solution
 
-And I am happy to present the final solution!
+And I am happy to present the solution!
 
-<iframe style="border: 0; width: 100%; min-height: 500px;" src="{{page.demodir}}/index.html"></iframe>
+<iframe style="border: 0; width: 100%; min-height: 600px;" src="{{page.demodir}}/index.html"></iframe>
 
-When you press “Convert”, it reads the contents of the file, applies the JavaScript below and writes the final result. It does leave out some code that needs to be removed manually. I could have fixed that as well, but remembering the XKCD chart I decided it’s faster to delete those bits than remove them via code.
+When you press “Convert”, it reads the contents of the file, applies the JavaScript below and writes the result. It does leave out some code that needs to be removed manually. I could have fixed that as well, but remembering the XKCD chart I decided it’s faster to delete those bits than remove them via code.
 
 > **Note:** <a href="{{page.demodir}}/index.html">If the iframe doesn’t work you can visit this page by clicking me.</a>
 
