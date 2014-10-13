@@ -39,10 +39,10 @@ var Badoo = Badoo || {};
 })(Badoo);
 {% endhighlight %}
 
-As you can see everything was “global”, called directly and had no tracking of dependencies. Fortunately, we had a few good things going for us:
+As you can see: Everything was “global”, called directly and had no tracking of dependencies. Fortunately, we had a few good things going for us:
 
 1. The project structure was modular. (e.g `B.Views.Alert` was inside `Views/Alert`)
-2. In most cases each file corresponded with it’s object name.
+2. In most cases each file corresponded with its object name.
 
 # Manual Attempts
 
@@ -85,7 +85,7 @@ And I am happy to present the final solution!
 
 <iframe style="border: 0; width: 100%; min-height: 500px;" src="{{page.demodir}}/index.html"></iframe>
 
-When you press “Convert”, it reads the contents of the file, applies the JavaScript below and writes the final result. As you can see it leaves out some code that needs to be removed manually. I could have fixed that as well, but remembering the XKCD chart I decided it’s faster to delete those bits than remove them via code.
+When you press “Convert”, it reads the contents of the file, applies the JavaScript below and writes the final result. It does leave out some code that needs to be removed manually. I could have fixed that as well, but remembering the XKCD chart I decided it’s faster to delete those bits than remove them via code.
 
 > **Note:** <a href="{{page.demodir}}/index.html">If the iframe doesn’t work you can visit this page by clicking me.</a>
 
@@ -189,8 +189,6 @@ This will iterate over the script doing replaces one by one. And then we concate
 
 # Conclusion
 
-It took me a day to code up this tool and it made our conversion process an order of magnitude faster. Using this we migrated two projects and their unit tests within a few weeks.
-
-It now allows us to have proper modules in the code, manage circular dependencies and generate subsets of the application. This all adds up to make development much easier.
+It took me a day to code up this tool and it made our conversion process an order of magnitude faster. Using this we migrated two projects and their unit tests within a few weeks. It now allows us to have proper modules in the code, manage circular dependencies and generate subsets of the application. This all adds up to make development much easier.
 
 If you have any feedback please drop it in the comments below.
