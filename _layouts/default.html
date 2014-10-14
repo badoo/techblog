@@ -49,8 +49,7 @@
     <div id="container">
 
         <header id="page-header">
-            <h1><a href="/">Badoo</a></h1>
-            <p><strong>Tech Blog</strong></p>
+            <h1><a href="/">Badoo</a><strong>Tech Blog</strong></h1>
 
             <ul id="user-nav">
                 <li class="twitter-link"><a href="https://twitter.com/badootech">Twitter</a></li>
@@ -60,7 +59,7 @@
             </ul>
         </header>
 
-        <section id="page-content">
+        <section id="page-content" class="{{ page.layout | trim }}">
         {{ content }}
         </section>
 

@@ -4,15 +4,18 @@ layout: default
 
 <header class="post-header">
     <h2 class="post-title">{{ page.title }}</h2>
-    <p class="post-meta">By <span class="post-author">{{ page.author }}</span> on <span class="post-date">{{ page.date | date_to_string }}</span></p>
-    <p class="post-comment-count"><a href="#disqus_thread"></a></p>
+    <p class="post-meta">By <span class="post-author">{{ page.author }}</span> on <span class="post-date">{{ page.date | date_to_string }}</span> - <a href="{{ page.url }}#disqus_thread"></a></p>
     <ul class="post-tags">
         {% for tag in page.categories %}
         <li class="post-category post-category-{{ tag }}"><a href="/categories/{{ tag }}">{{ tag }}</a></li>
         {% endfor %}
     </ul>
-    <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-layout="button_count" data-show-faces="false"></div>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="badootech">Tweet</a>
+
+    <div class="post-networks">
+        <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-layout="button_count" data-show-faces="false"></div>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="badootech">Tweet</a>
+    </div>
+
     <span class="post-author-image" style="background-image: url(/images/authors/{{ page.author | downcase | replace:' ','-' }}.jpeg)"></span>
 
 </header>

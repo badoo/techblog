@@ -7,7 +7,8 @@
 /***********************************************************
                         VARIABLES
 ************************************************************/
-@BODY_BACKGROUND_COLOR: #eee;
+@BODY_BACKGROUND_COLOR: #fff;
+@BODY_BACKGROUND_COLOR_DARKER: #eee;
 @BODY_TEXT_COLOR: #333;
 @SIDEBAR_BACKGROUND_COLOR: #1c1f23;
 @SIDEBAR_TEXT_COLOR: #e4e7ea;
@@ -18,7 +19,8 @@
 @LINE_HEIGHT: 1.6em;
 @VERTICAL_PADDING: 0.5em;
 @HORIZONTAL_PADDING: 1em;
-
+@tablet-width: 768px;
+@mobile-width: 480px;
 
 /***********************************************************
                         MIXINS
@@ -71,7 +73,7 @@ body {
     background-color: @BODY_BACKGROUND_COLOR;
     color: @BODY_TEXT_COLOR;
 
-    @media all and (min-width: 768px) {
+    @media all and (min-width: @tablet-width) {
         background-color: @SIDEBAR_BACKGROUND_COLOR;
     }
 }
@@ -93,11 +95,11 @@ h1 {
 }
 
 h2 {
-    font-size: 1.8em;
+    font-size: 1.4em;
     line-height: @LINE_HEIGHT * 0.7;
+    font-weight: bold;
 
-    @media all and (max-width: 768px) {
-        font-weight: bold;
+    @media all and (max-width: @tablet-width) {
         font-size: 1.2em;
     }
 }
@@ -157,62 +159,23 @@ blockquote {
 }
 
 #page-header {
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    line-height: 1.5em;
+    z-index: 10;
+
     border-bottom: 1px solid @BORDER_COLOR;
     background-color: @SIDEBAR_BACKGROUND_COLOR;
     color: @SIDEBAR_TEXT_COLOR;
 
-    h1 {
-        margin: 0;
-        padding-top: 0.2em;
+    @media all and (min-width: @tablet-width) {
 
-        @media all and (min-width: 768px) {
-            margin-bottom: 0;
-            margin-top: 0;
-            padding-top: 0.67em;
-        }
-
-        @media all and (max-width: 768px) {
-            font-size: 1.5em;
-        }
     }
 
-    h1 a {
-        display: block;
-        background: transparent url(/images/badoo-logo.png) center center no-repeat;
-        background-size: contain;
-        text-indent: -9999px;
-
-        @media all and (min-width: 768px) {
-            background-image: url(/images/badoo-logo.png);
-        }
-    }
-
-    p {
-        text-align: center;
-        margin: 0;
-
-        @media all and (min-width: 768px) {
-            margin-bottom: 1em;
-        }
-
-        @media all and (max-width: 768px) {
-            font-size: 0.8em;
-        }
-    }
-
-    ul {
-        margin: 0.3em 0;
-    }
-
-    @media all and (min-width: 768px) {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 26%;
-        padding: 0 3%;
-    }
-
-    @media all and (max-height: 680px) and (min-width: 768px) {
+    @media all and (max-height: 680px) and (min-width: @tablet-width) {
         position: absolute;
     }
 
@@ -220,6 +183,36 @@ blockquote {
         width: 340px;
         padding: 0 10px;
     }
+
+    h1 {
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        font-size: 3em;
+        line-height: 1em;
+
+        a {
+            display: inline-block;
+            background: transparent url(/images/badoo-logo.png) center center no-repeat;
+            background-size: contain;
+            text-indent: -9999px;
+            width: 3em;
+        }
+
+        strong {
+            display: inline;
+            line-height: 1em;
+            vertical-align: middle;
+            font-size: 0.4em;
+            letter-spacing: -1px;
+        }
+    }
+
+
+    ul {
+        margin: 0.3em 0;
+    }
+
 }
 
 #user-nav {
@@ -230,55 +223,33 @@ blockquote {
         display: inline-block;
         font-weight: bold;
 
-        @media all and (min-width: 768px) {
-            margin: 0 5px 0.5em 0;
-            font-weight: normal;
+        a {
+            padding: 0.25em 5px;
+            color: @LINK_COLOR;
+
+            &:hover {
+                color: @SIDEBAR_TEXT_COLOR;
+                text-decoration: none;
+            }
         }
-    }
-
-    li a {
-        padding: 0.25em 5px;
-        color: @LINK_COLOR;
-
-        &:hover {
-            color: @SIDEBAR_TEXT_COLOR;
-            text-decoration: none;
-        }
-    }
-
-    @media all and (min-width: 768px) {
-
-        li {
-            display: block;
-            margin-bottom: 1em;
-        }
-
-        .categories-link {
-            display: none;
-        }
-
     }
 }
 
 #page-content {
     .Default-padding();
     background-color: @BODY_BACKGROUND_COLOR;
-display: flex;
-flex-flow: row wrap;
-align-items: stretch;
-justify-content: space-around;
-align-content: stretch;
 
-    @media all and (min-width: 768px) {
-
-        min-height: 900px;
-        position: relative;
-        margin-left: 26%;
-        border-left: 1px solid @BORDER_COLOR;
+    .summaries {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: stretch;
+        justify-content: space-around;
+        align-content: stretch;
+        background-color: @BODY_BACKGROUND_COLOR_DARKER;
     }
 
-    @media all and (min-width: 1200px) {
-        margin-left: 340px;
+    @media all and (min-width: @tablet-width) {
+        min-height: 900px;
     }
 }
 
@@ -287,6 +258,7 @@ align-content: stretch;
 
     p {
         text-align: center;
+        color: white;
     }
 
     h3 {
@@ -316,47 +288,25 @@ align-content: stretch;
 
     #categories {
         padding: 0 3%;
-    }
 
-    @media all and (min-width: 768px) {
-        position: fixed;
-        top: 290px;
-        left: 0;
-        width: 26%;
-        margin-top: 0;
+        h3 {
+            color: @SIDEBAR_TEXT_COLOR;
+        }
 
-        p {
+        a {
             color: white;
-        }
-
-        #categories {
-
-            h3 {
-                color: @SIDEBAR_TEXT_COLOR;
-            }
-
-            a {
-                color: white;
-                background: @LINK_COLOR;
-                min-width: 3em;
-            }
+            background: @LINK_COLOR;
+            min-width: 3em;
         }
     }
 
-    @media all and (max-height: 680px) and (min-width: 768px) {
-        position: absolute;
-    }
-
-    @media all and (min-width: 1200px) {
-        width: 340px;
-    }
 }
 
 .highlight {
     padding: @VERTICAL_PADDING (@HORIZONTAL_PADDING / 2);
     background-color: @WELL_COLOR;
 
-    @media all and (max-width: 480px) {
+    @media all and (max-width: @mobile-width) {
         font-size: 0.9em;
     }
 }
@@ -367,21 +317,23 @@ pre {
 
 .post-summary {
 
-    flex: 0 1 49%;
+    flex: 1 1 40%;
     position: relative;
     background: #fff;
     padding: 1em;
-    margin-bottom: 1em;
+    margin: 10px;
     box-shadow: 0 1px 1px 1px #ddd;
+
+
+    @media all and (max-width: @tablet-width) {
+        flex: 1 1 100%;
+    }
 
     .post-header {
         margin-bottom: 1em;
 
         h2 {
             margin: 0;
-        }
-
-        @media all and (max-width: 480px) {
             padding-right: 60px;
         }
     }
@@ -411,18 +363,13 @@ pre {
 .post-title {
     margin-bottom: 0;
 }
-.post-meta,
-.post-comment-count {
+
+.post-meta {
+    margin: 0.25em 0;
     font-size: 0.9em;
     color: lighten(@BODY_TEXT_COLOR, 25%);
 }
-.post-meta {
-    margin: 0.25em 0;
-}
-.post-comment-count {
-    min-height: 1.5em;
-    margin-top: 0;
-}
+
 .post-tags {
     padding-left: 0;
     margin-bottom: 0.5em;
@@ -433,7 +380,7 @@ pre {
         a {
             .Border-radius(5px);
             font-size: 0.9em;
-            padding: @VERTICAL_PADDING 10px;
+            padding: 0.2em 0.5em;
             margin-bottom: 5px;
             display: inline-block;
             background-color: @LINK_COLOR;
@@ -442,17 +389,27 @@ pre {
     }
 }
 
+.post-networks {
+    clear: both;
+    overflow: hidden;
+
+    > * {
+        float: left;
+        margin-right: 10px;
+    }
+}
+
 .post-author-image {
     .Border-radius(50%);
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 10px;
+    right: 10px;
     width: 60px;
     height: 60px;
     background: transparent none center center no-repeat;
     background-size: contain;
 
-    @media all and (max-width: 480px) {
+    @media all and (max-width: @mobile-width) {
         width: 50px;
         height: 50px;
     }
@@ -481,6 +438,10 @@ pre {
     li {
         padding-bottom: 1em;
     }
+
+    p {
+        word-spacing: 1px;
+    }
 }
 
 .post-footer {
@@ -497,9 +458,10 @@ pre {
 .fb-like {
     min-height: 30px;
 }
+
 .twitter-share-button {
     display: block;
-    margin: 0 0 0.5em 0;
+    margin: 0.3em 0;
     min-height: 20px;
 }
 

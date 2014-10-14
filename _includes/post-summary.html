@@ -2,7 +2,7 @@
     <a href="{{ post.url }}" class="post-author-image" style="background-image: url(/images/authors/{{ post.author | downcase | replace:' ','-' }}.jpeg)"></a>
     <header class="post-header">
         <h2 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-        <p class="post-meta">By <span class="post-author">{{ post.author }}</span> on <span class="post-date">{{ post.date | date_to_string }}</span> - <a href="http://techblog.badoo.com{{ post.url }}#disqus_thread"></a></p>
+        <p class="post-meta">By <span class="post-author">{{ post.author }}</span> on <span class="post-date">{{ post.date | date_to_string }}</span> - <a href="{{ post.url }}#disqus_thread"></a></p>
     </header>
     <a href="{{ post.url }}" class="post-excerpt">
         {{ post.excerpt | remove: '<p>' | remove: '</p>' }}
