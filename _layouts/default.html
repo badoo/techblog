@@ -27,6 +27,7 @@
     {% endif %}
 
     <meta property="fb:admins" content="61302222"/>
+    <meta property="fb:app_id" content="643150872465380"/>
 
     <title>{{ site.name }} :: {{ page.title }}</title>
 
@@ -96,7 +97,7 @@
         (function () {
             var s = document.createElement('script'); s.async = true;
             s.type = 'text/javascript';
-            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
 
@@ -120,7 +121,7 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=643150872465380&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 

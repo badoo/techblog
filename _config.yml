@@ -5,7 +5,7 @@ name: Badoo Tech Blog
 description: Tech blog from the engineers behind Badoo.
 
 # url of the production site
-url: http://techblog.badoo.com
+url: https://techblog.badoo.com
 
 # format of the links - do not change this as it will break all existing links!
 permalink: /blog/:year/:month/:day/:title/
