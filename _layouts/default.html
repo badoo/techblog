@@ -46,7 +46,7 @@
 <body>
     <div id="fb-root"></div>
 
-    <div id="container">
+    <div id="container" class="{{ page.type }}">
 
         <header id="page-header">
             <h1><a href="/">Badoo</a><strong>Tech Blog</strong></h1>
@@ -59,7 +59,7 @@
             </ul>
         </header>
 
-        <section id="page-content" class="{{ page.layout | trim }}">
+        <section id="page-content">
         {{ content }}
         </section>
 

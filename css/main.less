@@ -10,14 +10,14 @@
 @BODY_BACKGROUND_COLOR: #fff;
 @BODY_BACKGROUND_COLOR_DARKER: #eee;
 @BODY_TEXT_COLOR: #333;
-@SIDEBAR_BACKGROUND_COLOR: #1c1f23;
+@SIDEBAR_BACKGROUND_COLOR: #333;
 @SIDEBAR_TEXT_COLOR: #e4e7ea;
 @LINK_COLOR: #03acd7;
 @LINK_HOVER_COLOR: #369;
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
 @LINE_HEIGHT: 1.6em;
-@VERTICAL_PADDING: 0.5em;
+@VERTICAL_PADDING: 1em;
 @HORIZONTAL_PADDING: 1em;
 @tablet-width: 768px;
 @mobile-width: 480px;
@@ -66,16 +66,15 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
     line-height: 1.5em;
     font-size: 110%;
-    background-color: @BODY_BACKGROUND_COLOR;
     color: @BODY_TEXT_COLOR;
-
-    @media all and (min-width: @tablet-width) {
-        background-color: @SIDEBAR_BACKGROUND_COLOR;
-    }
 }
 
 h1, h2, h3, h4 {
@@ -85,7 +84,7 @@ h1, h2, h3, h4 {
 
 h1 {
     font-size: 2.5em;
-    line-height: @LINE_HEIGHT;
+    line-height: 1em;
 
     a,
     a:hover {
@@ -141,12 +140,16 @@ h1, h2, h3, h4 {
 }
 
 blockquote {
-    .Default-padding;
+    padding: 0.5em 1em;
     margin-left: 0;
     margin-right: 0;
-    padding-left: 40px;
+    padding-left: 2em;
     background-color: @WELL_COLOR;
     border-left: 5px solid #F3A500;
+
+    p {
+        margin: 0;
+    }
 }
 
 
@@ -156,39 +159,33 @@ blockquote {
 ************************************************************/
 #container {
     margin: 0 auto;
+
+    background-color: @BODY_BACKGROUND_COLOR_DARKER;
+
+    &.post {
+        background-color: @BODY_BACKGROUND_COLOR;
+    }
 }
 
 #page-header {
 
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     line-height: 1.5em;
     z-index: 10;
+    font-size: 1em;
 
     border-bottom: 1px solid @BORDER_COLOR;
     background-color: @SIDEBAR_BACKGROUND_COLOR;
     color: @SIDEBAR_TEXT_COLOR;
 
-    @media all and (min-width: @tablet-width) {
-
-    }
-
-    @media all and (max-height: 680px) and (min-width: @tablet-width) {
-        position: absolute;
-    }
-
-    @media all and (min-width: 1200px) {
-        width: 340px;
-        padding: 0 10px;
-    }
-
     h1 {
         padding: 0;
         margin: 0;
         display: inline-block;
-        font-size: 3em;
         line-height: 1em;
 
         a {
@@ -208,9 +205,14 @@ blockquote {
         }
     }
 
-
     ul {
         margin: 0.3em 0;
+        right: 5px;
+        top: 11px;
+
+        @media all and (min-width: @mobile-width) {
+            position: absolute;
+        }
     }
 
 }
@@ -225,7 +227,7 @@ blockquote {
 
         a {
             padding: 0.25em 5px;
-            color: @LINK_COLOR;
+            color: #fff;
 
             &:hover {
                 color: @SIDEBAR_TEXT_COLOR;
@@ -237,7 +239,8 @@ blockquote {
 
 #page-content {
     .Default-padding();
-    background-color: @BODY_BACKGROUND_COLOR;
+    overflow: hidden;
+    word-wrap: break-word;
 
     .summaries {
         display: flex;
@@ -250,15 +253,20 @@ blockquote {
 
     @media all and (min-width: @tablet-width) {
         min-height: 900px;
+        width: @tablet-width;
+        margin: 0 auto;
     }
 }
 
 #page-footer {
     margin-top: 1em;
+    background: @SIDEBAR_BACKGROUND_COLOR;
 
     p {
         text-align: center;
         color: white;
+        padding: 1em 0;
+        margin: 0;
     }
 
     h3 {
@@ -303,16 +311,18 @@ blockquote {
 }
 
 .highlight {
-    padding: @VERTICAL_PADDING (@HORIZONTAL_PADDING / 2);
+    padding: @HORIZONTAL_PADDING / 2;
     background-color: @WELL_COLOR;
 
     @media all and (max-width: @mobile-width) {
         font-size: 0.9em;
     }
 }
+
 pre {
     white-space: pre;
     overflow: auto;
+    margin: 0;
 }
 
 .post-summary {
@@ -322,20 +332,29 @@ pre {
     background: #fff;
     padding: 1em;
     margin: 10px;
-    box-shadow: 0 1px 1px 1px #ddd;
+    box-shadow: 0 1px 2px 1px #ddd;
+    border-radius: 2px;
 
+    .Transition(all 250ms ease);
+
+    &:hover {
+        background: #eee;
+        box-shadow: none;
+    }
 
     @media all and (max-width: @tablet-width) {
         flex: 1 1 100%;
+        margin: 0;
+        margin-bottom: 10px;
     }
 
     .post-header {
         margin-bottom: 1em;
+    }
 
-        h2 {
-            margin: 0;
-            padding-right: 60px;
-        }
+    .post-author-image {
+        right: 10px;
+        top: 10px;
     }
 
     a {
@@ -358,6 +377,11 @@ pre {
 
 .post-header {
     position: relative;
+
+    h2 {
+        margin: 0;
+        padding-right: 60px;
+    }
 }
 
 .post-title {
@@ -402,8 +426,8 @@ pre {
 .post-author-image {
     .Border-radius(50%);
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
     width: 60px;
     height: 60px;
     background: transparent none center center no-repeat;
