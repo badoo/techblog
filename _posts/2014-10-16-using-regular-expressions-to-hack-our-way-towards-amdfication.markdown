@@ -2,7 +2,7 @@
 layout: post
 title:  Using regular expressions to hack our way towards AMDfication
 author: Nikhil Verma
-date:   2014-10-09
+date:   2014-10-16
 categories: javascript regex
 ---
 
