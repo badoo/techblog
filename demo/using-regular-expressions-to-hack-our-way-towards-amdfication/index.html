@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Auto AMDify</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="zepto.js"></script>
+        <script src="underscore.js"></script>
+        <script src="jshint.js"></script>
+        <script src="jshint-config.js"></script>
+
+        <script src="codemirror.js"></script>
+        <script src="javascript.js"></script>
+        <script src="lint.js"></script>
+        <script src="javascript-lint.js"></script>
+
+        <link rel="stylesheet" href="codemirror.css">
+        <link rel="stylesheet" href="lint.css">
+        <link rel="stylesheet" href="monokai.css">
+
+        <script src="main-hon.js"></script>
+
+        <link rel="stylesheet" href="normalize.css">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+
+        <textarea id="code">var Badoo = Badoo || {};
+
+(function (B) {
+    // Local references to other modules and their properties
+    var Session = B.Session;
+    var History = B.History;
+    var AppView = B.Views.App;
+    var MESSAGES_FOLDER =  B.Models.Folders.TYPES.MESSAGES;
+
+    // App controller initialization
+    var App = B.Controllers.App = Badoo.Controller.extend({
+        init: function () {
+            // Initialize some views and controllers
+            var controller = new B.Controllers.Landing();
+            var view = new B.Views.Alert();
+
+            // Write some cookies
+            Badoo.Utils.Cookie.set('test', 1000 * 42);
+        }
+    });
+
+    // Make it instanceable
+    var instance;
+    App.getInstance = function () {
+        return instance || (instance = new App('app'));
+    };
+
+    return App;
+
+})(Badoo);</textarea>
+        <button id='magic'>Convert</button>
+        <button id='revert'>Revert</button>
+
+    </body>
+</html>
