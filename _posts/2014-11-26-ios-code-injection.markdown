@@ -2,7 +2,7 @@
 layout: post
 title:  iOS Code Injection
 author: Miguel Angel Quinones
-date:   2014-10-26
+date:   2014-11-26
 categories: ios tools
 ---
 
@@ -12,7 +12,9 @@ Wikipedia's definition:
 
 > Code injection is the exploitation of a computer bug that is caused by processing invalid data
 
-Sounds very daunting and hacky. And it is in many ways. But it can be a great tool that can save developer time and happiness.
+Sounds very daunting and hacky. And it is in many ways. But it can be a great tool that can save developer time.
+
+When used as a tool, instead of as an exploit, we will be triggering successive recompiles and injecting those into our running app. Then client code inside the app will update the classes and methods taking advantage of Objective-C runtime.
 
 #Why code injection?
 
@@ -20,29 +22,25 @@ On iOS we have to deal with recompile-launch-navigate cycles every time the deve
 
 We can break this cycle by using code injection, and reloading the affected code without even removing the simulator from the developer screen.
 
-###Tools for iOS
+#Tools for iOS
 Currently there are two open source tools available:
 
 - [injection for xcode](https://github.com/johnno1962/injectionforxcode)
 - [dyci](https://github.com/DyCI/dyci-main)
 
-I prefer dyci because it is simpler and it allows for an IDE-agnostic setup.
+*Injection for xcode* has more features, and works on simulator. *Dyci*, on the other hand, is more focused  only offering code and resources injection over to the simulator. Dyci is my tool of choice, given that the library is simpler and allows for a IDE-agnostic setup.
 
-###Tips
+#Use cases
 
-Good ways to use this tool:
-
-- Prototyping
-- Visual debugging
-- Pixel perfect tweaks: Paired with my favourite pixel-perfecting app: [Uberlayer](https://itunes.apple.com/us/app/uberlayer/id510139938?mt=12)
-- Small UI changes
-- If you use dyci, pair it with a file watcher tool (like [kicker](https://github.com/alloy/kicker)) and you have an IDE agnostic setup
-- Import dyci using cocoapods only in debug configuration, you don't want this in users' devices.
+- Prototyping: You can sit with the designer and experiment as you exchange ideas, instead of going back and forth with feedback loops
+- Visual debugging: Some visual bugs are hard to find. You can play around with the view hierarchy and change background colors, or even add debug views
+- Pixel perfect tweaks: This is my favorite. Pair it with a tool like [Uberlayer](https://itunes.apple.com/us/app/uberlayer/id510139938?mt=12), and you can tweak iteratively till your application perfectly matches your design. All this with your simulator always present on screen
+- Small UI changes: Positions and colors? Matter of seconds instead of minutes
+- If you use dyci, pair it with a file watcher tool and you have an IDE agnostic setup
+- Link against the code injection library only in debug configuration, you don't want this in users' devices
 
 #Conclusion
 
-Using code injection can be very good for small changes, prototyping and implementing pixel perfect designs. Every iOS developer should consider using at some point.
+Using code injection can be very good for small changes, prototyping and implementing pixel perfect designs. Every iOS developer should consider using it.
 
-I recommend using dyci and using it for small changes and for pixel perfect tweaks.
-
-For more information visit an [extended version of this post](http://www.miqu.me/blog/2014/11/23/ios-code-injection/) and also [dyci short overview](http://idevtalk.com/2014/10/27/dyci-dynamic-code-injection.idk)
+I recommend using dyci, and setting up an IDE-agnostic setup, as described [here](http://www.miqu.me/blog/2014/11/23/ios-code-injection/) in more detail.
