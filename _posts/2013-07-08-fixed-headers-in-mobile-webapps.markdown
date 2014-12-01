@@ -6,6 +6,8 @@ date:   2013-07-08
 categories: javascript
 ---
 
+> **Note:** This techniques in this article are now out of date due to various changes to iOS Safari and Chrome becoming the default WebView for Android.
+
 When building mobile web apps there is often a desire to try and make it look and feel as "native" as possible. Whether it is the styling of components, the use of transitions, or just general speed and performance, actually achieving these things can often be much more difficult than it first seems. This article explains some of the challenges we faced when trying to implement one of these "native" features - a fixed header.
 
 Normally you would expect fixed headers to work by setting their css to ```position: fixed;``` which works in most of the cases except for when you need to type something in a form element. Almost all mobile browsers push your page up to make room for the keyboard and your text element to be on the screen thus pushing your fixed header out of the way. This is a bad user experience because headers in mobile applications are the entrypoints for most user interactions.
