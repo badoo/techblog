@@ -52,19 +52,18 @@
         <header id="page-header">
             <h1><a href="/">Badoo</a><strong>Tech Blog</strong></h1>
 
-            <ul id="user-nav">
-                <li class="twitter-link"><a href="https://twitter.com/badootech">Twitter</a></li>
-                <li class="twitter-link"><a href="{{ site.url }}/feed.xml">Feed</a></li>
-                <li class="contact-link"><a href="mailto:techblog@corp.badoo.com">Contact</a></li>
-                <li class="categories-link"><a href="#categories">Categories</a></li>
-            </ul>
+            <div id="user-nav">
+                <strong>Follow Us:</strong>
+                <a class="twitter" target="_blank" href="https://twitter.com/badootech" title="Twitter">Twitter</a>
+                <a class="facebook" target="_blank" href="https://www.facebook.com/badootech" title="Facebook">Facebook</a>
+                <a class="github" target="_blank" href="https://github.com/badoo" title="Github">Github</a>
+                <a class="email" target="_blank" href="mailto:techblog@corp.badoo.com" title="Email">Email</a>
+            </div>
         </header>
 
         <section id="page-content">
-        {{ content }}
-        </section>
+            {{ content }}
 
-        <footer id="page-footer">
             <section id="categories">
                 <h3>Categories</h3>
                 <ul>
@@ -73,6 +72,9 @@
                 {% endfor %}
                 </ul>
             </section>
+        </section>
+
+        <footer id="page-footer">
             <p>&copy; Badoo {{ 'now' | date: "%Y" }}</p>
         </footer>
 
