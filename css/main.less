@@ -182,7 +182,7 @@ blockquote {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 5px;
+    padding: 0.5em 1em;
     line-height: 2em;
     z-index: 10;
     font-size: 1em;
@@ -197,21 +197,21 @@ blockquote {
         padding: 0;
         margin: 0;
         display: inline-block;
-        line-height: 1em;
+        line-height: 1.2em;
 
         a {
             display: inline-block;
             background: transparent url(/images/badoo-logo.png) center center no-repeat;
             background-size: contain;
             text-indent: -9999px;
-            width: 3em;
+            width: 4em;
         }
 
         strong {
             display: inline;
             line-height: 1em;
             vertical-align: middle;
-            font-size: 0.4em;
+            font-size: 0.6em;
             letter-spacing: -1px;
         }
     }
@@ -221,9 +221,9 @@ blockquote {
 #user-nav {
     padding-left: 0;
     text-align: center;
-    right: 5px;
+    right: 1em;
     top: 0;
-    line-height: 3em;
+    line-height: 3.5em;
 
     @icon-size: 32px;
 
@@ -292,8 +292,12 @@ blockquote {
 }
 
 #post-container {
-    padding: 2em 1em 0;
+    padding: 2em;
     background: @CONTENT_BACKGROUND_COLOR;
+
+    @media all and (max-width: @mobile-width) {
+        padding: 1em;
+    }
 
     @media all and (min-width: @desktop-width) {
         float: left;
@@ -311,6 +315,7 @@ blockquote {
         align-items: stretch;
         justify-content: space-around;
         align-content: stretch;
+        padding-top: 10px;
 
         @media all and (max-width: @tablet-width) {
             .Default-padding();
@@ -334,6 +339,10 @@ blockquote {
         line-height: 1.3em;
         padding: 0.5em 0;
         color: @LINK_COLOR;
+    }
+
+    ul {
+        padding-left: 1em;
     }
 
     @media all and (min-width: @desktop-width) {
@@ -386,7 +395,7 @@ blockquote {
             background: transparent;
             margin: 0;
 
-            h3 {
+            h3, ul {
                 text-align: left;
             }
         }
@@ -432,6 +441,8 @@ pre {
     margin: 10px;
     box-shadow: 0 1px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 10%), 50%);
     border-radius: 2px;
+    height: 18em;
+    overflow: hidden;
 
     &:hover {
         box-shadow: 0 3px 4px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 15%), 50%);
