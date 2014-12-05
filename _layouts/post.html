@@ -12,11 +12,6 @@ layout: default
             {% endfor %}
         </ul>
 
-        <div class="post-networks">
-            <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-layout="button_count" data-show-faces="false"></div>
-            <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="badootech">Tweet</a>
-        </div>
-
         <span class="post-author-image" style="background-image: url(/images/authors/{{ page.author | downcase | replace:' ','-' }}.jpeg)"></span>
 
     </header>
@@ -26,6 +21,11 @@ layout: default
     </section>
 
     <footer class="post-footer">
+
+        <div class="post-networks">
+            <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-layout="button_count" data-show-faces="false"></div>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="badootech">Tweet</a>
+        </div>
 
         <!-- Discuss Comment Thread -->
         <div id="disqus_thread"></div>

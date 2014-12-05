@@ -5,6 +5,6 @@
         <p class="post-meta">By <span class="post-author">{{ post.author }}</span> - <a href="{{ post.url }}#disqus_thread"></a></p>
     </header>
     <a href="{{ post.url }}" class="post-excerpt">
-        {{ post.excerpt | remove: '<p>' | remove: '</p>' }}
+        {{ post.excerpt | strip_html | truncatewords: 50 | replace:'...','&#8230;'}}
     </a>
 </section>

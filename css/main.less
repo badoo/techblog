@@ -17,7 +17,9 @@
 @LINK_HOVER_COLOR: #369;
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
+
 @LINE_HEIGHT: 1.6em;
+
 @VERTICAL_PADDING: 1em;
 @HORIZONTAL_PADDING: 1em;
 
@@ -229,6 +231,7 @@ blockquote {
         line-height: 2em;
         vertical-align: middle;
         margin-right: 0.5em;
+        font-size: 0.8em
     }
 
     strong {
@@ -289,8 +292,7 @@ blockquote {
 }
 
 #post-container {
-    .Default-padding();
-    paddint-bottom: 0;
+    padding: 2em 1em 0;
     background: @CONTENT_BACKGROUND_COLOR;
 
     @media all and (min-width: @desktop-width) {
@@ -325,15 +327,11 @@ blockquote {
 
 #recent-posts {
     display: none;
-    .Default-padding();
-
-    h3 {
-        text-align: center;
-    }
+    padding: 0 1em;
 
     li {
         list-style-type: square;
-        line-height: 1em;
+        line-height: 1.3em;
         padding: 0.5em 0;
         color: @LINK_COLOR;
     }
@@ -342,12 +340,11 @@ blockquote {
         display: block;
         float: right;
         width: 30%;
-        padding: @HORIZONTAL_PADDING;
     }
 }
 
 #categories {
-    .Default-padding();
+    padding: 0 1em;
     max-width: 900px;
     margin: 0 auto;
 
@@ -386,9 +383,12 @@ blockquote {
         .post & {
             float: right;
             width: 30%;
-            padding: @HORIZONTAL_PADDING;
             background: transparent;
             margin: 0;
+
+            h3 {
+                text-align: left;
+            }
         }
     }
 }
@@ -424,6 +424,7 @@ pre {
 
 .post-summary {
 
+    .Transition(box-shadow 500ms ease);
     flex: 1 1 40%;
     position: relative;
     background: #fff;
@@ -431,8 +432,6 @@ pre {
     margin: 10px;
     box-shadow: 0 1px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 10%), 50%);
     border-radius: 2px;
-
-    .Transition(box-shadow 500ms ease);
 
     &:hover {
         box-shadow: 0 3px 4px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 15%), 50%);
@@ -492,7 +491,7 @@ pre {
 
 .post-tags {
     padding-left: 0;
-    margin-bottom: 0.5em;
+    margin: 2em 0 0 0;
 
     li {
         display: inline-block;
