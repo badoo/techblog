@@ -223,7 +223,7 @@ blockquote {
     text-align: center;
     right: 1em;
     top: 0;
-    line-height: 3.5em;
+    line-height: 3.9em;
 
     @icon-size: 32px;
 
@@ -441,8 +441,11 @@ pre {
     margin: 10px;
     box-shadow: 0 1px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 10%), 50%);
     border-radius: 2px;
-    height: 18em;
     overflow: hidden;
+
+    .summaries & {
+        height: 18em;
+    }
 
     &:hover {
         box-shadow: 0 3px 4px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 15%), 50%);

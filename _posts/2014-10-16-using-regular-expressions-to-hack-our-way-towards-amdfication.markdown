@@ -3,7 +3,7 @@ layout: post
 title:  Using regular expressions to hack our way towards AMDfication
 author: Nikhil Verma
 date:   2014-10-16
-categories: javascript regex
+categories: javascript web
 ---
 
 Badoo’s MobileWeb project started in early 2012. Due to the initial pace of development, coding conventions and modularisation weren’t given priority. Most of the ‘modules’ lived inside a global object. As the project grew it became difficult to maintain and bugs became harder to track down. So after much internal discussion we found an opportunity to convert our codebase to use AMD modules ([RequireJS](http://requirejs.org/docs/whyamd.html)). I’m here to explain how we used the power of regular expressions to speed up our migration process.

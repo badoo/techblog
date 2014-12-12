@@ -3,7 +3,7 @@ layout: post
 title:  Calabash Android - Unleash the power of Query
 author: Sathish Gogineni
 date:   2014-10-09
-categories: automation mobile qa android calabash
+categories: android qa
 ---
 
 Calabash provides **query** method to get views/elements from screen. But `query` can do more than this. In this post, I'll go through a few operations we can perform using the query **method invocation** option. This can be used for a range of tasks from updating simple views to calling system services.

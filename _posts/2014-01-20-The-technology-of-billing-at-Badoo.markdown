@@ -3,7 +3,7 @@ layout: post
 title:  The technology of billing - how we do it at Badoo
 author: Anatoly Panov
 date:   2014-01-20
-categories: billing payments
+categories: miscellaneous
 ---
 
 There are many ways to monetize your project, but all of them have one thing in common – the transfer of money from the user to a company account. In this article we will discuss how this process works at Badoo.

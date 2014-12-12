@@ -3,13 +3,13 @@ layout: post
 title:  Can you center a grid of images using only CSS?
 author: Anton Laurens
 date:   2014-10-09
-categories: javascript css frontend problem
+categories: javascript css
 ---
 
 In this article I'd like to discuss a UI problem I was faced with in the past, which I still have no elegant solution for. It seems completely reasonable for this
-problem to have a simple CSS solution, yet I have not been able to discover one so far. I ended up solving the problem in Javascript; it felt wrong and it felt like a cop out. 
+problem to have a simple CSS solution, yet I have not been able to discover one so far. I ended up solving the problem in Javascript; it felt wrong and it felt like a cop out.
 
-I first came across this problem around the time I started interviewing candidates for mobile web positions at Badoo, 
+I first came across this problem around the time I started interviewing candidates for mobile web positions at Badoo,
 so I thought, why not kill two birds with one stone? After roughly 20+ interviews, most candidates are able to solve the problem, but they all resort to Javascript after failing to complete the problem using only CSS.
 
 Is it possible? It is such a simple UI pattern we see used on the web all the time. Let me talk you through the problem:
@@ -38,7 +38,7 @@ where:
 
 <img class="no-box-shadow" src="/images/css-centre-boxes/eq02.png"/>
 
-Our end goal is to render something like this on multiple devices in either portrait or landscape satisfying all the requirements in the list: 
+Our end goal is to render something like this on multiple devices in either portrait or landscape satisfying all the requirements in the list:
 
 ![Output]({{page.imgdir}}/03.png)
 
@@ -123,7 +123,7 @@ but as soon as we change the orientation of the device we get:
 
 ![Output]({{page.imgdir}}/solution_2_1_2.png)
 
-so now we are failing: 
+so now we are failing:
 
 > Nr 2: The maximum amount of grid items should fit in the given screen width.
 
@@ -153,11 +153,11 @@ and (-webkit-min-device-pixel-ratio : 3) {
 and (min-device-width : 414px)
 and (max-device-width : 736px)
 and (orientation : portrait)
-and (-webkit-min-device-pixel-ratio : 3) {    
+and (-webkit-min-device-pixel-ratio : 3) {
     .grid {
-        width: 396px; // four boxes with 95px 
+        width: 396px; // four boxes with 95px
                       // width/ height + 2px margin either side
-    }    
+    }
 }
 
 {% endhighlight %}
@@ -175,7 +175,7 @@ And no, please do not suggest adding even more media queries.
 ### Fixed width v 3.0
 
 Now this is where people start bringing Javascript into the solution. Using the equation set out earlier, we can calculate the container width by:
- 
+
 <img class="no-box-shadow" src="/images/css-centre-boxes/eq03.png"/>
 
 JS
@@ -191,7 +191,7 @@ JS
         container_.style.width = (Math.floor(window.innerWidth / boxSize) * boxSize) + "px";
     }
 
-})();    
+})();
 {% endhighlight %}
 
 Of course this Javascript can be improved by getting the margin/ box width values on the fly, but you get the idea. If this function is then hooked to init, resize and orientation change events,
@@ -220,20 +220,20 @@ let's use that in our CSS:
 
 .grid {
     list-style: none;
-    padding: 0;    
+    padding: 0;
     width: calc(100% - ((100% mod 99px)));
 }
 
 {% endhighlight %}
 
-`CSS calc()` to the rescue!! Unfortunately it comes with a massive caveat. It is not yet well adopted in mobile browsers, especially Android and also the `mod` operator 
+`CSS calc()` to the rescue!! Unfortunately it comes with a massive caveat. It is not yet well adopted in mobile browsers, especially Android and also the `mod` operator
 is only supported in the latest versions of IE.
 
 Thus we fall over this hurdle:
 
 > Nr 7: This grid should work on all smartphones and desktop browsers.
 
-# Conclusion 
+# Conclusion
 
 We found two solutions, one using only CSS (but with a method that isn't yet widely adopted) then also with Javascript. There must be another simple way!
 

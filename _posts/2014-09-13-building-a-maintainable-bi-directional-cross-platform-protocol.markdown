@@ -3,7 +3,7 @@ layout: post
 title:  Building a maintainable bi-directional cross platform protocol
 author: Will Lewis
 date:   2014-09-13
-categories: javascript conferences api
+categories: javascript conferences web
 ---
 
 Today I gave a talk along side Pavel Dovbush at ([#jsconfeu](https://twitter.com/search?q=%23jsconfeu "Search Twitter for jsconfeu")) about our experiences building a cross platform api abstraction based on protobuf.
