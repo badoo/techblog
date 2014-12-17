@@ -1,5 +1,6 @@
 @import "normalize.less";
 @import "syntax.less";
+@import "flexbox.less";
 
 @import url(//fonts.googleapis.com/css?family=Lato:400,700);
 @import url(//fonts.googleapis.com/css?family=Raleway:400,700);
@@ -310,11 +311,12 @@ blockquote {
     word-wrap: break-word;
 
     .summaries {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: stretch;
-        justify-content: space-around;
-        align-content: stretch;
+        .flex-display();
+        .flex-flow(row wrap);
+        .align-items(stretch);
+        .align-content(stretch);
+        .justify-content(space-around);
+
         padding-top: 10px;
 
         @media all and (max-width: @tablet-width) {
@@ -434,7 +436,9 @@ pre {
 .post-summary {
 
     .Transition(box-shadow 500ms ease);
-    flex: 1 1 40%;
+    .flex-grow(1);
+    .flex-shrink(1);
+    .flex-basis(40%);
     position: relative;
     background: #fff;
     padding: 1em;
@@ -452,7 +456,9 @@ pre {
     }
 
     @media all and (max-width: @tablet-width) {
-        flex: 1 1 100%;
+        .flex-grow(1);
+        .flex-shrink(1);
+        .flex-basis(100%);
         margin: 0;
         margin-bottom: 10px;
     }
