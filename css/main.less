@@ -24,6 +24,7 @@
 @VERTICAL_PADDING: 1em;
 @HORIZONTAL_PADDING: 1em;
 
+@fullscreen-post-width: 710px;
 
 @desktop-width: 1024px;
 @tablet-width: 768px;
@@ -301,8 +302,8 @@ blockquote {
     }
 
     @media all and (min-width: @desktop-width) {
+        width: @fullscreen-post-width;
         float: left;
-        width: 70%;
         box-shadow: 1px 0 1px darken(@BODY_BACKGROUND_COLOR, 5%), -1px 0 1px darken(@BODY_BACKGROUND_COLOR, 5%);
     }
 }
@@ -332,6 +333,18 @@ blockquote {
     }
 }
 
+#related-content {
+    .post & {
+        @media all and (min-width: @desktop-width) {
+            position: fixed;
+            top: 3.9em * 1.2;
+            left: 50%;
+            width: 320px;
+            margin-left: @fullscreen-post-width / 2 + 20px - 320/2;
+        }
+    }
+}
+
 #recent-posts {
     display: none;
     padding: 0 1em;
@@ -347,10 +360,10 @@ blockquote {
         padding-left: 1em;
     }
 
-    @media all and (min-width: @desktop-width) {
-        display: block;
-        float: right;
-        width: 30%;
+    .post & {
+        @media all and (min-width: @desktop-width) {
+            display: block;
+        }
     }
 }
 
@@ -392,8 +405,6 @@ blockquote {
 
     @media all and (min-width: @desktop-width) {
         .post & {
-            float: right;
-            width: 30%;
             background: transparent;
             margin: 0;
 
@@ -442,6 +453,8 @@ pre {
     position: relative;
     background: #fff;
     padding: 1em;
+    outline: 1em solid white;
+    outline-offset: -1em;
     margin: 10px;
     box-shadow: 0 1px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 10%), 50%);
     border-radius: 2px;

@@ -55,13 +55,3 @@ layout: default
 
     </footer>
 </div>
-
-<section id="recent-posts">
-    <h3>Recent Posts</h3>
-
-    <ul>
-    {% for post in site.posts limit:5 %}
-        {% include post-title.html %}
-    {% endfor %}
-    </ul>
-</section>
