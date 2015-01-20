@@ -329,6 +329,10 @@ code {
         }
     }
 
+    .legal & {
+        padding: 1em;
+    }
+
     @media all and (min-width: @tablet-width) {
         min-height: 900px;
         margin: 0 auto;
@@ -406,7 +410,6 @@ code {
         text-align: center;
     }
 
-
     @media all and (min-width: @desktop-width) {
         .post & {
             background: transparent;
@@ -417,17 +420,32 @@ code {
             }
         }
     }
+
+    .legal & {
+        display: none;
+    }
 }
 
 #page-footer {
     background: @SIDEBAR_BACKGROUND_COLOR;
     clear: both;
+    padding-top: 1em;
 
     p {
         text-align: center;
         color: white;
-        padding: 1em 0;
+        padding-bottom: 1em;
         margin: 0;
+
+        &.legal {
+            padding-bottom: 0.5em;
+
+            a {
+                display: inline-block;
+                color: white;
+                padding: 0 1em;
+            }
+        }
     }
 
 }
