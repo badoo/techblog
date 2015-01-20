@@ -28,3 +28,10 @@ google_analytics:
     code: UA-25578576-18
     domain: badoo.com
 
+defaults:
+  -
+    scope:
+      path: ""      # empty string for all files
+      type: post    # limit to posts
+    values:
+      type: post

@@ -3,7 +3,7 @@ layout: post
 title:  Android Handler Memory Leaks
 author: Dmytro Voronkevych
 date:   2014-08-28
-categories: android memory tools
+categories: android
 ---
 Android uses Java as a platform for development.
 This helps us with many low level issues including memory management,

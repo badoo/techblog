@@ -47,33 +47,51 @@
 <body>
     <div id="fb-root"></div>
 
-    <div id="container">
+    <div id="container" class="{{ page.type }}">
 
         <header id="page-header">
-            <h1><a href="/">Badoo</a></h1>
-            <p><strong>Tech Blog</strong></p>
+            <h1><a href="/">Badoo</a><strong>Tech Blog</strong></h1>
 
-            <ul id="user-nav">
-                <li class="twitter-link"><a href="https://twitter.com/badootech">Twitter</a></li>
-                <li class="twitter-link"><a href="{{ site.url }}/feed.xml">Feed</a></li>
-                <li class="contact-link"><a href="mailto:techblog@corp.badoo.com">Contact</a></li>
-                <li class="categories-link"><a href="#categories">Categories</a></li>
-            </ul>
+            <div id="user-nav">
+                <strong>Follow Us:</strong>
+                <a class="twitter" target="_blank" href="https://twitter.com/badootech" title="Twitter">Twitter</a>
+                <a class="facebook" target="_blank" href="https://www.facebook.com/badootech" title="Facebook">Facebook</a>
+                <a class="github" target="_blank" href="https://github.com/badoo" title="Github">Github</a>
+                <a class="email" target="_blank" href="mailto:techblog@corp.badoo.com" title="Email">Email</a>
+            </div>
         </header>
 
         <section id="page-content">
-        {{ content }}
+            {{ content }}
+
+            <section id="related-content">
+                <section id="recent-posts">
+                    <h3>Recent Posts</h3>
+
+                    <ul>
+                    {% for post in site.posts limit:5 %}
+                        {% include post-title.html %}
+                    {% endfor %}
+                    </ul>
+                </section>
+
+                <section id="categories">
+                    <h3>Categories</h3>
+                    <ul>
+                    {% for category in site.categories %}
+                        <li><a href="/categories/{{ category[0] }}">{{ category[0] | replace:'-',' ' | capitalize | replace:'Ios':'iOS' | replace:'Qa':'QA' | replace:'Css':'CSS'}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </section>
+            </section>
+
         </section>
 
         <footer id="page-footer">
-            <section id="categories">
-                <h3>Categories</h3>
-                <ul>
-                {% for category in site.categories %}
-                    <li><a href="/categories/{{ category[0] }}">{{ category[0] }}</a></li>
-                {% endfor %}
-                </ul>
-            </section>
+            <p class="legal">
+                <a href="/privacy-policy.html">Privacy</a>
+                <a href="/terms-and-conditions.html">Terms</a>
+            </p>
             <p>&copy; Badoo {{ 'now' | date: "%Y" }}</p>
         </footer>
 
@@ -91,6 +109,8 @@
         less.watch();
     </script>
     {% endif %}
+
+    <script async src="/js/modernizr.js"></script>
 
     <!-- Disqus Comment Count -->
     <script type="text/javascript">

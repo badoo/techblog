@@ -3,7 +3,7 @@ layout: post
 title:  iOS Code Injection
 author: Miguel Angel Quinones
 date:   2014-12-01
-categories: ios tools
+categories: ios
 ---
 
 Code injection is a powerful tool to modify compiled applications at run-time. It's possible to do in iOS and it can help in many situations. It's not such a widespread technique so I want to talk about it and give some tips on how to use it.

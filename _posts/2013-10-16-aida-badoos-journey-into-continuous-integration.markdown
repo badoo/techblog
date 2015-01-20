@@ -3,7 +3,7 @@ layout: post
 title:  AIDA - Badoo's journey into Continuous Integration
 author: Vladislav Chernov
 date:   2013-10-16
-categories: release ci git testing aida
+categories: git qa miscellaneous
 ---
 
 <img alt="AIDA" src="{{page.imgdir}}/aida.png" style="float: right; max-width: 50%; margin-left: 10px;" />
