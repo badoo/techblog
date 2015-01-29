@@ -23,20 +23,20 @@ iOS applications are bundles - folders with .app extension -  which contain amon
 
 When a developer builds for a target other than iOS Simulator, the bundle and its contents are digitally signed using a process called code signing. Code signing is a complex topic, but suffice to say that when you build an application, XCode calls the tool *codesign* from '/usr/bin/codesign'. Building an iOS application with Swift code, XCode and *xcodebuild* will already do the heavy lifting for you, and you [generally](http://openradar.appspot.com/18742189) don't need to worry about it.
 
-Mostly any change you do to the bundle or embedded content, will result in the signature to be different and the application rejected on the OS at run time. This can be either be by rejecting to install the application or a crash when loading it. If you want to know more, read [Apple's technote](https://developer.apple.com/library/mac/technotes/tn2206/_index.html).
+Mostly any change you do to the bundle or embedded content, will result in the signature to be different and the application rejected on the OS at run time. This can either be by rejecting to install the application, or a crash when loading it. If you want to know more, read [Apple's technote](https://developer.apple.com/library/mac/technotes/tn2206/_index.html).
 
 ##Embedded frameworks
 After iOS8 and Swift, if your application contains Swift code, it embeds the system frameworks it uses inside your application. That means that inside your *.app* folder, in iOS there will be a folder called *'Frameworks'*. That folder will contain the runtime libraries your application uses from Swift.
 
 That folder will also contain any 3rd party frameworks you include with your application.
 
-##Re signing your application
+##Re-signing your application
 
 As I mentioned, Xcode toolchain *generally* does all the heavy lifting when code signing, but you you may encounter a problem if you do modify the application after it is built and signed by *xcodebuild*.
 
 If you don't change your scripts you may encounter crashes when running your application in the device. Examples [here](https://www.airsignapp.com/ios-apps-using-swift-crash-when-signed-with-inhouse-certificate/), [here](https://devforums.apple.com/message/1038741#1038741) and [here](https://devforums.apple.com/thread/257240?tstart=0).
 
-We re sign our applications before distributing enterprise builds, and we had to update our scripts to take into account signing embedded frameworks **before** you sign your application:
+We're re-signing our applications before distributing enterprise builds, and we had to update our scripts to take into account signing embedded frameworks **before** you sign your application:
 
 {% highlight bash %}
     # Resigning embeded dylibs
@@ -81,7 +81,7 @@ As of XCode 6.1.1 and XCode 6 Beta4, this problem is always reproducible. See di
 
 ##Work around
 
-So how do you work around this? The solution is simple; Just package the libraries yourself after the archive has been submitted. We happen to use shenzhen to build and archive that project, so this has been fixed already in a pull request. See the example of how it is implemented in [shenzhen](https://github.com/nomad/shenzhen/pull/178). Another example of how to do that with a script [here](https://github.com/bq/iOS-Scripting-PackageApplication-Swift-Support)
+So how do you work around this? The solution is simple; Just package the libraries yourself after the archive has been submitted. We happen to use shenzhen to build and archive that project, so this has been fixed already in a pull request. See the example of how it is implemented in [shenzhen](https://github.com/nomad/shenzhen/pull/178). Another example of how to do that with a script [here](https://github.com/bq/iOS-Scripting-PackageApplication-Swift-Support).
 
 #Conclusion
 
