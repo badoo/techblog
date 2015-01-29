@@ -63,9 +63,9 @@ We're re-signing our applications before distributing enterprise builds, and we 
 
 Re-signing correctly your application and embedded frameworks may not be enough. We distribute our applications by signing them with an enterprise certificate. When using this certificate and doing the correct signing as described above, the signed frameworks may be rejected by the OS with a [crash](https://www.airsignapp.com/ios-apps-using-swift-crash-when-signed-with-inhouse-certificate/).
 
-It seems that if the certificate has not been revoked and generated again since around when iOS8 and latest XCode Betas were released, it may not contain the **Organizational Unit** field, and thus will cause a crash when running on device.
+It seems that enterprise certificates used to sign embedded runtime libraries, need to contain the **Organizational Unit** field. This was a change possibly introduced around when iOS8 and latest XCode Betas were released. If your certificate was generated before this time, it may not contain that field. This will cause the crash when loading your application in the OS.
 
-The solution is to revoke **both** the certificate and provisioning profiles. When you generate them again, they will have that field and the signature will be accepted by the OS.
+The solution is to revoke **both** the certificate and provisioning profiles. When you generate them again, the certificate will have that field and the signature will be accepted by the OS.
 
 #IPA changes
 
