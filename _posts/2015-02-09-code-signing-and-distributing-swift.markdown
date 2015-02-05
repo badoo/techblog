@@ -2,7 +2,7 @@
 layout: post
 title:  Code signing and distributing - Swift
 author: Miguel Angel Quinones
-date:   2015-02-01
+date:   2015-02-09
 categories: ios swift CI
 ---
 
