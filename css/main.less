@@ -502,6 +502,10 @@ pre {
         height: 15em;
     }
 
+    .summaries &:nth-child(2n - 1) {
+        margin-right: 20px;
+    }
+
     &:hover {
         box-shadow: 0 3px 4px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 15%), 50%);
     }
@@ -510,16 +514,12 @@ pre {
         max-width: 50%;
     }
 
-    &:nth-child(2n - 1) {
-        margin-right: 20px;
-    }
-
     @media all and (max-width: @tablet-width) {
         .flex-grow(1);
         .flex-shrink(1);
         .flex-basis(100%);
 
-        &:nth-child(2n - 1) {
+        .summaries &:nth-child(2n - 1) {
             margin-right: 0;
         }
 

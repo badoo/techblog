@@ -3,7 +3,7 @@ layout: default
 ---
 
 <h3>Posts in the <strong>{{ page.category | replace:'-',' ' | capitalize | replace:'Ios':'iOS' | replace:'Qa':'QA' | replace:'Css':'CSS'}}</strong> category</h3>
-<hr>
+<hr><br/>
 
 {% for post in site.categories[page.category] %}
     {% include post-summary.html %}
