@@ -1,0 +1,11 @@
+---
+layout: default
+---
+
+<div class="summaries">
+{% for post in site.posts %}
+    {% if post.author contains page.author %}
+        {% include post-summary.html %}
+    {% endif %}
+{% endfor %}
+</div>

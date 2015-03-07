@@ -483,11 +483,15 @@ pre {
     overflow: hidden;
 
     .flexbox .summaries & {
-        height: 18em;
+        height: 15em;
     }
 
     &:hover {
         box-shadow: 0 3px 4px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 15%), 50%);
+    }
+
+    &:last-child {
+        max-width: 50%;
     }
 
     @media all and (max-width: @tablet-width) {
