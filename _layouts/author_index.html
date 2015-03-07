@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<h2>Posts by {{page.author}}</h2>
+
 <div class="summaries">
 {% for post in site.posts %}
     {% if post.author contains page.author %}

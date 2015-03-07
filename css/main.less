@@ -301,8 +301,8 @@ code {
     padding: 2em;
     background: @CONTENT_BACKGROUND_COLOR;
 
-    @media all and (max-width: @mobile-width) {
-        padding: 1em;
+    @media all and (max-width: @tablet-width) {
+        padding: 0;
     }
 
     @media all and (min-width: @desktop-width) {
@@ -314,6 +314,7 @@ code {
 
 #page-content {
     word-wrap: break-word;
+    padding: 10px;
 
     .summaries {
         .flex-display();
@@ -325,7 +326,7 @@ code {
         padding-top: 10px;
 
         @media all and (max-width: @tablet-width) {
-            .Default-padding();
+            padding: 0px;
         }
     }
 
@@ -477,10 +478,10 @@ pre {
     padding: 1em;
     outline: 1em solid white;
     outline-offset: -1em;
-    margin: 10px;
     box-shadow: 0 1px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 10%), 50%);
     border-radius: 2px;
     overflow: hidden;
+    margin-bottom: 20px;
 
     .flexbox .summaries & {
         height: 15em;
@@ -494,12 +495,22 @@ pre {
         max-width: 50%;
     }
 
+    &:nth-child(2n - 1) {
+        margin-right: 20px;
+    }
+
     @media all and (max-width: @tablet-width) {
         .flex-grow(1);
         .flex-shrink(1);
         .flex-basis(100%);
-        margin: 0;
-        margin-bottom: 10px;
+
+        &:nth-child(2n - 1) {
+            margin-right: 0;
+        }
+
+        &:last-child {
+            max-width: 100%;
+        }
     }
 
     .post-header {
