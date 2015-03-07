@@ -354,18 +354,33 @@ code {
     }
 }
 
+#jobs {
+    padding: 10px;
+    text-align: center;
+
+    a {
+        background: @LINK_COLOR;
+        border-radius: 2px;
+        color: white;
+        font-weight: bold;
+        display: block;
+        padding: 10px;
+    }
+}
+
 #recent-posts {
     display: none;
     padding: 0 1em;
 
     li {
         list-style-type: square;
-        line-height: 1.3em;
-        padding: 0.5em 0;
+        line-height: 1.2em;
+        padding-bottom: 10px;
         color: @LINK_COLOR;
     }
 
     ul {
+        margin-top: 0;
         padding-left: 1em;
     }
 
