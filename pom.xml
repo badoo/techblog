@@ -12,13 +12,13 @@
   <artifactId>techblog</artifactId>
   <packaging>jar</packaging>
   
-  <version>1.31-SNAPSHOT</version>
+  <version>1.31</version>
   
   <name>Badoo Techblog</name>
   
   <scm>
     <connection>scm:git:git@github.com:badoo/techblog.git</connection>
-    <tag>HEAD</tag>
+    <tag>techblog-1.31</tag>
   </scm>
   
   <properties>
