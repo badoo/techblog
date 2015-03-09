@@ -301,8 +301,8 @@ code {
     padding: 2em;
     background: @CONTENT_BACKGROUND_COLOR;
 
-    @media all and (max-width: @mobile-width) {
-        padding: 1em;
+    @media all and (max-width: @tablet-width) {
+        padding: 0;
     }
 
     @media all and (min-width: @desktop-width) {
@@ -314,6 +314,7 @@ code {
 
 #page-content {
     word-wrap: break-word;
+    padding: 10px;
 
     .summaries {
         .flex-display();
@@ -325,7 +326,7 @@ code {
         padding-top: 10px;
 
         @media all and (max-width: @tablet-width) {
-            .Default-padding();
+            padding: 0px;
         }
     }
 
@@ -353,18 +354,33 @@ code {
     }
 }
 
+#jobs {
+    padding: 10px;
+    text-align: center;
+
+    a {
+        background: @LINK_COLOR;
+        border-radius: 2px;
+        color: white;
+        font-weight: bold;
+        display: block;
+        padding: 10px;
+    }
+}
+
 #recent-posts {
     display: none;
     padding: 0 1em;
 
     li {
         list-style-type: square;
-        line-height: 1.3em;
-        padding: 0.5em 0;
+        line-height: 1.2em;
+        padding-bottom: 10px;
         color: @LINK_COLOR;
     }
 
     ul {
+        margin-top: 0;
         padding-left: 1em;
     }
 
@@ -477,25 +493,39 @@ pre {
     padding: 1em;
     outline: 1em solid white;
     outline-offset: -1em;
-    margin: 10px;
     box-shadow: 0 1px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 10%), 50%);
     border-radius: 2px;
     overflow: hidden;
+    margin-bottom: 20px;
 
     .flexbox .summaries & {
-        height: 18em;
+        height: 15em;
+    }
+
+    .summaries &:nth-child(2n - 1) {
+        margin-right: 20px;
     }
 
     &:hover {
         box-shadow: 0 3px 4px 2px desaturate(darken(@BODY_BACKGROUND_COLOR, 15%), 50%);
     }
 
+    &:last-child {
+        max-width: 50%;
+    }
+
     @media all and (max-width: @tablet-width) {
         .flex-grow(1);
         .flex-shrink(1);
         .flex-basis(100%);
-        margin: 0;
-        margin-bottom: 10px;
+
+        .summaries &:nth-child(2n - 1) {
+            margin-right: 0;
+        }
+
+        &:last-child {
+            max-width: 100%;
+        }
     }
 
     .post-header {

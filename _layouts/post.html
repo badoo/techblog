@@ -5,7 +5,7 @@ layout: default
 <div id="post-container">
     <header class="post-header">
         <h2 class="post-title">{{ page.title }}</h2>
-        <p class="post-meta">By <span class="post-author">{{ page.author }}</span> on <span class="post-date">{{ page.date | date_to_string }}</span> - <a href="{{ page.url }}#disqus_thread"></a></p>
+        <p class="post-meta">By {% include post/author.html %} on <span class="post-date">{{ page.date | date_to_string }}</span> - <a href="{{ page.url }}#disqus_thread"></a></p>
         <ul class="post-tags">
             {% for tag in page.categories %}
             <li class="post-category post-category-{{ tag }}"><a href="/categories/{{ tag }}">{{ tag }}</a></li>

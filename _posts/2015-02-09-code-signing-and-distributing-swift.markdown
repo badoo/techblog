@@ -3,7 +3,7 @@ layout: post
 title:  Code signing and distributing - Swift
 author: Miguel Angel Quinones
 date:   2015-02-09
-categories: ios swift CI
+categories: ios
 ---
 
 At Badoo we’re slowly adopting the new programming language Apple introduced last year: [Swift](https://www.apple.com/swift/). Even though we don't plan to write Swift-only apps for now, we do want to write isolated modules and learn while we deliver on our products.
