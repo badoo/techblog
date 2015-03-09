@@ -3,7 +3,7 @@ layout: post
 title: Code coverage at Badoo
 author: Ilya Ageev
 date: 2015-03-09
-categories: programming qa php
+categories: qa php
 ---
 <p style='font-size:90%;text-style:italic;'>
 This article was written over a year ago and since then code coverage estimation has continued to evolve. However the basic approach described in this article has become the standard, which has allowed us to almost double the number of tests without much hassle. Now there are almost 50,000 tests and compile time is nine hours. We’re constantly working to speed up the code coverage calculation process, and plan to release the next set of fixes in the near future.
