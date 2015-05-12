@@ -2,51 +2,56 @@
 layout: default
 ---
 
-<header class="post-header">
-    <h2 class="post-title">{{ page.title }}</h2>
-    <p class="post-meta">By <span class="post-author">{{ page.author }}</span> on <span class="post-date">{{ page.date | date_to_string }}</span></p>
-    <p class="post-comment-count"><a href="#disqus_thread"></a></p>
-    <ul class="post-tags">
-        {% for tag in page.categories %}
-        <li class="post-category post-category-{{ tag }}"><a href="/categories/{{ tag }}">{{ tag }}</a></li>
-        {% endfor %}
-    </ul>
-    <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-layout="button_count" data-show-faces="false"></div>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="badootech">Tweet</a>
-    <span class="post-author-image" style="background-image: url(/images/authors/{{ page.author | downcase | replace:' ','-' }}.jpeg)"></span>
+<div id="post-container">
+    <header class="post-header">
+        <h2 class="post-title">{{ page.title }}</h2>
+        <p class="post-meta">By {% include post/author.html %} on <span class="post-date">{{ page.date | date_to_string }}</span> - <a href="{{ page.url }}#disqus_thread"></a></p>
+        <ul class="post-tags">
+            {% for tag in page.categories %}
+            <li class="post-category post-category-{{ tag }}"><a href="/categories/{{ tag }}">{{ tag }}</a></li>
+            {% endfor %}
+        </ul>
 
-</header>
+        <span class="post-author-image" style="background-image: url(/images/authors/{{ page.author | downcase | replace:' ','-' }}.jpeg)"></span>
 
-<section class="post-content">
-    {{ content }}
-</section>
+    </header>
 
-<footer class="post-footer">
+    <section class="post-content">
+        {{ content }}
+    </section>
 
-    <!-- Discuss Comment Thread -->
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
+    <footer class="post-footer">
 
-        var disqus_identifier = '{{ page.url }}';
-        var disqus_title = '{{ page.title | replace: "'","\\'"}}';
-        var disqus_url = '{{ site.url }}{{ page.url }}';
+        <div class="post-networks">
+            <div class="fb-like" data-href="{{ site.url }}{{ page.url }}" data-send="true" data-layout="button_count" data-show-faces="false"></div>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ page.url }}" data-via="badootech">Tweet</a>
+        </div>
 
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
+        <!-- Discuss Comment Thread -->
+        <div id="disqus_thread"></div>
 
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        <script type="text/javascript">
+            var disqus_identifier = '{{ page.url }}';
+            var disqus_title = '{{ page.title | replace: "'","\\'"}}';
+            var disqus_url = '{{ site.url }}{{ page.url }}';
 
-    <!-- Twitter JavaScripts for 'tweet' button -->
-    <script>
-        (function(d,s,id){
-            var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-            if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}
-        })(document, 'script', 'twitter-wjs');
-    </script>
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
 
-</footer>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        <!-- Twitter JavaScripts for 'tweet' button -->
+        <script>
+            (function(d,s,id){
+                var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}
+            })(document, 'script', 'twitter-wjs');
+        </script>
+
+    </footer>
+</div>

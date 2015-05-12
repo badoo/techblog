@@ -3,7 +3,7 @@ layout: post
 title:  5 Advanced Javascript and Web Debugging Techniques You Should Know About
 author: Nikhil Verma
 date:   2013-11-18
-categories: javascript debugging
+categories: javascript
 ---
 
 In this article we will discuss 5 advanced techniques which web developers can use to reduce the time they spend debugging and squash challenging bugs by using new tools available to us and taking advantage of the new features offered by debuggers.
@@ -41,11 +41,9 @@ Next navigate to ```your_hostname:8000``` where you will have two options to inj
 
 Once you do that you can debug any page on any browser or device as if you were using the Chrome Devtools on it! It does have some limitations however. Because weinre is simply a script injector it won't provide you with the ability to put breakpoints inside your javascript code. But the console in weinre is really good for seeing javascript logs and doing other debugging tasks.
 
-> **Note:** If you don't want the complexity of setting up weinre, you can also use a remotely hosted version of it at [http://debug.phonegap.com/](http://debug.phonegap.com/)
+> **Note:** If you don't want the complexity of setting up weinre, you can also use a remotely hosted version of it at [http://debug.build.phonegap.com/](http://debug.build.phonegap.com/)
 
-### Future possibilities
-
-Using js.js (a javascript interpreter in javascript) combined with weinre it's possible enable true javascript debugging inside any environment/device with full breakpoint support. :-)
+> **Note:** For a better debugging environment on iOS Safari you can try out [iOS Webkit Debug Proxy](https://github.com/google/ios-webkit-debug-proxy). It's not completely stable yet but offers a better alternative to Safari DevTools.
 
 ---
 
@@ -56,6 +54,7 @@ DOM breakpoint is a feature provided by Firebug and Chrome Devtools that allows 
 The benefit of using DOM breakpoints is that because of the asynchronous nature of javascript it’s sometimes easier to know when a DOM tree will change rather than setting breakpoints at every possible location in your code which might modify it.
 
 To use a DOM breakpoint:
+
 * Go to the elements view in your debugger
 * Right click on the node you want to break on modification
 * Select the desired break action
@@ -90,7 +89,7 @@ Now with your console open, whenever the javascript interpreter will hit that co
 
 Because the browser and window javascript methods aren't protected you can hook into them to add your own functionality or debugging code. This technique is really useful when you know the problem occurring but can't track down the source of it. Or if you want to mock some javascript methods.
 
-**Let's take an example: ** Suppose you are noticing an unexpected attribute being modified on a DOM element. You know the attribute or it's value but you find it harder to track down the line of the code which does that.
+**Let's take an example:** Suppose you are noticing an unexpected attribute being modified on a DOM element. You know the attribute or it's value but you find it harder to track down the line of the code which does that.
 
 In that case you can hook into the ```setAttribute``` method with your own and add debug code in it to find out the problem like so:
 

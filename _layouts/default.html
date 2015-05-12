@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, width=device-width" />
+    <meta name="google-site-verification" content="2CRZHg3_21WS3yrIGOsaobptBg1Yv00QtjGZvitVH-Q" />
 
     <!-- Open Graph Meta Data -->
     <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}">
@@ -27,6 +28,7 @@
     {% endif %}
 
     <meta property="fb:admins" content="61302222"/>
+    <meta property="fb:app_id" content="643150872465380"/>
 
     <title>{{ site.name }} :: {{ page.title }}</title>
 
@@ -45,33 +47,55 @@
 <body>
     <div id="fb-root"></div>
 
-    <div id="container">
+    <div id="container" class="{{ page.type }}">
 
         <header id="page-header">
-            <h1><a href="/">Badoo</a></h1>
-            <p><strong>Tech Blog</strong></p>
+            <h1><a href="/">Badoo</a><strong>Tech Blog</strong></h1>
 
-            <ul id="user-nav">
-                <li class="twitter-link"><a href="https://twitter.com/badootech">Twitter</a></li>
-                <li class="twitter-link"><a href="{{ site.url }}/feed.xml">Feed</a></li>
-                <li class="contact-link"><a href="mailto:techblog@corp.badoo.com">Contact</a></li>
-                <li class="categories-link"><a href="#categories">Categories</a></li>
-            </ul>
+            <div id="user-nav">
+                <strong>Follow Us:</strong>
+                <a class="twitter" target="_blank" href="https://twitter.com/badootech" title="Twitter">Twitter</a>
+                <a class="facebook" target="_blank" href="https://www.facebook.com/badootech" title="Facebook">Facebook</a>
+                <a class="github" target="_blank" href="https://github.com/badoo" title="Github">Github</a>
+                <a class="email" target="_blank" href="mailto:techblog@corp.badoo.com" title="Email">Email</a>
+            </div>
         </header>
 
         <section id="page-content">
-        {{ content }}
+            {{ content }}
+
+            <section id="related-content">
+                <section id="jobs">
+                    <a href="http://badoo.jobs" target="_blank">We're hiring! Join us.</a>
+                </section>
+
+                <section id="recent-posts">
+                    <h3>Recent Posts</h3>
+
+                    <ul>
+                    {% for post in site.posts limit:5 %}
+                        {% include post-title.html %}
+                    {% endfor %}
+                    </ul>
+                </section>
+
+                <section id="categories">
+                    <h3>Categories</h3>
+                    <ul>
+                    {% for category in site.categories %}
+                        <li><a href="/categories/{{ category[0] }}">{{ category[0] | replace:'-',' ' | capitalize | replace:'Ios':'iOS' | replace:'Qa':'QA' | replace:'Css':'CSS'}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </section>
+            </section>
+
         </section>
 
         <footer id="page-footer">
-            <section id="categories">
-                <h3>Categories</h3>
-                <ul>
-                {% for category in site.categories %}
-                    <li><a href="/categories/{{ category[0] }}">{{ category[0] }}</a></li>
-                {% endfor %}
-                </ul>
-            </section>
+            <p class="legal">
+                <a href="/privacy-policy.html">Privacy</a>
+                <a href="/terms-and-conditions.html">Terms</a>
+            </p>
             <p>&copy; Badoo {{ 'now' | date: "%Y" }}</p>
         </footer>
 
@@ -90,13 +114,15 @@
     </script>
     {% endif %}
 
+    <script async src="/js/modernizr.js"></script>
+
     <!-- Disqus Comment Count -->
     <script type="text/javascript">
 
         (function () {
             var s = document.createElement('script'); s.async = true;
             s.type = 'text/javascript';
-            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
 
@@ -120,7 +146,7 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=643150872465380&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 

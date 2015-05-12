@@ -3,8 +3,10 @@ layout: post
 title:  Fixed Headers in Mobile Webapps
 author: Nikhil Verma
 date:   2013-07-08
-categories: javascript
+categories: javascript mobile-web
 ---
+
+> **Note:** This techniques in this article are now out of date due to various changes to iOS Safari and Chrome becoming the default WebView for Android.
 
 When building mobile web apps there is often a desire to try and make it look and feel as "native" as possible. Whether it is the styling of components, the use of transitions, or just general speed and performance, actually achieving these things can often be much more difficult than it first seems. This article explains some of the challenges we faced when trying to implement one of these "native" features - a fixed header.
 

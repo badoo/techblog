@@ -52,7 +52,7 @@ module Jekyll
                 css_dir_relative = css_dir.gsub(dest_root, '')
                 css_name = File.basename(css_path)
 
-                compress = site.config['compress_less'] ? '--yui-compress' : ''
+                compress = site.config['compress_less'] ? '--compress' : ''
 
                 FileUtils.mkdir_p(css_dir)
 
@@ -63,6 +63,8 @@ module Jekyll
                         css_path,
                         compress
                     ].join(' ')
+
+                    puts command
 
                     `#{command}`
 

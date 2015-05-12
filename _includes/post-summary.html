@@ -1,11 +1,10 @@
-<section class="post-summary">
+<section class="post-summary {% for category in post.categories %}{{ category }} {% endfor %}">
+    <a href="{{ post.url }}" class="post-author-image" style="background-image: url(/images/authors/{{ post.author | downcase | replace:' ','-' }}.jpeg)"></a>
     <header class="post-header">
         <h2 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-        <p class="post-meta">By <span class="post-author">{{ post.author }}</span> on <span class="post-date">{{ post.date | date_to_string }}</span></p>
-        <p class="post-comment-count"><a href="{{ post.url }}#disqus_thread"></a></p>
-        <a href="{{ post.url }}" class="post-author-image" style="background-image: url(/images/authors/{{ post.author | downcase | replace:' ','-' }}.jpeg)"></a>
+        <p class="post-meta">By {% include post/author.html %} on <span class="post-date">{{ post.date | date_to_string }}</span> - <a href="{{ post.url }}#disqus_thread"></a></p>
     </header>
     <a href="{{ post.url }}" class="post-excerpt">
-        {{ post.excerpt }}
+        {{ post.excerpt | markdownify | strip_html | truncatewords: 50 | replace:'...','&#8230;'}}
     </a>
 </section>

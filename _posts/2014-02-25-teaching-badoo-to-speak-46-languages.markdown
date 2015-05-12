@@ -3,7 +3,7 @@ layout: post
 title:  Localising into 46 languages
 author: Dmitri Grabov
 date:   2014-02-25
-categories: localisation
+categories: miscellaneous
 ---
 Localisation done right will earn your app loyal users in new countries. Done badly, it becomes a nagging pain like half the apps on my computer trying to correct the spelling of **localisation** to **localization**. The purpose of localisation is not only to make your app available in other languages, but also to make the entire user experience feel like it was specifically designed with the local user in mind. Here I will share some of the lessons learned from making Badoo available in 46 languages, and point out some of the tricky bits you should pay attention to.
 

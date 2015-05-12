@@ -3,7 +3,7 @@ layout: post
 title:  A page control with style
 author: Miguel Angel Quinones
 date:   2014-08-21
-categories: ios ui
+categories: ios
 ---
 When we set up to design the new [Hot or Not](https://itunes.apple.com/gb/app/the-game-by-hot-or-not/id639584030?mt=8) version, our designers and developers came up with a really nice way to hint users that the photos they scroll horizontally, can be seen as a grid.
 

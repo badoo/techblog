@@ -2,8 +2,8 @@
 layout: post
 title:  Deobfuscating HPROF memory dumps
 author: Erik Andre
-date:   2014-09-25
-categories: android memory tools obfuscation dexguard
+date:   2014-10-08
+categories: android
 ---
 
 According to Crittercism <sup>1</sup>, the second most common crash reported in Android apps is java.lang.OutOfMemoryError, so it stands to reason that analyzing these crashes should be one of the top priorities for any Android developer. If you are analyzing memory dumps from a debug build or if you are not using obfuscation this process is fairly straightforward. However, if your heap dump is coming from an app built using obfuscation (Proguard or Dexguard) you are in for quite a challenge (or at least you were, until now).
@@ -85,7 +85,7 @@ Using the deobfuscator application
 Source code and builds for the deobfuscator application are available here: [https://github.com/badoo/hprof-deobfuscator](https://github.com/badoo/hprof-deobfuscator)
 
 First, make sure that you have downloaded the most recent release of deobfuscator from our Github page, then execute the following command from the command line:
-java -jar deobfuscator-all-x.y.jar <mapping file> <obfuscated hprof file> <output hprof file>
+:> java -jar deobfuscator-all-x.y.jar {mapping file} {obfuscated hprof file} {output hprof file}
 If everything goes well you can now open the output file in the memory analyzer of your choice.
 
 References

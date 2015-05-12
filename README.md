@@ -41,10 +41,15 @@ layout: post
 title:  I Am Awesome
 author: Joe Bloggs
 date:   2013-06-27
-categories: javascript performance
+categories: javascript css
 ---
 ```
-This post has two categories, **javascript** and **performance**. Categories must be lowercase and a single word. Categories can be whatever you want but try to avoid creating really obscure ones. A post **MUST** have at least one category.
+This post has two categories, **javascript** and **css**. Categories must be lowercase and a single word. A post **MUST** have at least one category. Also please note that these are categories, not hash tags.
+
+So the rules for making new categories are as follows:
+* If the category is of a major technology or language (e.g. php, css, java)
+* If not then the category should have at least two articles written for it else it should go under miscellaneous
+
 
 The body of a post is written in standard Markdown with the exception of code blocks, which should be included like this:
 ```html
