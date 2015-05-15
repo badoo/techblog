@@ -44,3 +44,5 @@ Currently there are two open source tools available:
 Using code injection can be very good for small changes, prototyping and implementing pixel perfect designs. Every iOS developer should consider using it.
 
 I recommend using dyci and setting up an IDE-agnostic setup, as described [here](http://www.miqu.me/blog/2014/11/23/ios-code-injection/) in more detail.
+
+<iframe class="video" src="https://player.vimeo.com/video/124328836" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
