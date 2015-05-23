@@ -66,7 +66,7 @@ All the code for this tutorial series is [here][repository]
 
 Enough introductions. So a first thought on how to enable drawing for user is to use [Core Graphics][] in a view.
 
-The simplest initial approach is to create a UIView subclass that handles the user touches and constructs a Bezier path with the points that user goes through. Then we will redraw every time a new point is added by user moving the finger. We will draw simple straight lines between captured points, and we will add a round cap to the stroke.
+The simplest initial approach is to create a UIView subclass that handles the user touches and constructs a Bezier path with the points the user goes through. Then we will redraw every time a new point is added by user moving the finger. We will draw simple straight lines between captured points, and we will add a round cap to the stroke.
 
 Jump directly to this version [here][v1].
 
@@ -268,7 +268,7 @@ Why we didn’t experience this problem on an iPhone 6? Look at the allocations 
 
 ![Memory6]({{page.imgdir}}/DrawView-naive-memory-6.png)
 
-Seems similar doesn’t it? The reason is simply that device has more available memory and faster processors so even if we use more memory we don’t reach the OS limit for memory warning. Nevertheless using less memory in mobile is a goal we should be striving for, so this optimisation will only benefit our iPhone 6 users.
+Seems similar doesn’t it? The reason is simply that device has more available memory so even if we use more memory, and we don’t reach the OS limit for memory warning. Nevertheless using less memory in mobile is a goal we should be striving for, so this optimisation will only benefit our iPhone 6 users.
 
 ## Adding a toolbar and changing color
 
@@ -280,7 +280,7 @@ Check the finished code for this post [here][part1]
 
 ## Analysis
 
-We’ve seen how to implement a simple drawing feature using a custom UIView. We hit a performance problem with very long sets of strokes, and fixed it by caching the previous strokes in an offscreen buffer.
+We’ve seen how to implement a simple drawing feature using a custom UIView. We hit a performance problem with very long sets of strokes, and fixed it by caching the previous strokes in an offscreen buffer. We also found and fixed high transient memory usage, which produced a crash on lower end devices.
 
 What about adding the other features? 
 
