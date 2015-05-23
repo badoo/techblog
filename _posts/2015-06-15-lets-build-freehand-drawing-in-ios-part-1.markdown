@@ -6,13 +6,13 @@ date:   2015-06-15
 categories: ios tutorial
 ---
 
-This post will be the first of a series in which we follow along how to develop a specific feature. We want to contribute to the great quantity of tutorials present in the internet by sharing practical knowledge directly from our engineering team. 
+This post will be the first of a series in which we follow through how to develop a specific feature. We want to contribute to the great quantity of existing tutorials in the internet by sharing practical knowledge directly from our engineering team. 
 
 This time we will implement **Freehand Drawing, aka. Doodling** in iOS.
 
 ## Structure of the tutorials
 
-This tutorials are aimed for mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details and the architecture. 
+This tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details and the architecture. 
 
 The tutorials will guide you from a naive or **'first time'** implementation followed by natural iterative improvements.  We will reach a final implementation which is very close to a production level quality code.
 
@@ -47,24 +47,24 @@ Technical details:
 
 ## Choice of API
 
-Before going into details on how we would implement it, in iOS platform we effectively have 2 API choices:
+Before going into details how we would implement it, in iOS platform we effectively have 2 API choices:
 
 - Use [Core Graphics][]
 - Use [OpenGL ES][]
 
-In this case the most lightweight and first choice of implementation will be direct use of Core Graphics. The reason is twofold; firstly we should prefer higher level APIs to achieve what we need, as they offer better abstractions and need less code; secondly, using OpenGL ES the amount of setup and developer knowledge is higher, but this would be a small part of our application and the performance of Core Graphics is expected to be sufficient.
+In this case the most lightweight and first choice of implementation will be direct use of Core Graphics. The reason is twofold; firstly we should always try to use higher level APIs to achieve what we need, as they offer better abstractions and need less code; secondly, using OpenGL ES requires more setup and higher developer knowledge, but this would be a small part of our application and the performance of Core Graphics is expected to be sufficient.
 
 We will use Swift and XCode 6.4 (in beta at the time of writing this article).
 
 ## Naive version
 
-This is the first part of the tutorial series and we will build a naive version and analyse what is wrong and what can be improved.
+This is the first part of the tutorial series and we will build a naive version, analyse what is wrong and what can be improved.
 
 ### Give me the code!
 
 All the code for this tutorial series is [here][repository]
 
-Enough introductions. So a first thought on how to enable drawing for user is to use [Core Graphics][] in a view.
+A first thought how to enable drawing for user is to use [Core Graphics][] in a view.
 
 The simplest initial approach is to create a UIView subclass that handles the user touches and constructs a Bezier path with the points the user goes through. Then we will redraw every time a new point is added by user moving the finger. We will draw simple straight lines between captured points, and we will add a round cap to the stroke.
 
@@ -156,7 +156,7 @@ Another future problem is that user will not be able to draw strokes with differ
 
 To address the creeping issue of our first naive implementation we need to understand why this happens.
 
-Even without profiling, if you analyse what the code is doing, you will notice that we are drawing the **whole accumulated path** every time the a new dragging point is added. The path grows larger with every finger movement, which means we need to do more UI blocking work to draw the path. This will block the touch event processing and thus the perception of lag.
+Even without profiling, if you analyse what the code is doing, you will notice that we are drawing the **whole accumulated path** every time a new dragging point is added. The path grows larger with every finger movement, which means we need to do more UI blocking work to draw the path. This will block the touch event processing and thus the perception of lag.
 
 We really don’t need to redraw the whole path every time, because the strokes will always go over what was drawn before, similar how the [Painter’s algorithm][painter] works. We should keep the work we do between points to a minimum for the UI to be responsive.
 
@@ -245,9 +245,9 @@ We are allocating a lot of transient images while the user is drawing. There is 
 let image = UIGraphicsGetImageFromCurrentImageContext()
 {% endhighlight %}
 
-The transient images are autoreleased, so released and removed of memory at a later time when the runloop finishes it’s cycle. But in cases where we have many touches accumulated, we keep adding work to the main thread, thus blocking the runloop.
+The transient images are autoreleased; that is, released and removed of memory at a later time when the runloop finishes it’s cycle. But in cases where we have many touches accumulated, we keep adding work to the main thread, thus blocking the runloop.
 
-This is a case with lots of transient and costly objects, and we should step in and force ARC to release the images as soon as we are done with them. It is a simple as wrapping the code with an autorelease pool, to force release of all autoreleased objects at the end of this method:
+This is a case with lots of transient and costly objects, and we should step in and force ARC to release the images as soon as we are done with them. It is as simple as wrapping the code with an autorelease pool, to force the release of all autoreleased objects at the end of this method:
 
 {% highlight swift %}
 private func continueAtPoint(point: CGPoint) {
@@ -286,7 +286,7 @@ What about adding the other features?
 
 - Think about how to add undo to this code. 
 - What about adding more gestures such as detecting a tap to draw a point. Will the code be as clean as it is now?
-- The stroke is very simplistic and does not emulate hand writing in any way. This can be improved and we will review how in the upcoming posts.
+- The stroke is very simple and does not emulate hand writing in any way. This can be improved and we will see some ways to do it in the upcoming posts.
 
 In the next post we will add undo functionality, and we will see   how to change our simple code with a better, more extensible design.
 
