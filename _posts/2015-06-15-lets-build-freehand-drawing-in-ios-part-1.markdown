@@ -3,7 +3,7 @@ layout: post
 title:  "Let's build: Freehand Drawing in iOS - Part 1"
 author: Miguel Angel Quinones
 date:   2015-06-15
-categories: ios, tutorial
+categories: ios tutorial
 ---
 
 This post will be the first of a series in which we follow along how to develop a specific feature. We want to contribute to the great quantity of tutorials present in the internet by sharing practical knowledge directly from our engineering team. 
@@ -56,7 +56,7 @@ In this case the most lightweight and first choice of implementation will be dir
 
 We will use Swift and XCode 6.4 (in beta at the time of writing this article).
 
-## First try (or how we tried to be naive and failed)
+## Naive version
 
 This is the first part of the tutorial series and we will build a naive version and analyse what is wrong and what can be improved.
 
@@ -66,7 +66,7 @@ All the code for this tutorial series is [here][repository]
 
 Enough introductions. So a first thought on how to enable drawing for user is to use [Core Graphics][] in a view.
 
-The simplest initial approach is to create a custom UIView subclass that handles the user touches and constructs a Bezier path with the points that user goes through. Then we will redraw every time a new point is added by user moving the finger.
+The simplest initial approach is to create a UIView subclass that handles the user touches and constructs a Bezier path with the points that user goes through. Then we will redraw every time a new point is added by user moving the finger. We will draw simple straight lines between captured points, and we will add a round cap to the stroke.
 
 Jump directly to this version [here][v1].
 
@@ -152,7 +152,7 @@ This code has a very big problem, which is performance. As it stands now, the mo
 
 Another future problem is that user will not be able to draw strokes with different colors, as we use the same color for the whole path. Let’s focus on the performance problem first.
 
-## First optimization: Painter’s algorithm
+## Less naive version: Painter’s algorithm
 
 To address the creeping issue of our first naive implementation we need to understand why this happens.
 
@@ -224,15 +224,59 @@ private func drawLine(a: CGPoint, b: CGPoint, buffer: UIImage?) -> UIImage {
     }
 {% endhighlight %}
 
-This solution is an improvement over the naive drawing, and also allows us to change drawing color for every finger stroke. Note that in older devices this code might not be performant enough - if the draw view is very big we are redrawing the whole screen every point - but it is sufficient for our tutorial.
+This solution is an improvement over the naive drawing, and also allows us to change drawing color for every finger stroke.
+
+## Memory problems
+
+Let’s run this code on an older device. Say an iPhone 4S. 
+We expect this code might not be performant enough, but it is sufficient for our feature on such a low end device.
+
+Now keep running drawing strokes for a while, specially fast strokes. You will eventually crash the application. The crash was due to a memory warning. With such small amount of code we now have memory problems! Building applications for mobile we always need to be mindful of memory constraints. 
+
+Let’s run profile the code with the allocations instrument. Here is a run I captured reproducing the memory warning:
+
+![Memory4S]({{page.imgdir}}/DrawView-naive-memory-4s.png)
+
+You can also run the application in XCode and check the memory  gauge inside the debugging tab. So what is going on?
+
+We are allocating a lot of transient images while the user is drawing. There is no memory leak but the drawn images are autoreleased as per ARC rules. The offending line is this one:
+
+{% highlight swift %}
+let image = UIGraphicsGetImageFromCurrentImageContext()
+{% endhighlight %}
+
+The transient images are autoreleased, so released and removed of memory at a later time when the runloop finishes it’s cycle. But in cases where we have many touches accumulated, we keep adding work to the main thread, thus blocking the runloop.
+
+This is a case with lots of transient and costly objects, and we should step in and force ARC to release the images as soon as we are done with them. It is a simple as wrapping the code with an autorelease pool, to force release of all autoreleased objects at the end of this method:
+
+{% highlight swift %}
+private func continueAtPoint(point: CGPoint) {
+        autoreleasepool {
+            // 2. Draw the current stroke in an accumulated bitmap
+            self.buffer = self.drawLine(self.lastPoint, b: point, buffer: self.buffer)
+            
+            // 3. Replace the layer contents with the updated image
+            self.layer.contents = self.buffer?.CGImage ?? nil
+            
+            // 4. Update last point for next stroke
+            self.lastPoint = point
+        }
+    }
+{% endhighlight %}
+
+Why we didn’t experience this problem on an iPhone 6? Look at the allocations trace:
+
+![Memory6]({{page.imgdir}}/DrawView-naive-memory-6.png)
+
+Seems similar doesn’t it? The reason is simply that device has more available memory and faster processors so even if we use more memory we don’t reach the OS limit for memory warning. Nevertheless using less memory in mobile is a goal we should be striving for, so this optimisation will only benefit our iPhone 6 users.
 
 ## Adding a toolbar and changing color
 
 Adding a toolbar and changing the color is only a matter of structure. Our DrawViewController will manage interaction between subviews; the Toolbar and DrawView.
 
-**TODO: GITHUB TAG**
-
 We mention this part because it's often the case that sample code omits a bit of architecture for the sake of simplicity, but that leads to the false impression that *everything goes* into the ViewController subclass. [Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/) is an illness creeping many iOS codebases. We don't want to contribute to this illness.
+
+Check the finished code for this post [here][part1]
 
 ## Analysis
 
@@ -240,7 +284,7 @@ We’ve seen how to implement a simple drawing feature using a custom UIView. We
 
 What about adding the other features? 
 
-- Think about how to add undo to this code. It seems harder than expected.
+- Think about how to add undo to this code. 
 - What about adding more gestures such as detecting a tap to draw a point. Will the code be as clean as it is now?
 - The stroke is very simplistic and does not emulate hand writing in any way. This can be improved and we will review how in the upcoming posts.
 
@@ -258,3 +302,4 @@ In the next post we will add undo functionality, and we will see   how to change
 [painter]: https://en.wikipedia.org/wiki/Painter's_algorithm
 [v1]: https://github.com/badoo/FreehandDrawing-iOS/commit/5ae6497ee083ec863cb2131730bd924de367600f
 [v2]: https://github.com/badoo/FreehandDrawing-iOS/commit/16827028b3e04e97d8cd1a5ca46c085b4fb20f12
+[part1]: https://github.com/badoo/FreehandDrawing-iOS/tree/part1
