@@ -2,7 +2,7 @@
 layout: post
 title:  Better Memory Dumps on Android 
 author: Erik Andre
-date:   2015-05-12
+date:   2015-05-26
 categories: android
 ---
 
@@ -13,6 +13,10 @@ While implementing the previously mentioned HPROF deobfuscator I became familiar
 The HPROF format has been around since at least the late 1990s (earliest mention I could find was a bug report from 1998) and since then it has not changed much. Even when Google adopted it as the standard memory dump format for Android they only made some minor additions (requiring the use of hprof-conv to convert to standard HPROF format).
 
 In this article I will make the case for moving to a better (in my opinion) file format and show the benefits and new opportunities that such a move would allow.
+
+## TL:DR Show me the code!
+
+The full source code for the Java libraries as well as a working example for Android is available on our [GitHub page](https://github.com/badoo/hprof-tools).
 
 ## What’s wrong with HPROF?
 
