@@ -276,6 +276,10 @@ Adding a toolbar and changing the color is only a matter of structure. Our DrawV
 
 We mention this part because it's often the case that sample code omits a bit of architecture for the sake of simplicity, but that leads to the false impression that *everything goes* into the ViewController subclass. [Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/) is an illness creeping many iOS codebases. We don't want to contribute to this illness.
 
+This is how the feature looks like:
+
+![Result]({{page.imgdir}}/result.png)
+
 Check the finished code for this post [here][part1]
 
 ## Analysis
