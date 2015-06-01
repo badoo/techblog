@@ -2,7 +2,7 @@
 layout: post
 title: Testing Android notifications in Calabash
 author: Tim Baverstock
-date: 2015-05-28
+date: 2015-06-01
 categories: android qa
 ---
 
