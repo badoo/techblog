@@ -3,18 +3,18 @@ layout: post
 title:  "Let's build: Freehand Drawing in iOS - Part 1"
 author: Miguel Angel Quinones
 date:   2015-06-15
-categories: ios tutorial
+categories: iOS tutorial
 ---
 
-This post will be the first of a series in which we follow through how to develop a specific feature. We want to contribute to the great quantity of existing tutorials in the internet by sharing practical knowledge directly from our engineering team. 
+This post will be the first of a series in which we follow the development of a specific feature. We want to add to the great quantity of existing tutorials on the internet by sharing practical knowledge directly from our engineering team. 
 
-This time we will implement **Freehand Drawing, aka. Doodling** in iOS.
+This time we will demonstrate the implementation of **Freehand Drawing, aka Doodling** in iOS.
 
 ## Structure of the tutorials
 
-This tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details and the architecture. 
+These tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details, and the architecture. 
 
-The tutorials will guide you from a naive or **'first time'** implementation followed by natural iterative improvements.  We will reach a final implementation which is very close to a production level quality code.
+We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements.  The final implementation we’ll reach will be very close to a production-level quality code.
 
 All the code is in a [repository][], with tags referencing specific milestones.
 
@@ -22,13 +22,13 @@ So all things said, let's dive into the feature!
 
 ## Freehand drawing
 
-Let's say you have an (awesome) application involving some kind of user communication. Wouldn't it be great that users could send each other doodles or hand-written notes? That's what we will build.
+Let's say you have an (awesome) application involving some kind of user communication. Wouldn't it be great if users could send each other doodles or hand-written notes? That's what we’ll build.
 
-Freehand Drawing lets the user use her finger to draw as if it was a pencil or brush. We want to offer some kind of canvas where she can draw, undo as many times as she wants, and save the result as an image to be sent to somebody. As an example of such feature, you can check any kind of Doodling apps. For example: [Kids Doodle][], [You Doodle][], or the notorious [Draw Something][].
+Freehand Drawing lets the user use her finger to draw as if it was a pencil or brush. We want to offer some kind of canvas where she can draw, undo as many times as she wants, and save the result as an image to be sent to somebody. As an example of such a feature, you can look at any doodling app. For example, [Kids Doodle][], [You Doodle][], or the notorious [Draw Something][].
 
-There are many applications that don't focus on drawing, but offer such functionality as part of the experience; this is normally related to photo editing. You can check [Bumble][] or [Snapchat][] photo sending as an example.
+There are many applications that don't focus on drawing, but offer such functionality as part of the experience, such as photo editing apps. You can check [Bumble][] or [Snapchat][] photo-sending as an example.
 
-**Disclaimer:**  We don’t want to build a fully featured drawing application like [Paper][], but rather a simple way for users to draw stuff that can be used for other purposes.
+**Disclaimer:**  We don’t want to build a fully-featured drawing application like [Paper][], but rather a simple way for users to draw stuff that can be used for other purposes.
 
 ## What we will build:
 
@@ -37,36 +37,36 @@ User facing features:
 - Ability to draw lines and points
 - Ability to undo changes
 - Ability to change drawing color
-- Exporting to an image
+- Ability to export to an image
 
 Technical details:
 
 - Maintain performance with lots of lines
-- How to build undo functionality
-- Improving how the stroke looks like from *computerish* to a more realistic hand drawing style
+- Build undo functionality
+- Improve stroke appearance from ‘computerish’ to a more realistic hand drawing style
 
 ## Choice of API
 
-Before going into details how we would implement it, in iOS platform we effectively have 2 API choices:
+Before going into details about how we’d implement it, on the iOS platform we effectively have two API choices:
 
 - Use [Core Graphics][]
 - Use [OpenGL ES][]
 
-In this case the most lightweight and first choice of implementation will be direct use of Core Graphics. The reason is twofold; firstly we should always try to use higher level APIs to achieve what we need, as they offer better abstractions and need less code; secondly, using OpenGL ES requires more setup and higher developer knowledge, but this would be a small part of our application and the performance of Core Graphics is expected to be sufficient.
+In this case the most lightweight and hence first choice for implementation would be direct use of Core Graphics. The reason is twofold: firstly we should always try to use higher level APIs to achieve what we need, as they offer better abstractions and need less code; secondly, using OpenGL, ES requires more setup and higher developer knowledge, but this would be a small part of our application and the performance of Core Graphics is expected to be sufficient.
 
 We will use Swift and XCode 6.4 (in beta at the time of writing this article).
 
 ## Naive version
 
-This is the first part of the tutorial series and we will build a naive version, analyse what is wrong and what can be improved.
+This is the first part of the tutorial series, where we’ll build a naive version, analyse what’s wrong and what can be improved.
 
 ### Give me the code!
 
 All the code for this tutorial series is [here][repository]
 
-A first thought how to enable drawing for user is to use [Core Graphics][] in a view.
+A first thought on how to enable drawing for the user is to utilise [Core Graphics][] in a view.
 
-The simplest initial approach is to create a UIView subclass that handles the user touches and constructs a Bezier path with the points the user goes through. Then we will redraw every time a new point is added by user moving the finger. We will draw simple straight lines between captured points, and we will add a round cap to the stroke.
+The simplest initial approach is to create a UIView subclass that handles user touches and constructs a Bezier path with the points the user goes through. Then we’ll redraw every time a new point is added by the user moving their finger. We’ll draw simple straight lines between captured points, and add a round cap to the stroke.
 
 Jump directly to this version [here][v1].
 
@@ -143,28 +143,28 @@ class DrawView : UIView {
 
 {% endhighlight %}
 
-1. We set up a gesture recognizer to track the movement of the finger in the screen
+1. We set up a gesture recognizer to track the movement of the finger on the screen
 2. We accumulate the points the user has gone through with her finger in a UIBezierPath object.
 3. Every time a new point is added, we invalidate the whole drawing bounds.
-4. Our custom `drawRect` implementation takes the accumulated path and draws it with the selected color and width. Note that it strokes the whole path every time a new point is added.
+4. Our custom ‘`drawRect’` implementation takes the accumulated path and draws it with the selected color and width. Note that it strokes the whole path every time a new point is added.
 
-This code has a very big problem, which is performance. As it stands now, the more you draw the slower the interface responds to a point where it is unusable.
+This code has a very big problem, which is performance. As it stands now, the more you draw the slower the interface responds, to a point where it becomes unusable.
 
 Another future problem is that user will not be able to draw strokes with different colors, as we use the same color for the whole path. Let’s focus on the performance problem first.
 
 ## Less naive version: Painter’s algorithm
 
-To address the creeping issue of our first naive implementation we need to understand why this happens.
+To address the creeping issue of our first naive implementation, we need to understand why this happens.
 
 Even without profiling, if you analyse what the code is doing, you will notice that we are drawing the **whole accumulated path** every time a new dragging point is added. The path grows larger with every finger movement, which means we need to do more UI blocking work to draw the path. This will block the touch event processing and thus the perception of lag.
 
 We really don’t need to redraw the whole path every time, because the strokes will always go over what was drawn before, similar how the [Painter’s algorithm][painter] works. We should keep the work we do between points to a minimum for the UI to be responsive.
 
-A possible optimization is to cache what we have drawn already into some image, and just redraw over that image every time a point is added. The amount of work to do between finger movements will be constant; a line stroke and setting the bitmap to the view.
+A possible optimization is to cache what we have drawn already into an image, and just redraw over that image every time a point is added. The amount of work to do between finger movements will be constant - a line stroke and setting the bitmap to the view.
 
 The full set of changes are [here][v2].
 
-First, we don’t need to accumulate a path. We will remember the last point so we can build lines for every new point:
+First, we don’t need to accumulate a path. We’ll remember the last point so we can build lines for every new point:
 
 {% highlight swift %}
 
@@ -229,15 +229,15 @@ This solution is an improvement over the naive drawing, and also allows us to ch
 ## Memory problems
 
 Let’s run this code on an older device. Say an iPhone 4S. 
-We expect this code might not be performant enough, but it is sufficient for our feature on such a low end device.
+We expect this code might not be high performance enough, but it is sufficient for our feature on such a low end device.
 
-Now keep running drawing strokes for a while, specially fast strokes. You will eventually crash the application. The crash was due to a memory warning. With such small amount of code we now have memory problems! Building applications for mobile we always need to be mindful of memory constraints. 
+Now keep running drawing strokes for a while, especially fast strokes. You’ll eventually crash the application. The crash was due to a memory warning. With such small amount of code we now have memory problems! Building applications for mobile we always need to be mindful of memory constraints. 
 
 Let’s run profile the code with the allocations instrument. Here is a run I captured reproducing the memory warning:
 
 ![Memory4S]({{page.imgdir}}/DrawView-naive-memory-4s.png)
 
-You can also run the application in XCode and check the memory  gauge inside the debugging tab. So what is going on?
+You can also run the application in XCode and check the memory gauge inside the debugging tab. So what’s going on?
 
 We are allocating a lot of transient images while the user is drawing. There is no memory leak but the drawn images are autoreleased as per ARC rules. The offending line is this one:
 
@@ -245,9 +245,9 @@ We are allocating a lot of transient images while the user is drawing. There is 
 let image = UIGraphicsGetImageFromCurrentImageContext()
 {% endhighlight %}
 
-The transient images are autoreleased; that is, released and removed of memory at a later time when the runloop finishes it’s cycle. But in cases where we have many touches accumulated, we keep adding work to the main thread, thus blocking the runloop.
+The transient images are autoreleased; that is, released and removed from memory at a later time when the runloop finishes its cycle. But in cases where we have many touches accumulated, we keep adding work to the main thread, thus blocking the runloop.
 
-This is a case with lots of transient and costly objects, and we should step in and force ARC to release the images as soon as we are done with them. It is as simple as wrapping the code with an autorelease pool, to force the release of all autoreleased objects at the end of this method:
+This is a case with lots of transient and costly objects, and we should step in and force ARC to release the images as soon as we are done with them. It’s as simple as wrapping the code with an autorelease pool, to force the release of all autoreleased objects at the end of this method:
 
 {% highlight swift %}
 private func continueAtPoint(point: CGPoint) {
@@ -274,7 +274,7 @@ Seems similar doesn’t it? The reason is simply that device has more available 
 
 Adding a toolbar and changing the color is only a matter of structure. Our DrawViewController will manage interaction between subviews; the Toolbar and DrawView.
 
-We mention this part because it's often the case that sample code omits a bit of architecture for the sake of simplicity, but that leads to the false impression that *everything goes* into the ViewController subclass. [Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/) is an illness creeping many iOS codebases. We don't want to contribute to this illness.
+We mention this part because it's often the case that sample code omits a bit of architecture for the sake of simplicity, but that leads to the false impression that ‘everything goes’ into the ViewController subclass. [Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/) is an illness creeping into many iOS codebases. We don't want to contribute to this illness.
 
 This is how the feature looks like:
 
@@ -290,9 +290,9 @@ What about adding the other features?
 
 - Think about how to add undo to this code. 
 - What about adding more gestures such as detecting a tap to draw a point. Will the code be as clean as it is now?
-- The stroke is very simple and does not emulate hand writing in any way. This can be improved and we will see some ways to do it in the upcoming posts.
+- The stroke is very simple and does not emulate handwriting in any way. This can be improved and we’ll see some ways to do that in upcoming posts.
 
-In the next post we will add undo functionality, and we will see   how to change our simple code with a better, more extensible design.
+In the next post we’ll add undo functionality, and will see how to change our simple code with a better, more extensible design.
 
 [Snapchat]: https://itunes.apple.com/us/app/snapchat/id447188370?mt=8
 [Bumble]: https://itunes.apple.com/us/app/bumble-app/id930441707
@@ -307,3 +307,4 @@ In the next post we will add undo functionality, and we will see   how to change
 [v1]: https://github.com/badoo/FreehandDrawing-iOS/commit/5ae6497ee083ec863cb2131730bd924de367600f
 [v2]: https://github.com/badoo/FreehandDrawing-iOS/commit/16827028b3e04e97d8cd1a5ca46c085b4fb20f12
 [part1]: https://github.com/badoo/FreehandDrawing-iOS/tree/part1
+
