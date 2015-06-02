@@ -146,7 +146,7 @@ class DrawView : UIView {
 1. We set up a gesture recognizer to track the movement of the finger on the screen
 2. We accumulate the points the user has gone through with her finger in a UIBezierPath object.
 3. Every time a new point is added, we invalidate the whole drawing bounds.
-4. Our custom ‘`drawRect’` implementation takes the accumulated path and draws it with the selected color and width. Note that it strokes the whole path every time a new point is added.
+4. Our custom `drawRect` implementation takes the accumulated path and draws it with the selected color and width. Note that it strokes the whole path every time a new point is added.
 
 This code has a very big problem, which is performance. As it stands now, the more you draw the slower the interface responds, to a point where it becomes unusable.
 
@@ -276,11 +276,13 @@ Adding a toolbar and changing the color is only a matter of structure. Our DrawV
 
 We mention this part because it's often the case that sample code omits a bit of architecture for the sake of simplicity, but that leads to the false impression that ‘everything goes’ into the ViewController subclass. [Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/) is an illness creeping into many iOS codebases. We don't want to contribute to this illness.
 
+
 This is how the feature looks like:
 
 ![Result]({{page.imgdir}}/result.png)
 
-Check the finished code for this post [here][part1]
+
+Check the finished code for this post [here][part1].
 
 ## Analysis
 
