@@ -14,7 +14,7 @@ This time we will demonstrate the implementation of **Freehand Drawing, aka Dood
 
 These tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details, and the architecture. 
 
-We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements.  The final implementation we’ll reach will be very close to a production-level quality code.
+We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements. The final implementation we’ll reach will be very close to a production-level quality code.
 
 All the code is in a [repository][], with tags referencing specific milestones.
 
