@@ -55,7 +55,7 @@ A particularly nice aspect of uiautomator's XML is how easy it makes finding a n
 
 ## Code
 
-What follows is our initial code, and should serve as a reasonable starting point. Ruby requires functions to be defined before they're called, but they're presented here grouped by topic, so you'll have to shuffle them if you want to use them.
+What follows is our initial code, and should serve as a reasonable starting point.
 
 ### UIAutomator
 
