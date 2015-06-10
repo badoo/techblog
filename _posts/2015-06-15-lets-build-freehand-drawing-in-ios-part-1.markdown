@@ -14,7 +14,7 @@ This time we will demonstrate the implementation of **Freehand Drawing, aka Dood
 
 These tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details, and the architecture. 
 
-We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements. The final implementation we’ll reach will be very close to a production-level quality code.
+We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements. The final implementation we’ll reach will be very close to production-level quality code.
 
 All the code is in a [repository][], with tags referencing specific milestones.
 
@@ -277,7 +277,7 @@ Adding a toolbar and changing the color is only a matter of structure. Our DrawV
 We mention this part because it's often the case that sample code omits a bit of architecture for the sake of simplicity, but that leads to the false impression that ‘everything goes’ into the ViewController subclass. [Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/) is an illness creeping into many iOS codebases. We don't want to contribute to this illness.
 
 
-This is how the feature looks like:
+This is how the feature looks:
 
 ![Result]({{page.imgdir}}/result.png)
 
