@@ -8,7 +8,7 @@ categories: iOS tutorial
 
 This post will be the first of a series in which we follow the development of a specific feature. We want to add to the great quantity of existing tutorials on the internet by sharing practical knowledge directly from our engineering team. 
 
-This time we will demonstrate the implementation of **Freehand Drawing, aka Doodling** in iOS.
+This time we will demonstrate the implementation of **[Freehand Drawing][Google], aka Doodling** in iOS.
 
 ## Structure of the tutorials
 
@@ -309,4 +309,4 @@ In the next post we’ll add undo functionality, and will see how to change our 
 [v1]: https://github.com/badoo/FreehandDrawing-iOS/commit/5ae6497ee083ec863cb2131730bd924de367600f
 [v2]: https://github.com/badoo/FreehandDrawing-iOS/commit/16827028b3e04e97d8cd1a5ca46c085b4fb20f12
 [part1]: https://github.com/badoo/FreehandDrawing-iOS/tree/part1
-
+[google]: https://www.google.co.uk/?q=freehand+drawing+apps
