@@ -8,13 +8,13 @@ categories: iOS tutorial
 
 This post will be the first of a series in which we follow the development of a specific feature. We want to add to the great quantity of existing tutorials on the internet by sharing practical knowledge directly from our engineering team. 
 
-This time we will demonstrate the implementation of **Freehand Drawing, aka Doodling** in iOS.
+This time we will demonstrate the implementation of **[Freehand Drawing][Google], aka Doodling** in iOS.
 
 ## Structure of the tutorials
 
 These tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details, and the architecture. 
 
-We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements. The final implementation we’ll reach will be very close to a production-level quality code.
+We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements. The final implementation we’ll reach will be very close to production-level quality code.
 
 All the code is in a [repository][], with tags referencing specific milestones.
 
@@ -277,7 +277,7 @@ Adding a toolbar and changing the color is only a matter of structure. Our DrawV
 We mention this part because it's often the case that sample code omits a bit of architecture for the sake of simplicity, but that leads to the false impression that ‘everything goes’ into the ViewController subclass. [Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/) is an illness creeping into many iOS codebases. We don't want to contribute to this illness.
 
 
-This is how the feature looks like:
+This is how the feature looks:
 
 ![Result]({{page.imgdir}}/result.png)
 
@@ -309,4 +309,4 @@ In the next post we’ll add undo functionality, and will see how to change our 
 [v1]: https://github.com/badoo/FreehandDrawing-iOS/commit/5ae6497ee083ec863cb2131730bd924de367600f
 [v2]: https://github.com/badoo/FreehandDrawing-iOS/commit/16827028b3e04e97d8cd1a5ca46c085b4fb20f12
 [part1]: https://github.com/badoo/FreehandDrawing-iOS/tree/part1
-
+[google]: https://www.google.co.uk/?q=freehand+drawing+apps
