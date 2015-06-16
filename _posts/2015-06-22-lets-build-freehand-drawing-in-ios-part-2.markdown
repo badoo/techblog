@@ -323,7 +323,10 @@ func reset() {
 }
 {% endhighlight %}
 
-If you run this, you’ll see that it does not work as expected. There are two problems, firstly undo is very slow every tap, even when user draws only a few lines. The other problem is that we’re deleting the last part of the last line, not the whole line itself. This is not what we expect when we tap the button.
+If you run this, you’ll see that it does not work as expected. There are two problems:
+
+1. Undo is very slow every tap, even when user draws only a few lines. 
+2. We’re deleting the last part of the last line, not the whole line itself. This is not what we expect when we tap the button.
 
 Fixing the performance problem means changing the `DrawCommandReceiver` protocol to accept an ordered list of commands to execute, as opposed to only one command. This will allow the underlying view to set up the context and change the buffer only once for the whole set of commands.
 
