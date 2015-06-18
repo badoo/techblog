@@ -2,7 +2,7 @@
 layout: post
 title: "Let's build: Freehand Drawing in iOS - Part 2"
 author: Miguel Angel Quinones
-date:   2015-06-22
+date:   2015-06-29
 categories: iOS tutorial
 ---
 
