@@ -113,6 +113,7 @@ This works fine, but as we'll see in the next section, our approach of adding mo
 # Undo functionality
 
 The main feature we want to talk about in this post is adding **undo**. You probably know how it works but let's review it anyway. We'll add a button which lets the user to go back in time and delete the last line or point she drew. 
+
 This will allow her to correct mistakes or simply change her mind after drawing something. The button can be tapped repeatedly with the effect of deleting more and more lines and dots until the drawing is as empty as it was in the beginning.
 
 Bear in mind that one ‘undo’ will remove the last full line or dot the user drew between touching the screen and lifting the finger from the screen, not the last part of the last line.
@@ -122,7 +123,10 @@ Bear in mind that one ‘undo’ will remove the last full line or dot the user 
 
 The current code is simple and understandable. To add undo, possibly the first idea that comes to mind is to add some kind of memory of the path we have been drawing, and then remove the last part when user taps the button. That could be a simple ordered array of points the user went through.
 
-But what about the fact that we want to undo a whole stroke? So we need to keep track of when the stroke started and when it ended. What about dots? We need to differentiate between drawing dots and drawing lines. And then, how do we actually undo a line? We have a cached buffer with the accumulated contents the user has been drawing, and we can only render on top of it.
+But what about the fact that we want to undo a whole stroke? This means we need to keep track of when the stroke started and when it ended. 
+
+What about dots? We need to differentiate between drawing dots and drawing lines. 
+And then, how do we actually undo a line? We have a cached buffer with the accumulated contents the user has been drawing, and we can only render on top of it.
 
 Another issue is that all the logic and display is in the same object. The only way to access touch data and the history of user finger movements is to add that functionality directly to the view. It seems that our `DrawView` object code will grow very fast, so it will be harder to understand and maintain in the future.
 
@@ -207,7 +211,7 @@ struct CircleDrawCommand : DrawCommand {
 
 The most important step is to separate the logic of the commands from the view. Our view in this case will act as the environment for the commands to execute on. It will also do all the required performance optimisations, but there will be no logic about gestures or commands.
 
-We can create a different object, a controller if you will, to do all the gesture and command logic. This new object does not need to be a UIViewController subclass, in fact it only has to be an NSObject subclass because it needs to offer selectors for the callbacks of gesture recognizers. This object will hold an ordered list of commands.
+We can create a different object, a controller if you will, to do all the gesture and command logic. This object doesn’t need to be a UIViewController subclass. In fact it only has to be an NSObject subclass as it needs to offer selectors for callbacks of gesture recognizers. This object will hold an ordered list of commands.
 
 You can find the change [here][refactor1]. Let’s highlight the key changes. First we have introduced another protocol, called `DrawCommandReceiver`, just to decouple the view and controller objects, as executing a command needs the context to be set up in the view:
 
@@ -336,7 +340,9 @@ You can see the previous changes [here][undo1].
 
 To make our undo operation behave as intended, we can take advantage our types, which requires very little effort. 
 
-A whole line is constructed by all the intermediate points the user is going through with her finger. We can model this in our controller by using a composed command. A composed command will be a command that contains an ordered list of commands. These commands will be single line commands. The queue itself will contain either composed commands (a whole line) or a circle command (a dot). That way we’ll still undo the last command in the queue, but actually undo the whole stroke. 
+A whole line is constructed by all the intermediate points the user is going through with her finger. We can model this in our controller by using a composed command. 
+
+A composed command will be a command that contains an ordered list of commands. These commands will be single line commands. The queue itself will contain either composed commands (a whole line) or a circle command (a dot). That way we’ll still undo the last command in the queue, but actually undo the whole stroke. 
 
 Check the changes [here][undo2].
 
@@ -415,4 +421,6 @@ In the next post we'll improve how the stroke looks.
 [refactor1]: https://github.com/badoo/FreehandDrawing-iOS/commit/bc1c896ce5800caea00d986bbb4aeef0f49e310b
 [undo1]: https://github.com/badoo/FreehandDrawing-iOS/commit/95e27c8ec91d169ab8e91a16692a3e3c58a26e2f
 [undo2]: https://github.com/badoo/FreehandDrawing-iOS/commit/69d26fdf5da106eb34a1f9a37ae0d26fb4242bab
+
+
 
