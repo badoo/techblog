@@ -61,6 +61,15 @@
     padding: @VERTICAL_PADDING @HORIZONTAL_PADDING;
 }
 
+.link-button {
+    background: @LINK_COLOR;
+    border-radius: 2px;
+    color: white;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+}
+
 
 
 /***********************************************************
@@ -169,9 +178,12 @@ code {
 /***********************************************************
                     MAIN STYLES
 ************************************************************/
+body, #container {
+    background-color: @BODY_BACKGROUND_COLOR;
+}
+
 #container {
     margin: 0 auto;
-    background-color: @BODY_BACKGROUND_COLOR;
 
     &:after {
        content: " ";
@@ -222,6 +234,10 @@ code {
         }
     }
 
+    @media all and (max-width: @mobile-width) {
+        padding: 5px;
+    }
+
 }
 
 #user-nav {
@@ -245,7 +261,7 @@ code {
         display: none;
     }
 
-    a {
+    .icon {
         display: inline-block;
         border: 2px solid white;
         border-radius: 100%;
@@ -281,18 +297,32 @@ code {
         }
     }
 
+    .subscription {
+        &:extend(.link-button);
+    }
+
     @media all and (min-width: @mobile-width) {
         position: absolute;
     }
 
     // arbitrary width to match the width of the navbar to prevent overlapping
-    @media all and (min-width: 550px) {
-        strong {
+    @media all and (min-width: @tablet-width) {
+        strong, .subscription {
+            display: inline-block;
+        }
+    }
+
+    @media all and (max-width: @tablet-width) {
+        .subscription {
             display: inline-block;
         }
     }
 
     @media all and (max-width: @mobile-width) {
+        a + strong {
+            display: inline;
+        }
+
         line-height: 2.1em;
     }
 }
@@ -340,9 +370,19 @@ code {
         width: 100%;
         max-width: @desktop-width;
     }
+
+    .normal-height & {
+        min-height: 0;
+    }
 }
 
 #related-content {
+    padding: 10px 0;
+
+    .no-related-content & {
+        display: none;
+    }
+
     .post & {
         @media all and (min-width: @desktop-width) {
             position: fixed;
@@ -350,27 +390,22 @@ code {
             left: 50%;
             width: 320px;
             margin-left: @fullscreen-post-width / 2 + 20px - 320/2;
+            padding: 0 10px;
         }
     }
 }
 
-#jobs {
-    padding: 10px;
+#jobs, #subscription {
+    padding: 10px 0;
     text-align: center;
 
     a {
-        background: @LINK_COLOR;
-        border-radius: 2px;
-        color: white;
-        font-weight: bold;
-        display: block;
-        padding: 10px;
+        &:extend(.link-button);
     }
 }
 
 #recent-posts {
     display: none;
-    padding: 0 1em;
 
     li {
         list-style-type: square;
@@ -392,7 +427,6 @@ code {
 }
 
 #categories {
-    padding: 0 1em;
     max-width: 900px;
     margin: 0 auto;
 
@@ -446,6 +480,12 @@ code {
     background: @SIDEBAR_BACKGROUND_COLOR;
     clear: both;
     padding-top: 1em;
+
+    .normal-height & {
+        // position: absolute;
+        // bottom: 0;
+        width: 100%;
+    }
 
     p {
         text-align: center;
@@ -677,4 +717,31 @@ a.button {
 
 .video {
     width: 100%;
+}
+
+/**
+ * Mailchip Signup Styles
+ */
+
+#mc_embed_signup {
+    margin-bottom: 20px;
+
+    label {
+        display: block;
+        padding: 10px 0;
+    }
+}
+
+#mce-EMAIL, #mce-FNAME {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#mc-embedded-subscribe {
+    &:extend(.link-button);
+    border: 0;
+    width: 100%;
+    margin-top: 30px;
 }

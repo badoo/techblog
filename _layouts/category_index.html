@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<h3>Posts in the <strong>{{ page.category | replace:'-',' ' | capitalize | replace:'Ios':'iOS' | replace:'Qa':'QA' | replace:'Css':'CSS'}}</strong> category</h3>
+<h3>Posts in the <strong>{{ page.category | replace:'-',' ' | capitalize | replace:'Ios':'iOS' | replace:'Qa':'QA' | replace:'Css':'CSS' | replace:'Php':'PHP'}}</strong> category</h3>
 <hr><br/>
 
 {% for post in site.categories[page.category] %}
