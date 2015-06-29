@@ -234,6 +234,10 @@ body, #container {
         }
     }
 
+    @media all and (max-width: @mobile-width) {
+        padding: 5px;
+    }
+
 }
 
 #user-nav {
@@ -295,12 +299,6 @@ body, #container {
 
     .subscription {
         &:extend(.link-button);
-        display: none;
-        // padding-left: @icon-size + 20px;
-        // background-image: url(/images/icon-email.png);
-        // background-position: 10px 50%;
-        // background-repeat: no-repeat;
-        // background-size: @icon-size @icon-size;
     }
 
     @media all and (min-width: @mobile-width) {
@@ -312,15 +310,17 @@ body, #container {
         strong, .subscription {
             display: inline-block;
         }
+    }
 
-        .email {
-            display: none;
+    @media all and (max-width: @tablet-width) {
+        .subscription {
+            display: inline-block;
         }
     }
 
     @media all and (max-width: @mobile-width) {
-        .subscription {
-            display: none;
+        a + strong {
+            display: inline;
         }
 
         line-height: 2.1em;
@@ -482,8 +482,8 @@ body, #container {
     padding-top: 1em;
 
     .normal-height & {
-        position: absolute;
-        bottom: 0;
+        // position: absolute;
+        // bottom: 0;
         width: 100%;
     }
 
@@ -724,6 +724,8 @@ a.button {
  */
 
 #mc_embed_signup {
+    margin-bottom: 20px;
+
     label {
         display: block;
         padding: 10px 0;
@@ -741,4 +743,5 @@ a.button {
     &:extend(.link-button);
     border: 0;
     width: 100%;
+    margin-top: 30px;
 }
