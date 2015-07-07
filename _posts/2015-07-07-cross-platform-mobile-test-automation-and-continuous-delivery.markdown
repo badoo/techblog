@@ -2,7 +2,7 @@
 layout: post
 title:  Cross Platform Mobile Test Automation and Continuous Delivery
 author: Sathish Gogineni
-date:   2015-07-02
+date:   2015-07-07
 categories: qa
 ---
 
