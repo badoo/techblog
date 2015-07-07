@@ -44,4 +44,4 @@ Test automation has helped us to achieve
 If you’d like more details about Cross-Platform Mobile Test Automation (and Continuous Delivery as well!) check out my video presentation.
 It’s from when I was asked to be a speaker at Codefest, one of the biggest testing conferences in Russia, and share my experiences of testing at Badoo.
 
-<iframe class=“video” width="560" height="315" src="https://www.youtube.com/embed/N0hYSHmRJTQ?list=PL8761XQAJnra6yS64aAOozaGrQWPAkjEY" frameborder="0" allowfullscreen></iframe>
+<iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/N0hYSHmRJTQ?list=PL8761XQAJnra6yS64aAOozaGrQWPAkjEY" frameborder="0" allowfullscreen></iframe>
