@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /mailchimp-list.html
+Sitemap: https://techblog.badoo.com/sitemap.xml
