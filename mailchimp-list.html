@@ -1,0 +1,13 @@
+---
+layout: default
+title: "Home"
+sitemap:
+  exclude: 'yes'
+---
+
+<div class="summaries">
+{% for post in site.posts %}
+    {% capture my_include %}{% include post-summary-email.html %}{% endcapture %}
+    <pre style="background: white; padding: 10px; font-size: 10px; line-height: 10px; margin-bottom: 20px; border: 1px solid; ">{{ my_include | xml_escape | strip }}</pre>
+{% endfor %}
+</div>
