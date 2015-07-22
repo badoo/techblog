@@ -2,7 +2,7 @@
 layout: post
 title: JaCoCo coverage in Cucumber on Android
 author: Tim Baverstock
-date: 2015-07-14
+date: 2015-07-22
 categories: android cucumber
 ---
 
