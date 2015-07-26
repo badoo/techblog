@@ -14,9 +14,26 @@ You can check the previous posts here:
 
 In the last post we did a refactor and implemented undo functionality, thus finishing all the features of our small drawing application. Now it is time to improve the look and feel of the drawing itself.
 
-# Connecting the dots
+# Lines
+
+We implemented drawing by connecting the dots the user goes through with her finger. The connection itself is currently done by straight lines between touch points:
+
+![lines]({{page.imgdir}}/lines.png)
+
+This is very simple to implement but the drawing itself looks artificial and ‘computerish’. A human would never draw this if the finger was the tip of a pen. We reduced how noticeable this is by increasing the stroke width to a generally big value. Let’s reduce it and we will adjust from there.
+
+![lines2]({{page.imgdir}}/lines2.png)
 
 # Adding a curve
+
+The first improvement we can do is to add some curvature to how we connect the dots. To choose how we join the user touches we need to satisfy two constraints:
+
+- The points are not known in advance as user continuously touches the screen and creates new points. We draw curves only knowing previous points.
+- We can’t redraw segments when new points are added. This means we are restricted on how we ensure a good curve between segments.
+
+Considering our restrictions, we could try to use the simplest and most used spline between two points: Cubic [Bezier curves][bezier]. The main question when drawing Bezier curves is how to connect the dots, and what control points to use. 
+
+For our application we will need to define a way our control points are specified to ensure continuity between points. Let’s refactor our code and use some arbitrary connection between segments, like the middle point.
 
 # Changing stroke width
 
@@ -33,5 +50,5 @@ The repository with the latest changes can be found [here][final].
 [part1]: https://github.com/badoo/FreehandDrawing-iOS/tree/part1
 [part2]: https://github.com/badoo/FreehandDrawing-iOS/tree/part2
 [final]: https://github.com/badoo/FreehandDrawing-iOS
-
+[bezier]: https://pomax.github.io/bezierinfo/
 
