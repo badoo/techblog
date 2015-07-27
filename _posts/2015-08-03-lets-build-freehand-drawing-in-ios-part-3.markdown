@@ -31,11 +31,115 @@ The first improvement we can do is to add some curvature to how we connect the d
 - The points are not known in advance as user continuously touches the screen and creates new points. We draw curves only knowing previous points.
 - We can’t redraw segments when new points are added. This means we are restricted on how we ensure a good curve between segments.
 
-Considering our restrictions, we could try to use the simplest and most used spline between two points: Cubic [Bezier curves][bezier]. The main question when drawing Bezier curves is how to connect the dots, and what control points to use. 
+Considering our restrictions, we could try to use the simplest and most used interpolation between two points: Cubic [Bezier curves][bezier].
 
-For our application we will need to define a way our control points are specified to ensure continuity between points. Let’s refactor our code and use some arbitrary connection between segments, like the middle point.
+We won’t use [Catmull-Rom spline] because of several reasons:
+- Catmull requires all points in advance.
+- We would need to implement it ourselves or use a library. We can use Apple’s implementation of Bezier curves in `Core Graphics` framework.
+
+A cubic bezier curve is specified by two target points and two control points:
+
+![cubic_bezier]({{page.imgdir}}/cubic_bezier.png)
+
+**TODO: Quadratic bezier diagram**
+
+Using Bezier paths, to ensure continuity of the curve the choice of control points is vital. For now we will use quadratic Bezier because it only needs one control point. We can adopt a cubic Bezier path later if the result is not satisfactory.
+
+## Curves with Bezier splines
+
+**TODO: Explain and diagrams**
+
+Let’s modify our code to support drawing of curves.
+
+First we need to modify our `LineDrawCommand`. In the case of the first two touches, we can’t draw more than a straight line, as we don’t have previous points data. Afterwards, to trace a cubic bezier using the midpoints we will need 3 touches.
+
+We can create a structure representing a segment to increase readability of our code:
+
+```swift
+struct Segment {
+    let a: CGPoint
+    let b: CGPoint
+    
+    var midPoint: CGPoint {
+        return CGPoint(x: (a.x + b.x) / 2, y: (a.y + b.y) / 2)
+    }
+}
+```
+
+And we will initialize our draw command with one segment, and optionally a second one, to form the 3 needed touch points. When all points are provided, the command will draw a curve. If only two points are provided, the command will continue to draw a line instead.
+
+```swift
+struct LineDrawCommand : DrawCommand {
+    let current: Segment
+    let previous: Segment?
+    
+    let width: CGFloat
+    let color: UIColor
+
+    // MARK: DrawCommand
+    
+    func execute(canvas: Canvas) {
+        self.configure(canvas)
+
+        if let previous = self.previous {
+            self.drawQuadraticCurve(canvas)
+        } else {
+            self.drawLine(canvas)
+        }
+    }
+    
+    private func configure(canvas: Canvas) {
+        CGContextSetStrokeColorWithColor(canvas.context, self.color.CGColor)
+        CGContextSetLineWidth(canvas.context, self.width)
+        CGContextSetLineCap(canvas.context, kCGLineCapRound)
+    }
+    
+    private func drawLine(canvas: Canvas) {
+        CGContextMoveToPoint(canvas.context, self.current.a.x, self.current.a.y)
+        CGContextAddLineToPoint(canvas.context, self.current.b.x, self.current.b.y)
+        CGContextStrokePath(canvas.context)
+    }
+    
+    private func drawQuadraticCurve(canvas: Canvas) {
+        if let previousMid = self.previous?.midPoint {
+            let currentMid = self.current.midPoint
+            
+            CGContextMoveToPoint(canvas.context, previousMid.x, previousMid.y)
+            CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
+            CGContextStrokePath(canvas.context)
+        }
+    }
+}
+```
+
+The last change is to our `DrawController`. It needs to use the changed LineDrawCommand, and keep state about previous segments as the user continues moving the finger.
+
+```swift
+// In DrawController.swift
+private func continueAtPoint(point: CGPoint) {
+        let segment = Segment(a: self.lastPoint, b: point)
+        
+        let lineCommand = LineDrawCommand(current: segment, previous: lastSegment, width: self.width, color: self.color)
+        
+        self.canvas.executeCommands([lineCommand])
+
+        self.lineStrokeCommand?.addCommand(lineCommand)
+        self.lastPoint = point
+        self.lastSegment = segment
+    }
+
+// Other minor cleanup necessary, please refer to the repository
+```
+
+If you run and try now the stroke is much less blocky:
+
+![lines3]({{page.imgdir}}/lines3.png)
+
+If you would like to improve the stroke even further, we recommend adopting cubic bezier paths. To use those you will need an additional control point but a similar approach. We’ll leave it as it is and move on to more ‘exotic’ improvements.
 
 # Changing stroke width
+
+
 
 # Conclusion
 
@@ -51,4 +155,6 @@ The repository with the latest changes can be found [here][final].
 [part2]: https://github.com/badoo/FreehandDrawing-iOS/tree/part2
 [final]: https://github.com/badoo/FreehandDrawing-iOS
 [bezier]: https://pomax.github.io/bezierinfo/
+[catmull]: https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline
+[bezier-continued]: http://code.tutsplus.com/tutorials/ios-sdk_freehand-drawing--mobile-13164
 
