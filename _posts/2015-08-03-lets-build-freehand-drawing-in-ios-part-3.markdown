@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Let's build: Freehand Drawing in iOS - Part 3”
+title: "Let's build: Freehand Drawing in iOS - Part 3"
 author: Miguel Angel Quinones
 date:   2015-08-03
 categories: iOS tutorial
@@ -31,7 +31,7 @@ The first improvement we can do is to add some curvature to how we connect the d
 - The points are not known in advance as user continuously touches the screen and creates new points. We draw curves only knowing previous points.
 - We can’t redraw segments when new points are added. This means we are restricted on how we ensure a good curve between segments.
 
-Considering our restrictions, we could try to use the simplest and most used interpolation between two points: Cubic [Bezier curves][bezier].
+Considering our restrictions, we could try to use the simplest and most used curve interpolation between two points: [Bezier curves][bezier].
 
 We won’t use [Catmull-Rom spline] because of several reasons:
 - Catmull requires all points in advance.
@@ -39,9 +39,11 @@ We won’t use [Catmull-Rom spline] because of several reasons:
 
 A cubic bezier curve is specified by two target points and two control points:
 
-![cubic_bezier]({{page.imgdir}}/cubic_bezier.png)
+![cubic_bezier]({{page.imgdir}}/cubic_bezier.jpg)
 
-**TODO: Quadratic bezier diagram**
+A quadratic bezier curve is specified by two target points and one control point:
+
+![quadratic_bezier]({{page.imgdir}}/quadratic_bezier.jpg)
 
 Using Bezier paths, to ensure continuity of the curve the choice of control points is vital. For now we will use quadratic Bezier because it only needs one control point. We can adopt a cubic Bezier path later if the result is not satisfactory.
 
@@ -135,10 +137,21 @@ If you run and try now the stroke is much less blocky:
 
 ![lines3]({{page.imgdir}}/lines3.png)
 
-If you would like to improve the stroke even further, we recommend adopting cubic bezier paths. To use those you will need an additional control point but a similar approach. We’ll leave it as it is and move on to more ‘exotic’ improvements.
+If you would like to improve the stroke even further, you can try adopting cubic bezier paths. To use those you will need an additional control point but a similar approach. We will move on to a more 'exotic' improvement.
 
 # Changing stroke width
 
+Up until now, our stroke has been uniform in width. This is practical and easy to implement, but we can add final nice touch to give our feature a distinctive and playful look. We will change the width of the stroke depending on how fast the user is moving the finger.
+
+We want to remind the user of something from the real world without emulating it perfectly, as we are not building a drawing application. We can even exaggerate the effect a bit to make it more interesting.
+
+As we are not drawing triangles, but just using higher level line drawing commands, we only have control of the width of one segment. Every new segment we draw can change the width. Let's add the width to our segment structure:
+
+```swift
+
+```
+
+Then we need to use the width of the segment when drawing.
 
 
 # Conclusion
