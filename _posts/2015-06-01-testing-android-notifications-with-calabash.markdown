@@ -179,7 +179,7 @@ def dismiss_notification_matched_by_full_text(timeout, *strings)
 end
 {% endhighlight %}
 
-### For completeness, the adb function:
+### For completeness, the adb functions:
 
 {% highlight ruby %}
 def exec_adb(cmd)
@@ -190,6 +190,9 @@ def exec_adb(cmd)
  end
  [stdout, stderr, status]
 end
-{% endhighlight %}
 
+def keyboard_enter_keyevent(keyevent)
+ exec_adb("shell input keyevent #{keyevent}")
+end
+{% endhighlight %}
 
