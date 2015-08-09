@@ -143,20 +143,93 @@ If you run and try now the stroke is much less blocky:
 
 If you would like to improve the stroke even further, you can try adopting cubic bezier paths. To use those you will need an additional control point.
 
-# Changing stroke width
+# Changing the stroke width
 
 Up until now, our stroke has been uniform in width. This is practical and easy to implement, but we can add final nice touch to give our feature a distinctive and playful look. We will change the width of the stroke depending on how fast the user is moving the finger.
 
 We want to remind the user of something from the real world without emulating it perfectly, as we are not building a drawing application. We can even exaggerate the effect a bit to make it more interesting.
 
-As we are not drawing triangles, but just using higher level line drawing commands, we only have control of the width of one segment. Every new segment we draw can change the width. Let's add the width to our segment structure:
+As we are not drawing triangles, but just using higher level line drawing commands, we only have control of the width of one segment. So we will need to add width to our segment structure.
+
+The with of the current segment is inversely proportional to the speed of the movement. This means the faster the user moves the finger the thinner the stroke will be. The velocity is supplied by the gesture recogniser, so changing our `DrawController` to use variable width is very easy. We just need to pass around that velocity and we can isolate the actual calculation of the width change in a free function.
+
+You can also see these changes [here][width1code].
 
 {% highlight swift %}
+func modulatedWidth(width: CGFloat, velocity: CGPoint) -> CGFloat {
+    let velocityAdjustement: CGFloat = 600.0 // Trial and error constant
+    let speed = velocity.length() / velocityAdjustement
+   
+    let modulated = width / speed
+    return modulated
+}
 
+extension CGPoint {
+    func length() -> CGFloat {
+        return sqrt((self.x*self.x) + (self.y*self.y))
+    }
+}
 {% endhighlight %}
 
-Then we need to use the width of the segment when drawing.
+This code will modulate the width but in a very strange way:
 
+![width1]({{page.imgdir}}/width1.png)
+
+There are two problems with our simple width modulation:
+
+1. Speed can change very much between touches
+2. We don't limit the with between a minimum and a maximum
+
+To solve the first problem we will also keep track of the previous speed and give more weight to it when calculating the modulated width. That way even if the user makes sudden changes of speed with the finger the change of width will be more gradual.
+
+For the second problem we will just limit the output width between a maximum and a minimum value.
+
+These changes are [here][width2code].
+
+{% highlight swift %}
+func modulatedWidth(width: CGFloat, velocity: CGPoint, previousVelocity: CGPoint, previousWidth: CGFloat) -> CGFloat {
+    let velocityAdjustement: CGFloat = 600.0
+    let speed = velocity.length() / velocityAdjustement
+    let previousSpeed = previousVelocity.length() / velocityAdjustement
+    
+    let modulated = width / (0.6 * speed + 0.4 * previousSpeed)
+    let limited = clamp(modulated, 0.75 * previousWidth, 1.25 * previousWidth)
+    let final = clamp(limited, 0.2*width, width)
+    
+    return final
+}
+
+extension CGPoint {
+    func length() -> CGFloat {
+        return sqrt((self.x*self.x) + (self.y*self.y))
+    }
+}
+
+func clamp<T: Comparable>(value: T, min: T, max: T) -> T {
+    if (value < min) {
+        return min
+    }
+    
+    if (value > max) {
+        return max
+    }
+    
+    return value
+}
+
+// Additional cleanup and setup in draw controller to keep 
+// track of previous width and previous velocity. See repository.
+{% endhighlight %}
+
+And this is how the stroke looks with this code:
+
+![width2]({{page.imgdir}}/width2.png)
+
+Now we are getting the impression our touches are simulating how we would draw with a dip pen, only by changing the width depending on speed. You will need to tweak the constants to your liking depending on how subtle you want it to be. We don't want to simulate a real stroke with ink, but rather to give a playful and more realistic feel for the user.
+
+# Further improvements
+
+**TODO: Mention UIBezierPath, changing constants for app**
 
 # Conclusion
 
@@ -175,3 +248,6 @@ The repository with the latest changes can be found [here][final].
 [catmull]: https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline
 [bezier-continued]: http://code.tutsplus.com/tutorials/ios-sdk_freehand-drawing--mobile-13164
 [curve]: https://github.com/badoo/FreehandDrawing-iOS/commit/02042cd85d3d721b85a2134823ada5589e08dd38
+[width1code]: https://github.com/badoo/FreehandDrawing-iOS/commit/4658a567d7eda3c68d5aab5e182753670f47b516
+[width2code]: https://github.com/badoo/FreehandDrawing-iOS/commit/9cc66287a495a84e5bb2857350255d793461a0a2
+
