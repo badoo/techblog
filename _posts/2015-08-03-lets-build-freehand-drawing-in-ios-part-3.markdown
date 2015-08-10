@@ -227,7 +227,7 @@ func clamp<T: Comparable>(value: T, min: T, max: T) -> T {
 // track of previous width and previous velocity. See repository.
 {% endhighlight %}
 
-And this is how the stroke looks with this code:
+The parameters are a bit extreme to see the difference, but this is how the stroke looks with this code:
 
 ![width2]({{page.imgdir}}/width2.png)
 
