@@ -50,9 +50,15 @@ When using Bezier paths, the choice of control points is vital, as they define t
 
 ## Curves with Bezier splines
 
-**TODO: Explain and diagrams**
+We already know that choosing a good control point is key to ensuring our curves are smooth and continuous. If we were to take the control point as the mid point between two touches, even if it seems that it would work nicely, the curve would break at every point, because the tangents at the target points would not match:
 
-Let’s modify our code to support drawing of curves.
+![controlpoint1]({{page.imgdir}}/controlpoint1.png)
+
+We can use a more sophisticated but still simple choice of control point. We will need **3 touch points**. The control point will be the second touch. We will then use midpoints between first and second, second and third, to be the target points. The line will not go exactly through the users' touches, but the difference is small enough not to be noticed. Most importantly, the tangent is preserved at the target points, thus keeping a smooth curve all through the user touches:
+
+![controlpoint2]({{page.imgdir}}/controlpoint2.png)
+
+We encourage you to check this [excellent tutorial][arieltut], which explains this choice of control points in depth. Now let’s modify our code to support drawing curves.
 
 First we need to modify our `LineDrawCommand`. When the user only moved the finger producing two touches, we can’t draw more than a straight line, as we don’t have previous points data. Afterwards, to trace a cubic bezier using the midpoints we will need 3 touches.
 
@@ -225,11 +231,7 @@ And this is how the stroke looks with this code:
 
 ![width2]({{page.imgdir}}/width2.png)
 
-Now we are getting the impression our touches are simulating how we would draw with a dip pen, only by changing the width depending on speed. You will need to tweak the constants to your liking depending on how subtle you want it to be. We don't want to simulate a real stroke with ink, but rather to give a playful and more realistic feel for the user.
-
-# Further improvements
-
-**TODO: Mention UIBezierPath, changing constants for app**
+Now we are getting the impression of drawing with a dip pen. You will need to tweak the constants to your liking depending on how subtle you want it to be. We don't want to simulate a real stroke with ink, but rather to give a playful and more realistic feel for the user.
 
 # Conclusion
 
@@ -237,7 +239,7 @@ We’ve improved the stroke of our small drawing application, by connecting the 
 
 During the course of these tutorials we have seen the kind of technical challenges a developer may be faced with, and we evolved our code by refactoring and redesigning as our requirements change.
 
-The repository with the latest changes can be found [here][final].
+The repository with all the code can be found [here][final].
 
 [post1]: {{site.url}}/blog/2015/06/15/lets-build-freehand-drawing-in-ios-part-1
 [post2]: {{site.url}}/blog/2015/06/29/lets-build-freehand-drawing-in-ios-part-2
@@ -250,4 +252,4 @@ The repository with the latest changes can be found [here][final].
 [curve]: https://github.com/badoo/FreehandDrawing-iOS/commit/02042cd85d3d721b85a2134823ada5589e08dd38
 [width1code]: https://github.com/badoo/FreehandDrawing-iOS/commit/4658a567d7eda3c68d5aab5e182753670f47b516
 [width2code]: https://github.com/badoo/FreehandDrawing-iOS/commit/9cc66287a495a84e5bb2857350255d793461a0a2
-
+[arieltut]: http://code.tutsplus.com/tutorials/smooth-freehand-drawing-on-ios--mobile-13164
