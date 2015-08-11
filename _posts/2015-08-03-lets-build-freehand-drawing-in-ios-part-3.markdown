@@ -35,6 +35,7 @@ The first improvement we can do is to add some curvature when we connect the dot
 Considering our restrictions, we could try to use the simplest and most used curve interpolation between two points: [Bezier curves][bezier].
 
 We won’t use [Catmull-Rom spline] because of several reasons:
+
 - Catmull requires all points in advance.
 - We would need to implement it ourselves or use a library. We can use Apple’s implementation of Bezier curves in `Core Graphics` framework.
 
