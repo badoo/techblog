@@ -61,7 +61,7 @@ We can use a more sophisticated but still simple choice of control point. We wil
 
 We encourage you to check this [excellent tutorial][arieltut], which explains this choice of control points in depth. Now let’s modify our code to support drawing curves.
 
-First we need to modify our `LineDrawCommand`. When the user only moved the finger producing two touches, we can’t draw more than a straight line, as we don’t have previous points data. Afterwards, to trace a cubic bezier using the midpoints we will need 3 touches.
+First we need to modify our `LineDrawCommand`. When the user only moved the finger producing two touches, we can’t draw more than a straight line, as we don’t have previous points data. Afterwards, to trace a quadratic bezier using the midpoints we will need 3 touches.
 
 You can see all the changes [here][curve].
 
