@@ -27,7 +27,7 @@ This is very simple to implement but the drawing looks artificial and ‘compute
 
 # Adding a curve
 
-The first improvement we can do is to add some curvature when we connect the dots. To choose how we join the user touches we need to satisfy two constraints:
+The first improvement we can do is to add some curvature when we connect the dots. To choose how we join the users touches we need to satisfy two constraints:
 
 - The points are not known in advance as user continuously touches the screen and creates new points. We draw curves only knowing previous points.
 - We can’t redraw segments when new points are added. This means we are restricted on how we ensure a good curve between segments.
@@ -152,13 +152,13 @@ If you would like to improve the stroke even further, you can try adopting cubic
 
 # Changing the stroke width
 
-Up until now, our stroke has been uniform in width. This is practical and easy to implement, but we can add final nice touch to give our feature a distinctive and playful look. We will change the width of the stroke depending on how fast the user is moving the finger.
+Up until now, our stroke has been uniform in width. This is practical and easy to implement, but we can add a nice touch to give our feature a distinctive and playful look. We will change the width of the stroke depending on how fast the user is moving the finger.
 
 We want to remind the user of something from the real world without emulating it perfectly, as we are not building a drawing application. We can even exaggerate the effect a bit to make it more interesting.
 
 As we are not drawing triangles, but just using higher level line drawing commands, we only have control of the width of one segment. So we will need to add width to our segment structure.
 
-The with of the current segment is inversely proportional to the speed of the movement. This means the faster the user moves the finger the thinner the stroke will be. The velocity is supplied by the gesture recogniser, so changing our `DrawController` to use variable width is very easy. We just need to pass around that velocity and we can isolate the actual calculation of the width change in a free function.
+The width of the current segment is inversely proportional to the speed of the movement. This means the faster the user moves the finger the thinner the stroke will be. The velocity is supplied by the gesture recogniser, so changing our `DrawController` to use variable width is very easy. We just need to pass around that velocity and we can isolate the actual calculation of the width change in a free function.
 
 You can also see these changes [here][width1code].
 
