@@ -184,9 +184,9 @@ This code will modulate the width but in a very strange way:
 There are two problems with our simple width modulation:
 
 1. Speed can change very much between touches
-2. We don't limit the with between a minimum and a maximum
+2. We don't limit the width between a minimum and a maximum
 
-To solve the first problem we will also keep track of the previous speed and give more weight to it when calculating the modulated width. That way even if the user makes sudden changes of speed with the finger the change of width will be more gradual.
+To solve the first problem we will also keep track of the previous speed and give more weight to it when calculating the modulated width. This will work for cases when the user makes sudden changes of speed, the actual change of width will be more gradual.
 
 For the second problem we will just limit the output width between a maximum and a minimum value.
 
