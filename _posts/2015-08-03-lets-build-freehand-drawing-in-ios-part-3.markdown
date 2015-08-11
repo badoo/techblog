@@ -27,7 +27,7 @@ This is very simple to implement but the drawing looks artificial and ‘compute
 
 # Adding a curve
 
-The first improvement we can do is to add some curvature when we connect the dotes. To choose how we join the user touches we need to satisfy two constraints:
+The first improvement we can do is to add some curvature when we connect the dots. To choose how we join the user touches we need to satisfy two constraints:
 
 - The points are not known in advance as user continuously touches the screen and creates new points. We draw curves only knowing previous points.
 - We can’t redraw segments when new points are added. This means we are restricted on how we ensure a good curve between segments.
