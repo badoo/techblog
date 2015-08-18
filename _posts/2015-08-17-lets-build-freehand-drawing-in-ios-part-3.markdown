@@ -27,12 +27,12 @@ This is very simple to implement but the drawing looks artificial and ‘compute
 
 # Adding a curve
 
-The first improvement we can make is to add some curvature when we connect the dots. To choose how we join the users touches we need to satisfy two constraints:
+The first improvement we can make is to add some curvature when we connect the dots. To select how we join the user’s touches we need to satisfy two constraints:
 
 - The points are not known in advance as the user continually touches the screen and creates new points. We draw curves only knowing the previous points.
 - We can’t redraw segments when new points are added. This means we are restricted on how we ensure a good curve between segments.
 
-Considering our restrictions, we could try to use the simplest and most widely used curve interpolation between two points: [Bezier curves][bezier].
+Considering our restrictions, we could try to use the simplest and most popular widely used curve interpolation between two points: [Bezier curves][bezier].
 
 We won’t use [Catmull-Rom spline] due to a couple of reasons:
 
@@ -51,7 +51,7 @@ When using Bezier paths, the choice of control points is vital, as they define t
 
 ## Curves with Bezier splines
 
-We already know that choosing a good control point is key to ensuring our curves are smooth and continuous. If we were to take the control point as the midpoint between two touches, even if it seemed that it would work nicely, the curve would break at every point, because the tangents at the target points wouldn’tmatch:
+We already know that choosing a good control point is key to ensuring our curves are smooth and continuous. If we were to take the control point as the midpoint between two touches, even if it seemed that it would work nicely, the curve would break at every point, because the tangents at the target points wouldn’t match:
 
 ![controlpoint1]({{page.imgdir}}/controlpoint1.png)
 
@@ -158,7 +158,7 @@ We want to remind the user of something from the real world without emulating it
 
 As we are not drawing triangles, but just using higher level line drawing commands, we only have control of the width of one segment. So we will need to add width to our segment structure.
 
-The width of the current segment is inversely proportional to the speed of the movement. This means the faster the user moves the finger the thinner the stroke will be. The velocity is supplied by the gesture recogniser, so changing our `DrawController` to use variable width is very easy. We just need to pass around that velocity and we can isolate the actual calculation of the width change in a free function.
+The width of the current segment is inversely proportional to the speed of the movement. This means the faster the user moves the finger the thinner the stroke will be. The velocity is supplied by the gesture recogniser, so changing our `DrawController` to use variable width is very easy. We just need to use that velocity, and we can isolate the actual calculation of the width change in a free function.
 
 You can also see these changes [here][width1code].
 
@@ -184,8 +184,8 @@ This code will modulate the width but in a very strange way:
 
 There are two problems with our simple width modulation:
 
-1. Speed can change a great deal between touches
-2. We don't limit the width to between a minimum and a maximum
+1. Speed can change a great deal between touches.
+2. We don't limit the width to between a minimum and a maximum.
 
 To solve the first problem we’ll keep track of the previous speed and give more weight to it when calculating the modulated width. This will work for cases when the user makes sudden changes of speed, so the the actual change of width will be more gradual.
 
