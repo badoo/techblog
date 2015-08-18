@@ -6,40 +6,40 @@ date:   2015-08-17
 categories: iOS tutorial
 ---
 
-This the third and final post of tutorials in which we build **Freehand Drawing** for iOS. In this part we will improve how the stroke looks and feels.
+This the third and final tutorial in which we build **Freehand Drawing** for iOS. In this part we’ll improve how the stroke looks and feels.
 
 You can check the previous posts here:
 
 - [Part 1][post1]: Basic implementation
 - [Part 2][post2]: Refactor and undo
 
-In the last post we did a refactor and implemented undo functionality, thus finishing all the features of our small drawing application. Now it is time to improve the look and feel of the drawing itself.
+In the last post we did a refactor and implemented undo functionality, thus completing all the features of our small drawing application. Now it is time to improve the look and feel of the drawing itself.
 
 # Lines
 
-We implemented drawing by connecting the dots the user goes through with her finger. We connect the dot by drawing straight lines between touch points:
+We implemented drawing by connecting the dot path the user creates with her finger. We connect the dots by drawing straight lines between touch points:
 
 ![lines]({{page.imgdir}}/lines.png)
 
-This is very simple to implement but the drawing looks artificial and ‘computerish’. This is because a human would never draw this way, unless she would stop and change direction at every point. This is less noticeable in our implementation because the stroke width is set to a big value. Let’s reduce it and we will adjust it from there. This is how the stroke looks:
+This is very simple to implement but the drawing looks artificial and ‘computerish’. This is because a human would never draw this way, unless she stopped and changed direction at every point. This is less noticeable in our implementation because the stroke width is set to a big value. Let’s reduce it and adjust it from there. This is how the stroke looks:
 
 ![lines2]({{page.imgdir}}/lines2.png)
 
 # Adding a curve
 
-The first improvement we can do is to add some curvature when we connect the dots. To choose how we join the users touches we need to satisfy two constraints:
+The first improvement we can make is to add some curvature when we connect the dots. To choose how we join the users touches we need to satisfy two constraints:
 
-- The points are not known in advance as user continuously touches the screen and creates new points. We draw curves only knowing previous points.
+- The points are not known in advance as the user continually touches the screen and creates new points. We draw curves only knowing the previous points.
 - We can’t redraw segments when new points are added. This means we are restricted on how we ensure a good curve between segments.
 
-Considering our restrictions, we could try to use the simplest and most used curve interpolation between two points: [Bezier curves][bezier].
+Considering our restrictions, we could try to use the simplest and most widely used curve interpolation between two points: [Bezier curves][bezier].
 
-We won’t use [Catmull-Rom spline] because of several reasons:
+We won’t use [Catmull-Rom spline] due to a couple of reasons:
 
 - Catmull requires all points in advance.
-- We would need to implement it ourselves or use a library. We can use Apple’s implementation of Bezier curves in `Core Graphics` framework.
+- We’d need to implement it ourselves or use a library. We can use Apple’s implementation of Bezier curves in `Core Graphics` framework.
 
-In order to use  cubic bezier curve, we need to specify two target points and two control points:
+In order to use cubic bezier curve, we need to specify two target points and two control points:
 
 ![cubic_bezier]({{page.imgdir}}/cubic_bezier.jpg)
 
@@ -47,21 +47,21 @@ Similarly, a quadratic bezier curve is specified by two target points, but only 
 
 ![quadratic_bezier]({{page.imgdir}}/quadratic_bezier.jpg)
 
-When using Bezier paths, the choice of control points is vital, as they define the curvature and tangent direction on the target points. For now we will use quadratic Bezier because it only needs one control point, so it's easier to calculate. We can adopt a cubic Bezier path later if the result is not satisfactory.
+When using Bezier paths, the choice of control points is vital, as they define the curvature and tangent direction on the target points. For now we’ll use quadratic Bezier because it only needs one control point, so it's easier to calculate. We can adopt a cubic Bezier path later if the result is not satisfactory.
 
 ## Curves with Bezier splines
 
-We already know that choosing a good control point is key to ensuring our curves are smooth and continuous. If we were to take the control point as the mid point between two touches, even if it seems that it would work nicely, the curve would break at every point, because the tangents at the target points would not match:
+We already know that choosing a good control point is key to ensuring our curves are smooth and continuous. If we were to take the control point as the midpoint between two touches, even if it seemed that it would work nicely, the curve would break at every point, because the tangents at the target points wouldn’tmatch:
 
 ![controlpoint1]({{page.imgdir}}/controlpoint1.png)
 
-We can use a more sophisticated but still simple choice of control point. We will need **3 touch points**. The control point will be the second touch. We will then use midpoints between first and second, second and third, to be the target points. The line will not go exactly through the users' touches, but the difference is small enough not to be noticed. Most importantly, the tangent is preserved at the target points, thus keeping a smooth curve all through the user touches:
+We can use a more sophisticated but still simple choice of control point. We’ll need **three touch points**. The control point will be the second touch. We will then use midpoints between first and second, second and third, as the target points. The line will not go exactly through the user’s touches, but the difference is small enough not to be noticed. Most importantly, the tangent is preserved at the target points, thus keeping a smooth curve throughout the user touches:
 
 ![controlpoint2]({{page.imgdir}}/controlpoint2.png)
 
 We encourage you to check this [excellent tutorial][arieltut], which explains this choice of control points in depth. Now let’s modify our code to support drawing curves.
 
-First we need to modify our `LineDrawCommand`. When the user only moved the finger producing two touches, we can’t draw more than a straight line, as we don’t have previous points data. Afterwards, to trace a quadratic bezier using the midpoints we will need 3 touches.
+First we need to modify our `LineDrawCommand`. When the user only moves the finger producing two touches, we can’t draw more than a straight line, as we don’t have previous points data. Afterwards, to trace a quadratic bezier using the midpoints we will need three touches.
 
 You can see all the changes [here][curve].
 
@@ -79,7 +79,7 @@ struct Segment {
 }
 {% endhighlight %}
 
-We will initialise our draw command with one segment, and optionally a second one, to form the 3 needed touch points. When all points are provided, the command will draw a curve. If only two points are provided, the command will draw a line instead.
+We will initialise our draw command with one segment, and optionally a second one, to form the three required touch points. When all points are provided, the command will draw a curve. If only two points are provided, the command will draw a line instead.
 
 {% highlight swift %}
 struct LineDrawCommand : DrawCommand {
@@ -125,7 +125,7 @@ struct LineDrawCommand : DrawCommand {
 }
 {% endhighlight %}
 
-The last change is to our `DrawController`. It needs to use the changed LineDrawCommand, and keep state about previous segments as the user continues moving the finger.
+The last change is to our `DrawController`. It needs to use the changed LineDrawCommand, and retain the state of previous segments as the user continues moving her finger.
 
 {% highlight swift %}
 // In DrawController.swift
@@ -144,15 +144,15 @@ private func continueAtPoint(point: CGPoint) {
 // Other minor cleanup necessary, please refer to the repository
 {% endhighlight %}
 
-If you run and try now the stroke is much less blocky:
+If you run and test it now the stroke is much less blocky:
 
 ![lines3]({{page.imgdir}}/lines3.png)
 
-If you would like to improve the stroke even further, you can try adopting cubic bezier paths. To use those you will need an additional control point.
+If you would like to improve the stroke even further, you can try adopting cubic bezier paths. To use those you’ll need an additional control point.
 
 # Changing the stroke width
 
-Up until now, our stroke has been uniform in width. This is practical and easy to implement, but we can add a nice touch to give our feature a distinctive and playful look. We will change the width of the stroke depending on how fast the user is moving the finger.
+Up until now, our stroke has been uniform in width. This is practical and easy to implement, but we can add a nice touch to give our feature a distinctive and playful look. We’ll change the width of the stroke depending on how fast the user is moving her finger.
 
 We want to remind the user of something from the real world without emulating it perfectly, as we are not building a drawing application. We can even exaggerate the effect a bit to make it more interesting.
 
@@ -184,12 +184,12 @@ This code will modulate the width but in a very strange way:
 
 There are two problems with our simple width modulation:
 
-1. Speed can change very much between touches
-2. We don't limit the width between a minimum and a maximum
+1. Speed can change a great deal between touches
+2. We don't limit the width to between a minimum and a maximum
 
-To solve the first problem we will also keep track of the previous speed and give more weight to it when calculating the modulated width. This will work for cases when the user makes sudden changes of speed, the actual change of width will be more gradual.
+To solve the first problem we’ll keep track of the previous speed and give more weight to it when calculating the modulated width. This will work for cases when the user makes sudden changes of speed, so the the actual change of width will be more gradual.
 
-For the second problem we will just limit the output width between a maximum and a minimum value.
+For the second problem we’ll just limit the output width to between a maximum and a minimum value.
 
 These changes are [here][width2code].
 
@@ -218,7 +218,7 @@ func clamp<T: Comparable>(value: T, min: T, max: T) -> T {
     }
     
     if (value > max) {
-        return max
+        return max’
     }
     
     return value
@@ -232,13 +232,13 @@ The parameters are a bit extreme to see the difference, but this is how the stro
 
 ![width2]({{page.imgdir}}/width2.png)
 
-Now we are getting the impression of drawing with a dip pen. You will need to tweak the constants to your liking depending on how subtle you want it to be. We don't want to simulate a real stroke with ink, but rather to give a playful and more realistic feel for the user.
+Now we’re getting the impression of drawing with a dip pen. You’ll need to tweak the constants to your liking depending on how subtle you want it to be. We don't want to simulate a real stroke with ink, but rather to give a playful and more realistic feel for the user.
 
 # Conclusion
 
-We’ve improved the stroke of our small drawing application, by connecting the dots using more than just straight lines. We’ve also achieved a more realistic and playful feel by changing the width of the stroke depending on the speed of the user touches. 
+We’ve improved the stroke of our small drawing application by connecting the dots using more than just straight lines. We’ve also achieved a more realistic and playful feel by changing the width of the stroke depending on the speed of user touches. 
 
-During the course of these tutorials we have seen the kind of technical challenges a developer may be faced with, and we evolved our code by refactoring and redesigning as our requirements change.
+During the course of these tutorials we’ve seen the kind of technical challenges a developer may be faced with, and we’ve evolved our code by refactoring and redesigning as our requirements change.
 
 The repository with all the code can be found [here][final].
 
@@ -254,3 +254,4 @@ The repository with all the code can be found [here][final].
 [width1code]: https://github.com/badoo/FreehandDrawing-iOS/commit/4658a567d7eda3c68d5aab5e182753670f47b516
 [width2code]: https://github.com/badoo/FreehandDrawing-iOS/commit/9cc66287a495a84e5bb2857350255d793461a0a2
 [arieltut]: http://code.tutsplus.com/tutorials/smooth-freehand-drawing-on-ios--mobile-13164
+
