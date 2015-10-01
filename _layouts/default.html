@@ -17,6 +17,10 @@
     <meta property="og:description" content="{% if page.summary %}{{ page.summary }}{% else %}{{ site.description }}{% endif %}">
     <meta property="og:url" content="{{ site.url }}{{ page.url }}"/>
 
+    <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
+    <meta name="theme-color" content="#000000">
+
     {% if page.author && page.categories %}
         <meta property="og:type" content="article"/>
         <meta property="article:published_time" content="{{ page.date | date: "%Y-%m-%d" }}"/>
