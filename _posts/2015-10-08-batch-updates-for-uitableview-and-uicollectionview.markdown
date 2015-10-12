@@ -6,8 +6,6 @@ date:   2015-10-08
 categories: Objective-C UIKit UICollectionView UITableView updates batch safe
 ---
 
-#Batch updates for UITableView and UICollectionView
-
 Apple did a tremendous job in giving developers such powerful building blocks as [UITableView](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableView_Class/) and [UICollectionView](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionView_class/). It’s even possible to claim that iOS wouldn’t have been such a success without these general purpose views. But unfortunately when it comes time to update these views in a batch fashion, it appears to be surprisingly [hard](http://stackoverflow.com/search?q=uicollectionview+batch+updates). If you’ve tried to do it, you’re likely to be familiar with internal exceptions stating that the data model is not in sync with requested updates.
 
 This article is about our attempts to update the mentioned views correctly according to obscure rules, in order to avoid these exceptions leading to crashes in runtime.
