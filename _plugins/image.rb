@@ -1,13 +1,6 @@
-module Jekyll
-    class Jekyll::Post
-        alias :to_liquid_without_comments :to_liquid
-
-        def to_liquid(attrs = ATTRIBUTES_FOR_LIQUID)
-            data = to_liquid_without_comments(attrs)
-            data['imgdir'] = '/images/' + data['url'].split('/').pop
-            data['demodir'] = '/demo/' + data['url'].split('/').pop
-            data['filesdir'] = '/files/' + data['url'].split('/').pop
-            data
-        end
-    end
+Jekyll::Hooks.register :posts, :pre_render do |page, payload|
+  url = payload['page']['url']
+  payload['page']['imgdir'] = '/images/' + url.split('/').pop.to_s
+  payload['page']['demodir'] = '/demo/' + url.split('/').pop.to_s
+  payload['page']['filesdir'] = '/files/' + url.split('/').pop.to_s
 end
