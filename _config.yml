@@ -32,6 +32,6 @@ defaults:
   -
     scope:
       path: ""      # empty string for all files
-      type: post    # limit to posts
+      type: posts    # limit to posts
     values:
-      type: post
+      type: posts
