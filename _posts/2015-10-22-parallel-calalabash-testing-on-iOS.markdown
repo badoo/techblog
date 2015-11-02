@@ -3,7 +3,7 @@ layout: post
 title: Parallel Calabash Testing on iOS
 author: Tim Baverstock
 date: 2015-10-22
-categories: ios cucumber
+categories: ios
 ---
 
 We want our users to have the same experience of Badoo on mobile regardless of which platform they run, so we have a battery of 450 Cucumber tests and growing that we run against all platforms: Android, iOS, and mobile web (we’re working to add Windows). These 450 tests take between 8 and 12 hours to run, which makes for a very slow feedback loop, which makes for grumpy developers and grumpy managers.
