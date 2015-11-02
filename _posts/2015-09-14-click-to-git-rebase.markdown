@@ -3,7 +3,7 @@ layout: post
 title: Click to git rebase
 author: Ilya Ageev
 date: 2015-09-14
-categories: git development re
+categories: git
 ---
 
 <img alt="git rebase" src="{{page.imgdir}}/image1.png" style="float: left; max-width: 50%; margin-right: 10px;" />

@@ -3,7 +3,7 @@ layout: post
 title:  clang-format as a guard for Objective-C code style
 author: Vladimir Magaziy
 date:   2015-09-21
-categories: code-style objective-c python
+categories: objective-c python
 ---
 
 
