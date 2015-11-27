@@ -22,7 +22,7 @@ With this insight, I set about adding iOS support to the Android-based Parallel_
 
 ### The long and winding road
 
-Initially it was an optimistic tinkering: copying the application directory for each ssh user and tweaking the plists to set the Calabash endpoint to different ports. Then followed a substantial amount of trailing around inside Calabash-iOS to understand its internals to find out why only one simulator was resetting, why they were pretending to be real phones, and various other issues. 
+Initially it was an optimistic tinkering: copying the application directory for each ssh user and tweaking the plists to set the Calabash endpoint to different ports. Then followed a substantial amount of trailing around inside Calabash-iOS to understand its internals to find out why only one simulator was resetting, why they were pretending to be real phones, and various other issues.
 
 I worked out a trivial Calabash monkey-patch to resolve the resetting issue and puzzled though the assumptions causing the rest.
 
@@ -30,7 +30,7 @@ Then there was a similar amount of hair-pulling to arrange that the test user ac
 
 I had an unexpectedly frustrating and drawn-out struggle to get the logging-in automated: despite having been told to log in as a particular user, Apple’s Screen Sharing insists on asking
 
-![Apple Screen Sharing... ORLY!? YARLY!!]({{page.imgdir}}/apple-screen-sharing-really.png) 
+![Apple Screen Sharing... ORLY!? YARLY!!]({{page.imgdir}}/apple-screen-sharing-really.png)
 
 There seems to be no way to forestall that question (such as, adding `?login=1` to the VNC URL), so I ended up trying to run AppleScript from a shell script to respond, and then fighting with the UI Automation security system to authorise it - and losing. I ultimately rewrote the shell script completely in AppleScript - an experience reminiscent of coding 1970s COBOL - and then fighting with the UI Automation security system to authorise that instead - the result is misc/autostart_test_users, mentioned below.
 
@@ -38,7 +38,7 @@ Then I had to find out how to authorise that automatically on each testing host,
 
 The final hurdle was that some of our tests do a little bit of screen-scraping with Sikuli to log in to Facebook. I discovered that we needed to use Java 1.7 (not 1.8) and `set ADK_TOOLKIT=CToolkit` to let a Java program invoked from an ssh context access the desktop.
 
-So now we have a working system, and the maintainer of Parallel Calabash has incorporated the iOS solution into the main branch on GitHub. 
+So now we have a working system, and the maintainer of Parallel Calabash has incorporated the iOS solution into the main branch on GitHub.
 
 ### Setting up
 
@@ -89,3 +89,4 @@ There are a few developments I’m planning to implement:
 * Using TightVNC instead of Apple’s Screen Sharing to enable video capture of each test: if a secondary user tells QuickTime to record, it actually records a garbled version of the primary desktop. I would arrange for TightVNC to encode its own video stream. Currently, we enable video capture only during a re-run of fewer than 40 failures which has been forced into non-parallel mode by using `--device_filter=something-matching-no-device`.
 * While I’m messing about with VNC, I might also investigate a Sikuli-like screen scraping scripting mechanism - since I’ll need to arrange something like that to log in anyway.
 
+<iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/D0i7i2hnoHk" frameborder="0" allowfullscreen></iframe>
