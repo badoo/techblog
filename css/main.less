@@ -344,7 +344,7 @@ body, #container {
 
 #coding-challenge-banner {
     padding-bottom: 2em;
-    position: relative;
+    text-align: center;
 
     h1 {
         margin-bottom: 0px;
@@ -375,12 +375,9 @@ body, #container {
             line-height: 20px;
             margin: 0;
         }
-        a {
-            text-align: center;
-            position: absolute;
-            right: 10px;
-            top: 10px;
 
+        a {
+            margin-top: 10px;
         }
 
         @media all and (max-width: @tablet-width) {
@@ -396,8 +393,6 @@ body, #container {
     }
 
     .posts & {
-        text-align: center;
-
         @media all and (min-width: @desktop-width) {
             float: left;
             width: @fullscreen-post-width;
