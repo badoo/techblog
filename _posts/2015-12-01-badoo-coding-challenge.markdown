@@ -58,11 +58,11 @@ The program should output one line per test case with OK if the provided GCD is 
 
 **Limits**
 
-{% highlight html %}
-T <= 10.
+T <= 10
+
 A, B, G <= 100
+
 A, B, G > 0
-{% endhighlight %}
 
 **Sample input**
 
