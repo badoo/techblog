@@ -24,7 +24,7 @@ The Сoding Сhallenge problems are open to everyone to solve for fun! Take a lo
 
 - Aaj J.
 - Adrian S.
-- Alex C.
+- Alex Car.
 - Alex J.
 - Alexander V.
 - Ivan N.
@@ -38,7 +38,7 @@ The Сoding Сhallenge problems are open to everyone to solve for fun! Take a lo
 - Roma S.
 - Rosa G.
 - Thijs T.
-- Vasiliy S.
+- Vasiliy St.
 - Victor G.
 - Yulia K.
 - Zoltan E.
