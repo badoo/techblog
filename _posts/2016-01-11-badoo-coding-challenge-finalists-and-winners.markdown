@@ -6,9 +6,7 @@ date:   2016-01-11
 categories: miscellaneous
 ---
 
-Thank you to everyone who took part in the Badoo Coding Challenge.
-
-We are very happy to announce the names of our finalists and winners below. We will be in contact with all finalists and winners via email very soon.
+Thank you to everyone who took part in the Badoo Coding Challenge. We are very happy to announce the names of our finalists and winners below. We will be in contact with all finalists and winners via email very soon.
 
 The Сoding Сhallenge problems are open to everyone to solve for fun! Take a look at them here: [https://challenge.badoo.com/archive](https://challenge.badoo.com/archive)
 
