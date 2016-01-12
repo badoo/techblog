@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Badoo Coding Challenge - Finalsts and Winners
+title:  Badoo Coding Challenge - Finalists and Winners
 author: Badoo
 date:   2016-01-11
 categories: miscellaneous
