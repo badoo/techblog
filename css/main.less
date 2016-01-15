@@ -19,7 +19,7 @@
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
 
-@LINE_HEIGHT: 1.6em;
+@LINE_HEIGHT: 1.4em;
 
 @VERTICAL_PADDING: 1em;
 @HORIZONTAL_PADDING: 1em;
@@ -89,7 +89,7 @@ html {
 
 body {
     font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
-    line-height: 1.5em;
+    line-height: @LINE_HEIGHT;
     font-size: 110%;
     color: @BODY_TEXT_COLOR;
 }
@@ -173,6 +173,13 @@ code {
     font-family: Consolas, monospace;
 }
 
+li ul {
+    padding-top: 1em;
+}
+
+p + ul {
+    padding-top: 0;
+}
 
 
 /***********************************************************
@@ -539,7 +546,7 @@ pre {
     margin-bottom: 20px;
 
     .flexbox .summaries & {
-        height: 15em;
+        height: 14em;
     }
 
     .summaries &:nth-child(2n - 1) {
@@ -681,6 +688,10 @@ pre {
 
     li {
         padding-bottom: 0.5em;
+
+        & + li {
+            padding-top: 0.5em;
+        }
     }
 
     p {
