@@ -43,8 +43,10 @@ In iOS it can do the following:
   - Memory leaks are possible in Android, as something may have locked up the previous activity.
     
     It’s a good idea to switch screens while the application is interacting with the network:
-      <br/>1. Incomplete requests should be cancelled;
-      <br/>2. Server response to an invisible (i.e. deleted from the memory) screen should not crash the application.
+    <ul>
+    <li>Incomplete requests should be cancelled;</li>
+    <li>Server response to an invisible (i.e. deleted from the memory) screen should not crash the application.</li>
+    </ul>
     
 9. Don’t overlook testing on [emulators](http://developer.android.com/tools/devices/emulator.html) and [simulators](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/iOS_Simulator_Guide/Introduction/Introduction.html) – those are really convenient and make some test scenarios easier.
 In iOS, for example, this makes testing location changes, background location updates, hotkey memory warning simulations and slowed-down animations much easier. In Android, you can configure exotic hardware settings: screen resolutions, pixel density, RAM size, heap size, and internal and external memory size.
@@ -117,7 +119,7 @@ These tips will help you make progress with mobile apps testing faster and teach
 
 1. Introduce a Pre-QA culture. Prior to sending a ticket to be reviewed, take a seat next to the developer, at their computer, and test the feature with debugger connected for 5-10 minutes. The majority of the silliest mistakes will show up immediately. This will also teach developers the basic testing skills: at worst, they will carry on doing what you showed them to do; and at best, they will dig deeper and start testing more responsibly. No one wants to make silly mistakes in public.
 2. Take at least a quick glance at diffs in every branch/feature, and ask developers as many questions as possible.
-In this way, you increase your authority as a tester: it shows, you are trying to understand the code and areas that are relevant to this feature. To this day, developers sometimes still see mobile app testers as monkeys who just poke at phone screens and juggle with devices to make the app crash. If there are no developers available, you can act as a reviewer. Sometimes a developer, while explaining how a feature works, finds bugs or cases they failed to consider.
+In this way, you increase your authority as a tester: it shows, you are trying to understand the code and areas that are relevant to this feature. To this day, developers sometimes still see mobile app testers as monkeys who just poke at phone screens and juggle with devices to make the app crash. _If there are no developers available, you can act as a reviewer. Sometimes a developer, while explaining how a feature works, finds bugs or cases they failed to consider._
 Secondly, you will gradually learn the programming language and get a better understanding of what’s going on under the hood of the application.
 3. Study the lifecycle of entities in the app (Activity for Android [1](http://developer.android.com/reference/android/app/Activity.html), [2](http://www.vogella.com/tutorials/AndroidLifeCycle/article.html), [3](http://www.codelearn.org/android-tutorial/android-activity); ViewController for iOS [1](https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html), [2](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/), [3](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/)) in order to understand the states into which an app screen and the app itself can transition. The better you know the application/ecosystem from the inside, the better you will be able to test it.
 4. If you have apps for iOS and Android, it is important to keep the right resource balance during testing.
@@ -125,7 +127,7 @@ Secondly, you will gradually learn the programming language and get a better und
 Bugs in applications can result in re-submission, which have predictable consequences. Also be aware that the cost of errors is often lower on the Android platform.
 
   - Android features [staged rollout](https://support.google.com/googleplay/android-developer/answer/3131213?hl=en). You can re-release an Android application the same very day, or even roll back a staged rollout (up to 50% can be completely rolled back to the previous version). But you shouldn’t re-release too often: since users will start complaining and might give you bad reviews.
-  - For iOS, the best way of resubmitting is via expedited [review](https://developer.apple.com/support/app-review/) (you should definitely not abuse this). The application will be re-released:
+  - For iOS, the best way of resubmitting is via [expedited review](https://developer.apple.com/support/app-review/) (you should definitely not abuse this). The application will be re-released:
   - on the same day at the earliest (it usually goes to “in review” on the same day, but won’t be “available for review” until the next day);
   - at worst (if expedited review is not allowed) it can take 5–10 days.
 
@@ -136,9 +138,9 @@ On the otherhand, iOS applications are faster to test, since their ecosystem is 
 1. What if the worst happens when you least expect it, and a non-stable version of the app gets into production? We use a system of update screens to speed up user migration. Such a system can be useful in the following instances:
   - In the case of a critical bug that gets overlooked during development and testing;
   - when we need to update an application to the required version quickly in order to:
-  - launch the feature on all platforms at the same time (it’s also helpful in cases where changes break backward compatibility);
-  - to get faster more consistent A/B testing;
-  - to take pressure off server teams who have to support outdated API versions because a number of users keep using (very) old app versions.
+         - launch the feature on all platforms at the same time (it’s also helpful in cases where changes break backward compatibility);</li>
+         - to get faster more consistent A/B testing;</li>
+         - to take pressure off server teams who have to support outdated API versions because a number of users keep using (very) old app versions.</li>
    
    ### Our update system operates in two modes:
    - **Soft update**, where the screen features “Update” and “Skip” buttons. The screen can be hidden for 24 hours. Also, in this mode you can ask users to enable automatic iOS and Android app updates in system settings, since some users disable automatic updates.
