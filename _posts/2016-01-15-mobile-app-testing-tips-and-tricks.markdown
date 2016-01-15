@@ -138,9 +138,9 @@ On the otherhand, iOS applications are faster to test, since their ecosystem is 
 1. What if the worst happens when you least expect it, and a non-stable version of the app gets into production? We use a system of update screens to speed up user migration. Such a system can be useful in the following instances:
   - In the case of a critical bug that gets overlooked during development and testing;
   - when we need to update an application to the required version quickly in order to:
-         - launch the feature on all platforms at the same time (it’s also helpful in cases where changes break backward compatibility);</li>
-         - to get faster more consistent A/B testing;</li>
-         - to take pressure off server teams who have to support outdated API versions because a number of users keep using (very) old app versions.</li>
+         - launch the feature on all platforms at the same time (it’s also helpful in cases where changes break backward compatibility);
+         - to get faster more consistent A/B testing;
+         - to take pressure off server teams who have to support outdated API versions because a number of users keep using (very) old app versions.
    
    ### Our update system operates in two modes:
    - **Soft update**, where the screen features “Update” and “Skip” buttons. The screen can be hidden for 24 hours. Also, in this mode you can ask users to enable automatic iOS and Android app updates in system settings, since some users disable automatic updates.
