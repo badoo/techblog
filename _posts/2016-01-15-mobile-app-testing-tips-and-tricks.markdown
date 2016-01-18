@@ -149,7 +149,7 @@ On the otherhand, iOS applications are faster to test, since their ecosystem is 
    Not all users are physically able to update apps, so this method will be intentionally disabled in some versions or for some cases. iPhone4 users, for instance, will not be able to upgrade to iOS8, and we are planning to stop iOS7 support of the app.
 2. We need to monitor the following key application metrics on production:
   - *Daily/monthly/*… active users graphs in order to respond to emergencies faster;
-  - Systems to collect and analysecrash logs: [Crashlytics](http://try.crashlytics.com/) (now part of Twitter Fabric), + [HockeyApp](http://hockeyapp.net/features/), [Crittercism](http://www.crittercism.com/), [BugSense](https://mint.splunk.com/) (now part of Splunk);
+  - Systems to collect and analyse crash logs: [Crashlytics](http://try.crashlytics.com/) (now part of Twitter Fabric), [HockeyApp](http://hockeyapp.net/features/), [Crittercism](http://www.crittercism.com/), [BugSense](https://mint.splunk.com/) (now part of Splunk);
   - User feedback systems via an app (built-in feedback forms or email submission) with a way of attaching device descriptions and screenshots;
   - Application usage statistics ([GoogleAnalytics](http://www.google.com/analytics/mobile/), [Flurry](http://www.flurry.com/), [Splunk](https://mint.splunk.com/), [Heatmaps.io](https://www.heatmaps.io/), [MixPanel](https://mixpanel.com/));
   - Digests of downloads, feedback grouping, finding out whether an app has been featured somewhere ([AppAnnie](https://www.appannie.com/), bought by Distimo).
