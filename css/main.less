@@ -181,8 +181,21 @@ p + ul {
     padding-top: 0;
 }
 
-ul ul, ol ul {
+ol ul {
     list-style-type: disc;
+}
+
+ul ul {
+    list-style-type: none;
+
+    > li {
+        text-indent: -1em;
+
+        &:before {
+            content: "+ ";
+            font-weight: bold;
+        }
+    }
 }
 
 /***********************************************************
