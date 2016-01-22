@@ -2,7 +2,7 @@
 layout: post
 title:  Winium.Desktop - Selenium for Windows-based Desktop Applications
 author: Gleb Golovin
-date:   2016-01-20
+date:   2016-01-25
 categories: QA
 ---
 
