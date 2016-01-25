@@ -2,9 +2,6 @@
 @import "syntax.less";
 @import "flexbox.less";
 
-@import url(//fonts.googleapis.com/css?family=Lato:400,700);
-@import url(//fonts.googleapis.com/css?family=Raleway:400,700);
-
 /***********************************************************
                         VARIABLES
 ************************************************************/
@@ -71,6 +68,19 @@
 }
 
 
+// Collapsible helper
+.collapse-next {
+    padding: 10px;
+    border-radius: 5px;
+    background: #f3a500;
+    cursor: pointer;
+
+    & + * {
+        display: none;
+    }
+}
+
+
 
 /***********************************************************
                     BASE STYLES
@@ -88,14 +98,14 @@ html {
 }
 
 body {
-    font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+    font-family: "San Francisco", "Helvetica Neue", Roboto, Helvetica, sans-serif;
     line-height: @LINE_HEIGHT;
     font-size: 110%;
     color: @BODY_TEXT_COLOR;
 }
 
 h1, h2, h3, h4 {
-    font-family: "Raleway", "Helvetica Neue", Helvetica, sans-serif;
+    font-family: "San Francisco", "Helvetica Neue", Roboto, Helvetica, sans-serif;
     font-weight: normal;
 }
 
@@ -195,6 +205,17 @@ ul ul {
             content: "+ ";
             font-weight: bold;
         }
+    }
+}
+
+table {
+    margin: 10px auto;
+    border: 1px solid #888;
+    border-radius: 5px;
+
+    th, td {
+        padding: 5px;
+        border: 1px solid #999;
     }
 }
 
