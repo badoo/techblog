@@ -120,3 +120,5 @@ A further area of exploration is to turn cruncher into a more generic HPROF to B
 1. [http://en.wikipedia.org/wiki/Variable-length_quantity](http://en.wikipedia.org/wiki/Variable-length_quantity)
 2. [http://en.wikipedia.org/wiki/Protocol_Buffers](http://en.wikipedia.org/wiki/Protocol_Buffers)
 
+<iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/3qbSGWbu7QQ" frameborder="0" allowfullscreen></iframe>
+

@@ -2,9 +2,6 @@
 @import "syntax.less";
 @import "flexbox.less";
 
-@import url(//fonts.googleapis.com/css?family=Lato:400,700);
-@import url(//fonts.googleapis.com/css?family=Raleway:400,700);
-
 /***********************************************************
                         VARIABLES
 ************************************************************/
@@ -19,7 +16,7 @@
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
 
-@LINE_HEIGHT: 1.6em;
+@LINE_HEIGHT: 1.4em;
 
 @VERTICAL_PADDING: 1em;
 @HORIZONTAL_PADDING: 1em;
@@ -61,6 +58,28 @@
     padding: @VERTICAL_PADDING @HORIZONTAL_PADDING;
 }
 
+.link-button {
+    background: @LINK_COLOR;
+    border-radius: 2px;
+    color: white;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+}
+
+
+// Collapsible helper
+.collapse-next {
+    padding: 10px;
+    border-radius: 5px;
+    background: #f3a500;
+    cursor: pointer;
+
+    & + * {
+        display: none;
+    }
+}
+
 
 
 /***********************************************************
@@ -79,14 +98,14 @@ html {
 }
 
 body {
-    font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
-    line-height: 1.5em;
+    font-family: "San Francisco", "Helvetica Neue", Roboto, Helvetica, sans-serif;
+    line-height: @LINE_HEIGHT;
     font-size: 110%;
     color: @BODY_TEXT_COLOR;
 }
 
 h1, h2, h3, h4 {
-    font-family: "Raleway", "Helvetica Neue", Helvetica, sans-serif;
+    font-family: "San Francisco", "Helvetica Neue", Roboto, Helvetica, sans-serif;
     font-weight: normal;
 }
 
@@ -112,9 +131,9 @@ h2 {
 }
 
 h3 {
-    font-size: 1.5em;
-    line-height: @LINE_HEIGHT;
-    margin: 0.3em 0;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    margin: 0.1em 0;
 
     + p {
         margin-top: 0;
@@ -164,14 +183,51 @@ code {
     font-family: Consolas, monospace;
 }
 
+li ul {
+    padding-top: 1em;
+}
 
+p + ul {
+    padding-top: 0;
+}
+
+ol ul {
+    list-style-type: disc;
+}
+
+ul ul {
+    list-style-type: none;
+
+    > li {
+        text-indent: -1em;
+
+        &:before {
+            content: "+ ";
+            font-weight: bold;
+        }
+    }
+}
+
+table {
+    margin: 10px auto;
+    border: 1px solid #888;
+    border-radius: 5px;
+
+    th, td {
+        padding: 5px;
+        border: 1px solid #999;
+    }
+}
 
 /***********************************************************
                     MAIN STYLES
 ************************************************************/
+body, #container {
+    background-color: @BODY_BACKGROUND_COLOR;
+}
+
 #container {
     margin: 0 auto;
-    background-color: @BODY_BACKGROUND_COLOR;
 
     &:after {
        content: " ";
@@ -222,6 +278,10 @@ code {
         }
     }
 
+    @media all and (max-width: @mobile-width) {
+        padding: 5px;
+    }
+
 }
 
 #user-nav {
@@ -245,7 +305,7 @@ code {
         display: none;
     }
 
-    a {
+    .icon {
         display: inline-block;
         border: 2px solid white;
         border-radius: 100%;
@@ -281,18 +341,32 @@ code {
         }
     }
 
+    .subscription {
+        &:extend(.link-button);
+    }
+
     @media all and (min-width: @mobile-width) {
         position: absolute;
     }
 
     // arbitrary width to match the width of the navbar to prevent overlapping
-    @media all and (min-width: 550px) {
-        strong {
+    @media all and (min-width: @tablet-width) {
+        strong, .subscription {
+            display: inline-block;
+        }
+    }
+
+    @media all and (max-width: @tablet-width) {
+        .subscription {
             display: inline-block;
         }
     }
 
     @media all and (max-width: @mobile-width) {
+        a + strong {
+            display: inline;
+        }
+
         line-height: 2.1em;
     }
 }
@@ -340,37 +414,42 @@ code {
         width: 100%;
         max-width: @desktop-width;
     }
+
+    .normal-height & {
+        min-height: 0;
+    }
 }
 
 #related-content {
-    .post & {
+    padding: 10px 0;
+
+    .no-related-content & {
+        display: none;
+    }
+
+    .posts & {
         @media all and (min-width: @desktop-width) {
             position: fixed;
             top: 3.9em * 1.2;
             left: 50%;
             width: 320px;
             margin-left: @fullscreen-post-width / 2 + 20px - 320/2;
+            padding: 0 10px;
         }
     }
 }
 
-#jobs {
-    padding: 10px;
+#jobs, #subscription {
+    padding: 10px 0;
     text-align: center;
 
     a {
-        background: @LINK_COLOR;
-        border-radius: 2px;
-        color: white;
-        font-weight: bold;
-        display: block;
-        padding: 10px;
+        &:extend(.link-button);
     }
 }
 
 #recent-posts {
     display: none;
-    padding: 0 1em;
 
     li {
         list-style-type: square;
@@ -384,7 +463,7 @@ code {
         padding-left: 1em;
     }
 
-    .post & {
+    .posts & {
         @media all and (min-width: @desktop-width) {
             display: block;
         }
@@ -392,7 +471,6 @@ code {
 }
 
 #categories {
-    padding: 0 1em;
     max-width: 900px;
     margin: 0 auto;
 
@@ -427,7 +505,7 @@ code {
     }
 
     @media all and (min-width: @desktop-width) {
-        .post & {
+        .posts & {
             background: transparent;
             margin: 0;
 
@@ -446,6 +524,12 @@ code {
     background: @SIDEBAR_BACKGROUND_COLOR;
     clear: both;
     padding-top: 1em;
+
+    .normal-height & {
+        // position: absolute;
+        // bottom: 0;
+        width: 100%;
+    }
 
     p {
         text-align: center;
@@ -499,7 +583,7 @@ pre {
     margin-bottom: 20px;
 
     .flexbox .summaries & {
-        height: 15em;
+        height: 14em;
     }
 
     .summaries &:nth-child(2n - 1) {
@@ -640,7 +724,11 @@ pre {
     }
 
     li {
-        padding-bottom: 1em;
+        padding-bottom: 0.5em;
+
+        & + li {
+            padding-top: 0.5em;
+        }
     }
 
     p {
@@ -677,4 +765,31 @@ a.button {
 
 .video {
     width: 100%;
+}
+
+/**
+ * Mailchip Signup Styles
+ */
+
+#mc_embed_signup {
+    margin-bottom: 20px;
+
+    label {
+        display: block;
+        padding: 10px 0;
+    }
+}
+
+#mce-EMAIL, #mce-FNAME {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#mc-embedded-subscribe {
+    &:extend(.link-button);
+    border: 0;
+    width: 100%;
+    margin-top: 30px;
 }

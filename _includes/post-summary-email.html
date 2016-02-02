@@ -1,0 +1,10 @@
+<div class="post-summary">
+    <a href="{{ post.url }}" class="post-author-image"><img src="{{ site.url }}/images/authors/{{ post.author | downcase | replace:' ','-' }}.jpeg"></a>
+    <div class="post-header">
+        <h4 class="post-title"><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h4>
+        <p class="post-meta">By
+            <a class="post-author" href="{{ site.url }}/authors/{{ post.author | downcase | replace:' ','-' }}">{{ post.author }}</a> on <span class="post-date">{{ post.date | date_to_string }}</span>
+        </p>
+    </div>
+    <a href="{{ site.url}}{{ post.url }}" class="post-excerpt">{{ post.excerpt | markdownify | strip_html | truncatewords: 50 | replace:'...','&#8230;'}}</a>
+</div>

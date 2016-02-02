@@ -17,6 +17,11 @@
     <meta property="og:description" content="{% if page.summary %}{{ page.summary }}{% else %}{{ site.description }}{% endif %}">
     <meta property="og:url" content="{{ site.url }}{{ page.url }}"/>
 
+    <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+    <meta name="theme-color" content="#000000">
+
     {% if page.author && page.categories %}
         <meta property="og:type" content="article"/>
         <meta property="article:published_time" content="{{ page.date | date: "%Y-%m-%d" }}"/>
@@ -54,10 +59,11 @@
 
             <div id="user-nav">
                 <strong>Follow Us:</strong>
-                <a class="twitter" target="_blank" href="https://twitter.com/badootech" title="Twitter">Twitter</a>
-                <a class="facebook" target="_blank" href="https://www.facebook.com/badootech" title="Facebook">Facebook</a>
-                <a class="github" target="_blank" href="https://github.com/badoo" title="Github">Github</a>
-                <a class="email" target="_blank" href="mailto:techblog@corp.badoo.com" title="Email">Email</a>
+                <a class="icon twitter" target="_blank" href="https://twitter.com/badootech" title="Twitter">Twitter</a>
+                <a class="icon facebook" target="_blank" href="https://www.facebook.com/badootech" title="Facebook">Facebook</a>
+                <a class="icon github" target="_blank" href="https://github.com/badoo" title="Github">Github</a>
+                <strong> or </strong>
+                <a class="subscription" href="/subscribe">Subscribe</a>
             </div>
         </header>
 
@@ -83,18 +89,24 @@
                     <h3>Categories</h3>
                     <ul>
                     {% for category in site.categories %}
-                        <li><a href="/categories/{{ category[0] }}">{{ category[0] | replace:'-',' ' | capitalize | replace:'Ios':'iOS' | replace:'Qa':'QA' | replace:'Css':'CSS'}}</a></li>
+                        <li><a href="/categories/{{ category[0] }}">{{ category[0] | replace:'-',' ' | capitalize | replace:'Ios':'iOS' | replace:'Qa':'QA' | replace:'Css':'CSS' | replace:'Php':'PHP'}}</a></li>
                     {% endfor %}
                     </ul>
                 </section>
+
+                <section id="subscription">
+                    <a href="/subscribe">Subscribe to our newsletter</a>
+                </section>
+
             </section>
 
         </section>
 
         <footer id="page-footer">
             <p class="legal">
-                <a href="/privacy-policy.html">Privacy</a>
-                <a href="/terms-and-conditions.html">Terms</a>
+                <a href="/privacy-policy">Privacy</a>
+                <a href="/terms-and-conditions">Terms</a>
+                <a href="http://badoo.us9.list-manage.com/unsubscribe?u=3a0c86d05c387877c15dd82c5&id=efd982ea92">Unsubscribe</a>
             </p>
             <p>&copy; Badoo {{ 'now' | date: "%Y" }}</p>
         </footer>
@@ -116,21 +128,32 @@
 
     <script async src="/js/modernizr.js"></script>
 
+    <!-- Basic helpers -->
+    <script>
+        (function () {
+            if (document.querySelectorAll && 'classList' in Element.prototype) {
+
+                Array.prototype.slice.call(document.querySelectorAll('.collapse-next')).forEach(function (element) {
+                    element.addEventListener('click', function () {
+                        element.remove();
+                    });
+                });
+            }
+        })();
+    </script>
+
     <!-- Disqus Comment Count -->
     <script type="text/javascript">
-
         (function () {
             var s = document.createElement('script'); s.async = true;
             s.type = 'text/javascript';
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
-
     </script>
 
     <!-- Google Analytics -->
     <script type="text/javascript">
-
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -138,7 +161,6 @@
 
         ga('create', '{{ site.google_analytics.code }}', '{{ site.google_analytics.domain }}');
         ga('send', 'pageview');
-
     </script>
 
     <!-- Facebook SDK -->
