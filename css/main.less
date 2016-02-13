@@ -124,6 +124,7 @@ h2 {
     font-size: 1.4em;
     line-height: @LINE_HEIGHT * 0.7;
     font-weight: bold;
+    margin: 1.5em 0 1em;
 
     @media all and (max-width: @tablet-width) {
         font-size: 1.2em;
@@ -133,7 +134,7 @@ h2 {
 h3 {
     font-size: 1.2em;
     line-height: 1.4em;
-    margin: 0.1em 0;
+    margin: 0 0 0.5em;
 
     + p {
         margin-top: 0;
@@ -164,6 +165,12 @@ h1, h2, h3, h4 {
     a, a:hover {
         color: @BODY_TEXT_COLOR;
     }
+}
+
+img + em {
+    display: block;
+    text-align: center;
+    font-size: 0.8em;
 }
 
 blockquote {
@@ -561,9 +568,10 @@ body, #container {
 
 pre {
     white-space: pre;
-    overflow: auto;
+    overflow: scroll;
     margin: 0;
     line-height: 1em;
+    word-wrap: normal;
 }
 
 .post-summary {
@@ -645,6 +653,10 @@ pre {
     h2 {
         margin: 0;
         padding-right: 60px;
+
+        @media all and (max-width: @tablet-width) {
+            margin-top: 1em;
+        }
     }
 }
 
@@ -660,7 +672,7 @@ pre {
 
 .post-tags {
     padding-left: 0;
-    margin: 2em 0 0 0;
+    margin: 1em 0 0 0;
 
     li {
         display: inline-block;
