@@ -2,31 +2,33 @@
 layout: post
 title:  Winium - now for Windows Phone
 author: Nick Abalov
-date:   2016-02-13
+date:   2016-02-17
 categories: QA
-excerpt: There are no convenient open source automated testing tools for Windows Phone and Windows, which could easily be adapted to our needs. The existing tools are proprietary, have limitations and suggest their own approach that would differ from conventional standards like Selenium WebDriver.
+excerpt: There are no convenient open source automated testing tools for Windows Phone and Windows. The existing tools are proprietary, have limitations and suggest their own approach that would differ from conventional standards like Selenium WebDriver. In this post we will present Selenium compatible open source tools for Windows Phone automation.
 ---
+
+We're delighted to announce that we are publishing guest writer, Nick Abalov's first article on our blog. Nick has been kind enough to share his work with us.
 
 <img class="no-box-shadow" src="{{page.imgdir}}/intro.png" title="Winium.Desktop"/>
 
-There are no convenient open source automated testing tools for Windows Phone and Windows, which could easily be adapted to our needs. The existing tools are proprietary, have limitations and suggest their own approach that would differ from conventional standards like Selenium WebDriver.
+There are no convenient open source automated testing tools for Windows Phone and Windows. The existing tools are proprietary, have limitations and suggest their own approach that would differ from conventional standards like Selenium WebDriver. In this post we will present Selenium compatible open source tools for Windows Phone automation.
 
-A colleague of mine, [skyline-gleb](http://habrahabr.ru/users/skyline-gleb/), has recentlypublished a post on [Badoo Tech](https://techblog.badoo.com/blog/2016/01/25/winium-desktop-selenium-for-windows-based-desktop-applications/) and [Habrahabr](http://habrahabr.ru/company/2gis/blog/263347/) about our own Selenium-like tool for automated functional testing for Windows-based desktop applications. At the same time we were also developing a similar tool for Microsoft mobile platforms.
+A colleague of mine, [skyline-gleb](http://habrahabr.ru/users/skyline-gleb/), has recently published a post on [Badoo Tech](https://techblog.badoo.com/blog/2016/01/25/winium-desktop-selenium-for-windows-based-desktop-applications/) and [Habrahabr](http://habrahabr.ru/company/2gis/blog/263347/) about our own Selenium-like tool for automated functional testing for Windows-based desktop applications. At the same time we were also developing a similar tool for Microsoft mobile platforms.
 
 This article will tell you about the story behind this tool, advantages of a single automated testing platform for all mobile platforms, and about how to implement it within your projects.
 
 Let me provide you with some background.
 
-- October 2010. Windows Phone 7 was released. A year later Expensify releases [WindowsPhoneTestFramework](https://github.com/Expensify/WindowsPhoneTestFramework) to open source a BDD tool to test native applications.
-- October 2012. Windows Phone 8 was released. Microsoft still failed to release a tool for testing via UI.
+- October 2010. Windows Phone 7 was released. A year later Expensify released [WindowsPhoneTestFramework](https://github.com/Expensify/WindowsPhoneTestFramework) – an open source BDD tool to test native applications.
+- October 2012. Windows Phone 8 was released. Microsoft still did not release a tool for testing via UI.
 - February—March 2014. We published the first prototype of WinphoneDrvier, the first open source Selenium implementation for native Silverlight Windows Phone-based applications.
 - In April 2014 Microsoft released Windows Phone 8.1. Almost 4 years later than expected, they released official tools to test Windows Phone-based applications via UI: CodedUI. Unfortunately, this tool is not compatible with Selenium, and it is only available in the most expensive Visual Studio subscriptions.
 - In May 2014 Salesforce.com published [windowsphonedriver](https://github.com/forcedotcom/windowsphonedriver/) (Selenium implementation to test web applications for Windows Phone) as open source. At almost the same time we have updated our driver to support Windows 8.1.
 - In February 2015 we published Winium.StoreApps as open source. It is an updated version of winphonedriver that implements a fair share of protocol commands and supports native StoreApps applications for Windows Phone 8.1. This is the driver we use in our processes.
 
-Right afterwards we presented our tools on [Codefest 2015](http://2015.codefest.ru/lecture/1024). We had an informal talk there with [Sathish Gogineni](https://techblog.badoo.com/authors/sathish-gogineni/) from Badoo that developed into an idea of Winium CodedUi, implementation of a Selenium driver based on CodedUI that would support native and hybrid applications, and—last but not least—direct tests on devices.
+Right afterwards we presented our tools on [Codefest 2015](http://2015.codefest.ru/lecture/1024). We had an informal talk there with [Sathish Gogineni](https://techblog.badoo.com/authors/sathish-gogineni/) from Badoo that developed into an idea of Winium CodedUI, implementation of a Selenium driver based on CodedUI that would support native and hybrid applications, and—last but not least—direct tests on devices.
 
-When the project started there was only one open tool: [Expensify/WindowsPhoneTestFramework](https://github.com/Expensify/WindowsPhoneTestFramework). It did not suit us because it was incompatible with Selenium and had a non-standard API. Apart from that, it is customised to BDD. In the course of our project development Microsoft implemented their own tool version—CodedUI. Again, it had its own non-standard API, was customised for coding tests in Visual Studio on C#, was closed source and not free (which is not easy to scale).
+When the project started there was only one open tool: [Expensify/WindowsPhoneTestFramework](https://github.com/Expensify/WindowsPhoneTestFramework). It did not suit us because it was incompatible with Selenium and had a non-standard API. Apart from that, it is customised to BDD. In the course of our project development Microsoft implemented their own tool called CodedUI. Again, it had its own non-standard API, was customised for coding tests in Visual Studio on C#, was closed source and not free (which is not easy to scale).
 
 So, that was a bit of a retrospective journey. Back to Winium. Since the tools we mentioned did not suit us, we decided to make a tool of our own. That is how the [Winium](https://github.com/2gis/Winium) project was born. It started as a tool of automated testing for Windows Phone Silverlight applications and soon turned into a comprehensive set of automated testing tools for a Windows platform:
 
