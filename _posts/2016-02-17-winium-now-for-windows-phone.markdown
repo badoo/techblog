@@ -7,7 +7,7 @@ categories: QA
 excerpt: There are no convenient open source automated testing tools for Windows Phone and Windows. The existing tools are proprietary, have limitations and suggest their own approach that would differ from conventional standards like Selenium WebDriver. In this post we will present Selenium compatible open source tools for Windows Phone automation.
 ---
 
-We're delighted to announce that we are publishing guest writer, Nick Abalov's first article on our blog. Nick has been kind enough to share his work with us.
+We're happy to announce that we are publishing guest writer, Nick Abalov's first article on our blog. Nick has been kind enough to share his work with us.q
 
 <img class="no-box-shadow" src="{{page.imgdir}}/intro.png" title="Winium.Desktop"/>
 
