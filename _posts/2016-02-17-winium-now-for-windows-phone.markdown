@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Winium - now for Windows Phone
+title:  Winium - Now for Windows Phone
 author: Nick Abalov
 date:   2016-02-17
 categories: QA
@@ -13,7 +13,7 @@ We're delighted to announce that we are publishing guest writer, Nick Abalov's f
 
 There are no convenient open source automated testing tools for Windows Phone and Windows. The existing tools are proprietary, have limitations and suggest their own approach that would differ from conventional standards like Selenium WebDriver. In this post we will present Selenium compatible open source tools for Windows Phone automation.
 
-A colleague of mine, [skyline-gleb](http://habrahabr.ru/users/skyline-gleb/), has recently published a post on [Badoo Tech](https://techblog.badoo.com/blog/2016/01/25/winium-desktop-selenium-for-windows-based-desktop-applications/) and [Habrahabr](http://habrahabr.ru/company/2gis/blog/263347/) about our own Selenium-like tool for automated functional testing for Windows-based desktop applications. At the same time we were also developing a similar tool for Microsoft mobile platforms.
+A colleague of mine, [skyline-gleb](http://habrahabr.ru/users/skyline-gleb/), has recently published a post on [Badoo Tech](https://techblog.badoo.com/blog/2016/01/25/winium-desktop-selenium-for-windows-based-desktop-applications/) about our own Selenium-like tool for automated functional testing for Windows-based desktop applications. At the same time we were also developing a similar tool for Microsoft mobile platforms.
 
 This article will tell you about the story behind this tool, advantages of a single automated testing platform for all mobile platforms, and about how to implement it within your projects.
 
@@ -26,9 +26,9 @@ Let me provide you with some background.
 - In May 2014 Salesforce.com published [windowsphonedriver](https://github.com/forcedotcom/windowsphonedriver/) (Selenium implementation to test web applications for Windows Phone) as open source. At almost the same time we have updated our driver to support Windows 8.1.
 - In February 2015 we published Winium.StoreApps as open source. It is an updated version of winphonedriver that implements a fair share of protocol commands and supports native StoreApps applications for Windows Phone 8.1. This is the driver we use in our processes.
 
-Right afterwards we presented our tools on [Codefest 2015](http://2015.codefest.ru/lecture/1024). We had an informal talk there with [Sathish Gogineni](https://techblog.badoo.com/authors/sathish-gogineni/) from Badoo that developed into an idea of Winium CodedUI, implementation of a Selenium driver based on CodedUI that would support native and hybrid applications, and—last but not least—direct tests on devices.
+Right afterwards we presented our tools on [Codefest 2015](http://meetupvideo.com/2015/09/09/windows-phone-automation-and-windows-desktop-automation-from-nikolai-abalov/). We had an informal talk there with [Sathish Gogineni](https://techblog.badoo.com/authors/sathish-gogineni/) from Badoo that developed into an idea of Winium CodedUI, implementation of a Selenium driver based on CodedUI that would support native and hybrid applications, and—last but not least—direct tests on devices.
 
-When the project started there was only one open tool: [Expensify/WindowsPhoneTestFramework](https://github.com/Expensify/WindowsPhoneTestFramework). It did not suit us because it was incompatible with Selenium and had a non-standard API. Apart from that, it is customised to BDD. In the course of our project development Microsoft implemented their own tool called CodedUI. Again, it had its own non-standard API, was customised for coding tests in Visual Studio on C#, was closed source and not free (which is not easy to scale).
+When the project started there was only one open tool: [Expensify/WindowsPhoneTestFramework](https://github.com/Expensify/WindowsPhoneTestFramework). It did not suit us because it was incompatible with Selenium, had a non-standard API and was developed for BDD approach. Apart from that, it is customised to BDD. In the course of our project development Microsoft implemented their own tool called CodedUI. Again, it had its own non-standard API, was customised for coding tests in Visual Studio on C#, was closed source and not free (which is not easy to scale).
 
 So, that was a bit of a retrospective journey. Back to Winium. Since the tools we mentioned did not suit us, we decided to make a tool of our own. That is how the [Winium](https://github.com/2gis/Winium) project was born. It started as a tool of automated testing for Windows Phone Silverlight applications and soon turned into a comprehensive set of automated testing tools for a Windows platform:
 
@@ -39,6 +39,8 @@ So, that was a bit of a retrospective journey. Back to Winium. Since the tools w
 - [Winium.Cruciatus](https://github.com/2gis/Winium.Cruciatus): a library to automate Windows Desktop applications
 
 We have already discussed Winium.Desktop and Winium.Cruciatus on Habrahabr and Badoo tech blog posts. Today we will discuss Winium for Store Apps (descendant of Windows Phone Driver) and about Winium.StoreApps.CodedUi.
+
+<br/>
 
 # Winium.StoreApps
 
@@ -63,6 +65,8 @@ Limitations:
 
 Winium.StoreApps supports all main commands of Selenium, and it can be integrated into an existing infrastructure for testing (Selenium- or Appium-based). Generally, one can actively use it in a continuous process (that’s what we are doing).
 
+<br/>
+
 ## How it all works.
 
 Technically, Winium.StoreApps.Driver.exe is an HTTP server that implements JsonWire/WebDriver REST protocol. When necessary, Driver proxies the incoming commands to InnerServer (a test automation server) that is integrated into the application to be tested.
@@ -85,6 +89,8 @@ This is an easy one: we add a [Winium.StoreApps.InnerServer](https://www.nuget.o
 Then it would be really nice to enable testability of the app by specifying names and identifiers for the elements you are planning to use in test (this is not mandatory, however).
 
 That’s it. The only thing you need to do now is to create an appx package with your application.
+
+<br/>
 
 ### Coding tests
 
@@ -124,7 +130,7 @@ In order to enable the search of locators and comprehension of UI structure of t
 <img class="no-box-shadow" src="{{page.imgdir}}/2.png" title="Inspector’s main window"/>
 *Inspector’s main window*
 
-There is not much the inspector can do now, but look at a screenshot, at a UI tree as seen by a driver, know the elements locators and their basic properties, like position, visibility and text.
+There is not much the inspector can do now, but it does provide some basics like screenshot, UI tree as seen by a driver with all known elements, locators and their basic properties, like position, visibility and text this should help to get started with writing tests.
 
 Ok, we have found the element. Now we can fiddle with it in any way we please.
 
