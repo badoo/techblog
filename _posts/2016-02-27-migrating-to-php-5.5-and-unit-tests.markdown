@@ -90,7 +90,9 @@ If all is ok, our suite (consisting of 28 000 unit tests) is completed in 1 minu
 
 The unit test launcher became the first script to be moved onto the cloud. It helped to troubleshoot multiple bugs and faults in the cloud itself, which added to much higher speed of unit tests’ completion.
 
-#### Summary
+<br/>
+
+**Summary**
 
 Migration to PHP 5.5 has allowed us to use new features of the language, has greatly reduced CPU load on our servers (average of 25% reduction) and moved our unit test launcher to the cloud. The last action let us reduce the total test timing from 5-6 minutes (and from dozens of minutes on PHP 5.5) to one minute, shifting the load from the general dev-server to the cloud.
 
