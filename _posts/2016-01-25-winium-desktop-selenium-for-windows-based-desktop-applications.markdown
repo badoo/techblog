@@ -6,6 +6,7 @@ date:   2016-01-25
 categories: QA
 excerpt: Hi there. My name is Gleb, and I do test automation in 2GIS. Over a year ago I published an article about one of our tools Cruciatus. We use it to test user interface for Windows-based desktop applications.
 ---
+We're delighted to announce that we are publishing guest writer, Gleb Golovin's first article on our blog. Gleb has been kind enough to share his work with us.
 
 <img class="no-box-shadow" src="{{page.imgdir}}/intro.jpg" title="Winium.Desktop"/>
 
