@@ -4,7 +4,7 @@ title:  iOS Architecture Patterns
 author: Bohdan Orlov
 date:   2016-03-07
 categories: iOS
-excerpt: Four years have passed since our migration from PHP 4.4 to PHP 5.3 at Badoo. It is high time to upgrade to a newer PHP, PHP 5.5. We’ve had many reasons to upgrade, apart from a number of new features, PHP 5.5 has greatly increased performance.
+excerpt: Feeling weird while doing MVC in iOS? Have doubts about switching to MVVM? Heard about VIPER, but not sure if it worth it? Keep reading to find the answers to questions above.
 ---
 *FYI: Slides from my presentation at NSLondon are available <a href="http://slides.com/borlov/arch/fullscreen#/" target="_blank">here</a>.*
 
