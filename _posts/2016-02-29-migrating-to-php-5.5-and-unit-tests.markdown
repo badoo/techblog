@@ -2,7 +2,7 @@
 layout: post
 title:  Migrating to PHP 5.5 and Unit Tests
 author: Yuriy Nasretdinov
-date:   2016-02-29
+date:   2014-02-29
 categories: PHP
 excerpt: Four years have passed since our migration from PHP 4.4 to PHP 5.3 at Badoo. It is high time to upgrade to a newer PHP, PHP 5.5. We’ve had many reasons to upgrade, apart from a number of new features, PHP 5.5 has greatly increased performance.
 ---
