@@ -1,14 +1,15 @@
 ---
 layout: post
 title:  How Badoo saved one million dollars switching to PHP7
-author: Alexey Rybak
+author: Badoo
 date:   2016-03-14
 categories: PHP
 excerpt: We did it! Hundreds of our application servers are now running on PHP7 and doing just fine. By all accounts, ours is only the second project of this scale (after Etsy) to switch to PHP7.
 ---
-<img class="no-box-shadow" src="{{page.imgdir}}/5.jpg"/>
-
 ## Introduction
+
+<img class="no-box-shadow" src="{{page.imgdir}}/5.jpg" style="float:left; width: 40%; margin-right: 10px;"/>
+
 We did it! Hundreds of our application servers are now running on PHP7 and doing just fine. By all accounts, ours is only the second project of this scale (after Etsy) to switch to PHP7. During the process of switching over we found a couple bugs in the PHP7 bytecode cache system, but thankfully it’s all fixed now. Now we're excited to share our good news with the whole PHP community: PHP7 is completely ready for production, stable, significantly reduces memory consumption, and improves performance dramatically.
 
 In this article, we'll discuss the process of switching over to PHP7 in detail, explaining what difficulties we encountered, how we dealt with them, and what the final results were. But first let's step back a bit and look at some of the broader issues:
@@ -112,7 +113,7 @@ Though we don't have space to go into much detail about SoftMocks in this articl
 - Custom code is connected through the rewrite wrapper function. Then all include operators are automatically overridden as wrappers.
 - Checks for existing overrides are added inside every custom method definition. If they exist, then the corresponding code is executed. Direct function calls are replaced by calls through the wrapper; this lets us catch both built-in and custom functions.
 - Calls to the wrapper dynamically override access to constants in the code.
-- SoftMocks works with Nikita Popova's PHP-Parser: <a href="https://github.com/nikic/PHP-Parser" target="_blank">https://github.com/nikic/PHP-Parser</a>. This library isn't very fast (parsing is about 15 times slower than token_get_all), but the interface lets you bypass the parse tree and includes a convenient API for handling syntactic constructions of indeterminate difficulty.
+- SoftMocks works with Nikita Popova's <a href="https://github.com/nikic/PHP-Parser" target="_blank">PHP-Parser</a>: This library isn't very fast (parsing is about 15 times slower than token_get_all), but the interface lets you bypass the parse tree and includes a convenient API for handling syntactic constructions of indeterminate difficulty.
 
 Now to get back to the main point of this article: the switch to PHP7. After switching the project over to SoftMocks, we still had about 1000 tests that we had to fix manually. You could say that this wasn't a bad result, given that we started with 60,000 tests. By comparison with runkit, test run speeds didn't decrease, so there are no performance issues with SoftMocks. To be fair, we should note that uopz is supposed to work significantly faster.
 
@@ -169,3 +170,5 @@ With all this in place, process time was cut in half, which improved overall res
 So how much money did we save? Let's tally it up! An app server cluster at Badoo consists of a bit more than 600 servers. By cutting CPU usage in half, we free up around 300 servers. If you consider the initial price of this hardware is ~$4K and factor in depreciation, then it works out to about a million dollars in savings plus $100,000 a year in hosting! And this doesn't even take the cloud into consideration, which also saw a performance boost. Thus we are very pleased with the results.
 
 Have you also made the switch to PHP7? We'd like to hear your opinion and will be happy to answer questions left in the commentary.
+
+**Badoo Team**
