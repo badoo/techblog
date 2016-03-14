@@ -78,7 +78,7 @@ Given that we use a lot of in-house extensions, many of which deal particularly 
 
 One of his first questions was "Did you clear the cache?" We explained that we had, in fact, cleared the cache every time. At that point, we realized that the problem was not on our end, but with OpCache. We quickly reproduced the case, which helped us to replay and fix the problem within a few days. Without this fix that came out in the 7.0.4 version, it wouldn't have been possible to put PHP7 into stable production.
 
-##Changes to testing infrastructure
+## Changes to testing infrastructure
 
 We take special pride in the testing we do at Badoo. We deploy server PHP code to production two times a day, and every deploy contains 20-50 tasks (we use feature branches in git and automated builds with tight JIRA integrations). Given this schedule and task volume, there's no way we could go without autotests. Currently, we have around 60 thousand unit tests with about 50% coverage, which run for an average of 2-3 minutes in the cloud (see our <a href="https://techblog.badoo.com/blog/2016/02/29/migrating-to-php-5.5-and-unit-tests/" target="_blank">article</a> for more). In addition to unit tests, we use higher-level autotests, integration and system tests, selenium tests for web pages, and calabash tests for mobile apps. Taken as a whole, this allows us to quickly reach conclusions about the quality of each concrete version of code and apply the appropriate solution.
 
@@ -101,6 +101,7 @@ Given that we had to rewrite a lot of code no matter what, and were dependent on
 The system got the name "SoftMocks", with "soft" highlighting the fact that the system works on clean PHP without the use of extensions. The project is <a href="https://github.com/badoo/soft-mocks/" target="_blank">open source</a> and is available in the form of an add-on library. SoftMocks is not tied up with the particulars of PHP engine implementation and works by rewriting code "on the fly", analogously to the <a href="https://github.com/goaop/framework" target="_blank">Go AOP! framework</a>.
 
 Tests in our code primarily use the following:
+
 1. Implementation override of one of the class methods
 2. Function execution result override
 3. Changing the value of global constants or class constants
