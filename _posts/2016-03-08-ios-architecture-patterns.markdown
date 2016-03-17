@@ -524,3 +524,5 @@ Therefore, it is natural to have a mix of architectures in the same app. For exa
 ### *Make everything as simple as possible, but not simpler — Albert Einstein*
 
 Thank you for reading! If you liked this article, please hit ‘Recommend’ (the ❤ button) or leave a comment :)
+
+<iframe class="video" width="560" height="315" src="https://player.vimeo.com/video/153520720" frameborder="0" allowfullscreen></iframe>
