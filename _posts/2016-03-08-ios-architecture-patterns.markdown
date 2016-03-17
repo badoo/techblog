@@ -88,7 +88,6 @@ Having entities divided allows us to:
 Before discussing Apple’s vision of MVC let’s have a look at the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">traditional one</a>.
 
 <img class="no-box-shadow" src="{{page.imgdir}}/2.png" title="Traditional MVC"/>
-
 *<center> Traditional MVC </center>*
 
 In this case, the **View** is stateless. It is simply rendered by the **Controller** once the **Model** is changed. Think of a web page, it completely reloads once you press on the link to navigate somewhere else. Although it is possible to implement the traditional MVC in iOS application, it doesn’t make much sense due to the architectural problem  -  all three entities are tightly coupled, each entity **knows** about the other two. This dramatically reduces reusability of each of them , which is not what you want to have in your application. For this reason, we skip even trying to write a canonical MVC example.
