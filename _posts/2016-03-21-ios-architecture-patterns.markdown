@@ -2,7 +2,7 @@
 layout: post
 title:  iOS Architecture Patterns
 author: Bohdan Orlov
-date:   2016-03-07
+date:   2016-03-21
 categories: iOS
 excerpt: Feeling weird while doing MVC in iOS? Have doubts about switching to MVVM? Heard about VIPER, but not sure if it worth it? Keep reading to find the answers to questions above.
 ---
