@@ -151,10 +151,10 @@ All in all, we feel that the program has proved very rewarding and effective. We
 
 We'd love for you to participate in our program and apply your skills to seeking out bugs on the sites and apps of other companies. The process itself is often very entertaining and you will not only come away from it with newly-acquired knowledge, but also some extra cash. We pay in pounds sterling and recently increased the prize amount substantially.
 
-The best way to send us bug or vulnerability reports is through the <a ref="https://hackerone.com/badoo" target="_blank"> Hackerone</a> platform. Happy bug hunting!
+The best way to send us bug or vulnerability reports is through the <a href="https://hackerone.com/badoo" target="_blank"> Hackerone</a> platform. Happy bug hunting!
 
 **Ilya Ageev,**<br/>Head of QA, Badoo.
 
-PS: While we were writing this article, <a ref="https://hackerone.com/badoo" target="_blank">Hackerone</a> let us know about more interesting vulnerabilities, which we’ll let you know about in a later post.
+PS: While we were writing this article, <a href="https://hackerone.com/badoo" target="_blank">Hackerone</a> let us know about more interesting vulnerabilities, which we’ll let you know about in a later post.
 
 <img class="no-box-shadow" src="{{page.imgdir}}/10.png"/>
