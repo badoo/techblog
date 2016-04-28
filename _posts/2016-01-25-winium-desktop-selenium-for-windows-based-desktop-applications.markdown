@@ -4,17 +4,17 @@ title:  Winium.Desktop - Selenium for Windows-based Desktop Applications
 author: Gleb Golovin
 date:   2016-01-25
 categories: QA
+excerpt: Hi there. My name is Gleb, and I do test automation in 2GIS. Over a year ago I published an article about one of our tools Cruciatus. We use it to test user interface for Windows-based desktop applications.
 ---
-
-Hi there. My name is Gleb, and I do test automation in 2GIS. Over a year ago I published an article about one of our tools ([Cruciatus](http://habrahabr.ru/company/2gis/blog/220337/)). We use it to test user interface for Windows-based desktop applications.
+We're delighted to announce that we are publishing guest writer, Gleb Golovin's first article on our blog. Gleb has been kind enough to share his work with us.
 
 <img class="no-box-shadow" src="{{page.imgdir}}/intro.jpg" title="Winium.Desktop"/>
+
+Hi there. My name is Gleb, and I do test automation in 2GIS. Over a year ago I published an article about one of our tools ([Cruciatus](http://habrahabr.ru/company/2gis/blog/220337/)). We use it to test user interface for Windows-based desktop applications.
 
 Cruciatus perfectly solves the problem of access to controls, but the tests, however, has to be written in C#. This interferes with sharing knowledge and experience among testers for various platforms: mobile, web and desktop.
 
 We have found our solution in Selenium, which is probably the best known tool for automated testing. In this article I will tell you about our experience in crossbreeding Cruciatus and Selenium, and about testing Windows-based desktop applications using well-known Selenium bindings.
-
-<br/>
 
 ## Why was Cruciatus not enough
 Almost all teams that were dealing with internal 2GIS products used Cruciatus. Each of the teams suggested improvements for the tool. So, in order to please everyone, we have reworked the Cruciatus logic completely, together with ruining its reverse compatibility. It was painful, but useful.
@@ -22,8 +22,6 @@ Almost all teams that were dealing with internal 2GIS products used Cruciatus. E
 Besides, we have abandoned Mouse and Keyboard classes from CodedUI in order to eliminate dependence on libraries that are delivered together with Visual Studio. It means that we have learned to assemble a project on public CI servers like [AppVeyor](http://www.appveyor.com/).
 
 As a result, we have created a convenient and a self-contained tool that solves all our problems with access to Windows-based desktop applications. However, Cruciatus still has one crucial limitation, namely C# dictatorship.
-
-<br/>
 
 ## Coming to Selenium
 Selenium is a set of tools and libraries to automate testing apps in browsers. The core of a Selenium project is [Json Wire Protocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol)(JSWP), a single REST protocol of interaction among tests and the app being tested.
@@ -36,8 +34,6 @@ Benefits of the single protocol:
 
 We decided to use these advantages to automate testing desktop applications in the same manner as we use them for web.
 
-<br/>
-
 ## What is Winium.Desktop?
 In order to avoid C# dictatorship, we have made a Selenium-compatible wrapper for Cruciatus. At the same time our company was busy creating Selenium-compatible tools for automatic tests, which would run with mobile Windows applications. We have united our insights under the name of Winium and called our tool Winium.Desktop.
 
@@ -47,8 +43,6 @@ Technically, Winium.Desktop is an http client. It implements JSWP protocol and u
 
 We use regular Selenium bindings with Winium.Desktop in order to test Windows-based desktop applications.
 
-<br/>
-
 ## Working with Winium.Desktop
 In order to start working with Winium.Desktop you should download [the latest driver release from github](https://github.com/2gis/Winium.Desktop/releases/tag/v1.5.0) and run it as administrator. This is not a mandatory provision, but otherwise you might run into an ‘Access denied’ message either from OS or from the application itself.
 
@@ -57,8 +51,6 @@ It’s all ready to go. Pick your favourite language and favourite IDE now and c
 The only difference from testing web applications is the following: in order to get to know elements’ locators one should use tools like UISpy or UI Automation Verify. We’ll discuss them in details below.
 
 When you start the tests, don’t move your mouse and your keyboard: you move the cursor, the focus shifts, and the automated magic won’t work.
-
-<br/>
 
 ## What a driver can do
 In our Json Wire Protocol implementation we were guided by two drafts of a protocol that are used by WebDriver: [JsonWireProtocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol) and a newer [webdriver-spec](https://w3c.github.io/webdriver/webdriver-spec.html).
@@ -140,8 +132,6 @@ driver.Quit();
 
 You can get more detailed information about the supported commands on our wiki, which is located in the project repository.
 
-<br/>
-
 ## Working with elements
 In order to control elements in tests one should be able to find them first. The elements are searched by locators (properties that are unique to elements).
 
@@ -207,8 +197,6 @@ actions.perform()
 {% endraw %}
 {% endhighlight %}
 
-<br/>
-
 ## Continuous Integration for Winium.Desktop tests
 Tests that are run by a Winium.Desktop driver are included into a CI project in a standard manner. A real or a virtual machine is necessary for that. When setting up a machine for CI one should follow some formalities.
 
@@ -219,8 +207,6 @@ Second, you must keep the desktop active. In order to do that you should set up 
 Third, your build server agent must run as a process, not as a service. This limitation is due to the fact that services in Windows are not allowed to run a user interface applications (i.e. services can not access desktop).
 
 To sum it up: set Autologon up, keep the desktop active and run the build server agent as a process.
-
-<br/>
 
 ## Conclusion
 Winium.Desktop project enabled us to blur the distinction between automated UI testing of web and desktop applications.
