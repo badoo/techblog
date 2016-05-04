@@ -1,12 +1,11 @@
 ---
 layout: post
 title:  Crazy Agile API
-author: Ivan Biryukov, Orene Gautier
+author: Ivan Biryukov, Orene Gauthier
 date:   2016-05-04
 categories: API Process
-excerpt:
+excerpt: There are lots of articles and books on how to properly design APIs, but only few of them cover the case of a constantly changing API. In fast moving companies, releasing many features per week/day and changing the API is often a necessity. This article will explain how we’ve handled this at Badoo, some mistakes we’ve made along the way and lessons we’ve learned.
 ---
-## Introduction
 There are lots of articles and books on how to properly design APIs, but only few of them cover the case of a constantly changing API. In fast moving companies, releasing many features per week/day and changing the API is often a necessity. This article will explain how we’ve handled this at Badoo, some mistakes we’ve made along the way and lessons we’ve learned.
 
 Firstly, let me provide a general description  of how things work at Badoo, who are the API consumers and why does has it changed so frequently.
@@ -272,4 +271,4 @@ When designing a protocol and the processes around it, you need patience and pra
 
 Thank you for reading and any comments are more than welcome.
 
-**Ivan Biryukov** - Mobile Architect / **Orene Gautier** - Head of Mobile Engineer
+**Ivan Biryukov** - Mobile Architect / **Orene Gauthier** - Head of Mobile Engineer
