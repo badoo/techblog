@@ -2,7 +2,7 @@
 layout: post
 title:  Crazy Agile API
 author: Ivan Biryukov, Orene Gauthier
-date:   2016-05-04
+date:   2016-05-11
 categories: API Process
 excerpt: There are lots of articles and books on how to properly design APIs, but only few of them cover the case of a constantly changing API. In fast moving companies, releasing many features per week/day and changing the API is often a necessity. This article will explain how we’ve handled this at Badoo, some mistakes we’ve made along the way and lessons we’ve learned.
 ---
@@ -174,10 +174,9 @@ In the previous section we looked at the PRD versioning. In order to implement t
 
 This approach is widely used for slow-changing public APIs. When new version of protocol are released, all the clients are suppose to start using it instead of the old one. We can’t use it as different client platforms have different sets of features implemented. Let’s say we have set of protocol versions:
 
-&nbsp;&nbsp;&nbsp; V1. Supports features A, B, C
-&nbsp;&nbsp;&nbsp; V2. Supports features B’, C and D, where B’ is an updated feature B (which has a different flow)
+V1. Supports features A, B, C<br>V2. Supports features B’, C and D, where B’ is an updated feature B (which has a different flow)
 
-&nbsp;&nbsp;&nbsp; So if the client needs to implement feature D, it will also have to upgrade feature B to B’, which might be not needed at the moment.
+So if the client needs to implement feature D, it will also have to upgrade feature B to B’, which might be not needed at the moment.
 
 At Badoo we never used this versioning approach. For our situation, the two options described below are a better fit.
 
@@ -271,4 +270,4 @@ When designing a protocol and the processes around it, you need patience and pra
 
 Thank you for reading and any comments are more than welcome.
 
-**Ivan Biryukov** - Mobile Architect / **Orene Gauthier** - Head of Mobile Engineer
+**Ivan Biryukov** - Mobile Architect<br>**Orene Gauthier** - Head of Mobile Engineer
