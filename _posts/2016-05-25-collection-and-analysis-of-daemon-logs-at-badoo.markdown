@@ -2,8 +2,8 @@
 layout: post
 title:  Collection and Analysis of Daemon Logs at Badoo
 author: Marko Kevac
-date:   2016-05-25
-categories:
+date:   2016-06-6
+categories: Infrastructure Logs
 excerpt: At Badoo the monitoring division is responsible for keeping track of and sorting out problems with daemons. Our staff use Zabbix and scripts to check that the service has launched and is responding to requests. Additionally, the department examines statistics for daemons and the scripts that work with them, looking for anomalies, sudden spikes etc.
 ---
 
@@ -242,7 +242,7 @@ The result was predictable: all the daemons that were writing in syslog at any s
 
 Another mistake was not telling the system administrators about the potential problem, meaning that it took more than an hour to root out the cause and disable rsyslog.
 
-It turned out that <a href="http://www.gossamer-threads.com/lists/rsyslog/users/7949" target="_blank">weren't the only ones</a>we  to come across these issues. And not even <a href="https://coreos.com/blog/eliminating-journald-delays-part-1.html" target="_blank">just with rsyslog</a>. Synchronous calls to the event loop of the daemon is an unattainable luxury.
+It turned out that <a href="http://www.gossamer-threads.com/lists/rsyslog/users/7949" target="_blank">weren't the only ones</a> to come across these issues. And not even <a href="https://coreos.com/blog/eliminating-journald-delays-part-1.html" target="_blank">just with rsyslog</a>. Synchronous calls to the event loop of the daemon is an unattainable luxury.
 
 We had a few options.
 
