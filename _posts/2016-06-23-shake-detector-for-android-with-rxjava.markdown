@@ -156,7 +156,7 @@ private static Observable<SensorEvent> createAccelerationObservable(@NonNull Con
 
 {% endhighlight %}
 
-##Reactive magic
+## Reactive magic
 
 Now that we have an Observable with acceleration events, we can use all the power of RxJava operators.
 
@@ -363,7 +363,7 @@ public class ShakeDetector {
 
 {% endhighlight %}
 
-##Usage
+## Usage
 
 In my example I play a sound when a shake gesture is detected.
 Let’s add a field in the Activity class:
@@ -413,7 +413,7 @@ protected void onPause() {
 
 That’s it!
 
-##Conclusion
+## Conclusion
 
 As you can see, we were able to create a solution in just a few lines of code that detects a given shake gesture. It is compact and easy to read and understand. You can compare this with regular solutions, e.g. <a href="https://github.com/square/seismic" target="_blank">seismic</a> by Jake Wharton.
 RxJava is a great tool and when properly applied great results can be achieved. I hope this article will give you the impulse to learn RxJava and use reactive principles in your projects.
