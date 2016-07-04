@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Shake Detector for Android with RXJava
+title:  Shake Detector for Android with RxJava
 author: Arkady Gamza
 date:   2016-06-23
 categories: Android RxJava
