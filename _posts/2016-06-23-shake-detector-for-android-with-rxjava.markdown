@@ -21,7 +21,7 @@ Let’s start!
 
 ### Adding RxJava dependency
 
-To use RxJava, we should add these line to the build.gradle:
+To use RxJava, we should add these lines to the build.gradle:
 
 {% highlight groovy %}
 
