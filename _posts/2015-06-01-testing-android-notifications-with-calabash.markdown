@@ -11,8 +11,8 @@ It's generally understood that Calabash can only operate controls that are part 
 We would like to write something like this at the feature level:
 
 {% highlight gherkin %}
-Given I press home
-And I verify no notification with "You got an award on Badoo!"
+Given I am on the Android home screen
+And there are no notifications with "You got an award on Badoo!"
 And the server sends me an "award" notification
 When I click a notification with "Badoo Award" and "You got an award on Badoo!"
 Then I verify I am on the award screen
@@ -20,12 +20,23 @@ Then I verify I am on the award screen
 
 *We click 'home' here with `adb shell input keyevent KEYCODE_HOME` because Badoo has special handling when notifications arrive while the app is open; your needs may differ.*
 
-The step definition is trivial:
+The step definitions are trivial:
 
 {% highlight ruby %}
+Given(/^I am on the Android home screen/)
+  # Shouldn't really *do* something in a 'given', but...
+  keyboard_enter_keyevent('KEYCODE_HOME')
+end
+
+Given(/^There are no notifications with "([^"]*?)"(:? and "([^"]*)")?(?: within (\d+) seconds?)?$/) do |text1, text2, timeout|
+  # Shouldn't really *do* something in a 'given', but...
+  dismiss_notification_matched_by_full_text(
+    (timeout || 1).to_f * 1000, text1, text2)
+end
+
 When(/^I click a notification with "([^"]*?)"(:? and "([^"]*)")?(?: within (\d+) seconds?)?$/) do |text1, text2, timeout|
- click_notification_matched_by_full_text(
-(timeout || 1).to_f * 1000, text1, text2)
+  click_notification_matched_by_full_text(
+    (timeout || 1).to_f * 1000, text1, text2)
 end
 {% endhighlight %}
 
@@ -43,7 +54,7 @@ You might object that this isn't doing a full round-trip through the notificatio
 
 There is a more direct route to checking notifications that you may find useful, and it's the one we're using for now because it suits our immediate needs.
 
-Everyone knows that Calabash isn't limited to talking to the phone through its server: most solutions to testing notifications suggest examining the output of `adb shell dumpsys notifications` to see whether the notification is being displayed, but as mentioned above it's just as important to test that the pressing of a notification ends up in the correct part of the application.
+Everyone knows that Calabash isn't limited to talking to the phone through its server: most solutions to testing notifications suggest examining the output of `adb shell dumpsys notification` to see whether the notification is being displayed, but as mentioned above it's just as important to test that the pressing of a notification ends up in the correct part of the application.
 
 Calabash can invoke `adb shell uiautomator dump` on Jellybean (4.1) and later devices to retrieve an XML document describing the current display. This isn't particularly fast as an operation, but most applications only have a few notifications to test, so it's a reasonable trade-off. It's possible to combine that view list with `adb input swipe` to open the notification drawer (on a phone; tablets are more varied) or dismiss a notification, and `adb input tap` to press the notification (or the action buttons on the notification, if you're feeling fancy). Again, not the fastest or most elegant solution, but it's workable.
 
@@ -63,12 +74,12 @@ Retrieving the UIAutomator dump requires a couple of calls: one to create the du
 
 {% highlight ruby %}
 def uiautomator_dump
- stdout, stderr, status = exec_adb('shell uiautomator dump')
- unless /dumped to: (?<file>\S*)/ =~ stdout
-   fail "uiautomator dump failed? Returned #{stdout} :: #{stderr}"
- end
- stdout, stderr, status = exec_adb("shell cat #{file}")
- [stdout, stderr, status]
+  stdout, stderr, status = exec_adb('shell uiautomator dump')
+  unless /dumped to: (?<file>\S*)/ =~ stdout
+    fail "uiautomator dump failed? Returned #{stdout} :: #{stderr}"
+  end
+  stdout, stderr, status = exec_adb("shell cat #{file}")
+  [stdout, stderr, status]
 end
 {% endhighlight %}
 
@@ -76,9 +87,9 @@ We wish to identify a notification by its text strings - it might have one or tw
 
 {% highlight ruby %}
 def xpath_for_full_path_texts(params)
- texts = params.keys.grep(/^notification.full./)
- clauses = texts.collect { |k| "./node/node[@text='#{params[k]}']" }
- "//node[#{clauses.join('][')}]"
+  texts = params.keys.grep(/^notification.full./)
+  clauses = texts.collect { |k| "./node/node[@text='#{params[k]}']" }
+  "//node[#{clauses.join('][')}]"
 end
 {% endhighlight %}
 
@@ -86,9 +97,9 @@ The UIAutomator dump is mostly <node> elements containing other <node> elements,
 
 {% highlight ruby %}
 def extract_integer_bounds(set)
- return nil if set.empty?
- match = (set.attr('bounds').to_s.match(/\[(\d+),(\d+)\]\[(\d+),(\d+)\]/))
- match.captures.collect(&:to_i)
+  return nil if set.empty?
+  match = (set.attr('bounds').to_s.match(/\[(\d+),(\d+)\]\[(\d+),(\d+)\]/))
+  match.captures.collect(&:to_i)
 end
 {% endhighlight %}
 
@@ -96,13 +107,13 @@ This allows us to run a block of code with the bounds of the first node selected
 
 {% highlight ruby %}
 def bounds_from_xpath(xpath)
- stdout, _stderr, _status = uiautomator_dump
- set = Nokogiri::XML(stdout).xpath(xpath)
- if (bounds = extract_integer_bounds(set))
-   return yield bounds
- else
-   return nil
- end
+  stdout, _stderr, _status = uiautomator_dump
+  set = Nokogiri::XML(stdout).xpath(xpath)
+  if (bounds = extract_integer_bounds(set))
+    return yield bounds
+  else
+    return nil
+  end
 end
 {% endhighlight %}
 
@@ -114,10 +125,10 @@ This function opens the notification shutter on most phones by swiping down from
 
 {% highlight ruby %}
 def open_notification_shutter
- bounds_from_xpath('//node[1]') do |x1, y1, x2, y2|
-   xm = (x1 + x2) >> 1
-   exec_adb("shell input swipe #{xm} #{y1} #{xm} #{y2}")
- end
+  bounds_from_xpath('//node[1]') do |x1, y1, x2, y2|
+    xm = (x1 + x2) >> 1
+    exec_adb("shell input swipe #{xm} #{y1} #{xm} #{y2}")
+  end
 end
 {% endhighlight %}
 
@@ -125,13 +136,13 @@ This taps a notification (and ensures that the notification shutter is closed)
 
 {% highlight ruby %}
 def tap_notification(xpath)
- found_bounds = bounds_from_xpath(xpath) do |x1, y1, x2, y2|
-   ym = (y1 + y2) >> 1
-   exec_adb("shell input tap #{(x1 + x2) >> 1} #{ym}")
- end
- dismissed = !found_bounds.nil?
- keyboard_enter_keyevent('KEYCODE_BACK') unless dismissed
- return dismissed
+  found_bounds = bounds_from_xpath(xpath) do |x1, y1, x2, y2|
+    ym = (y1 + y2) >> 1
+    exec_adb("shell input tap #{(x1 + x2) >> 1} #{ym}")
+  end
+  dismissed = !found_bounds.nil?
+  keyboard_enter_keyevent('KEYCODE_BACK') unless dismissed
+  return dismissed
 end
 {% endhighlight %}
 
@@ -139,11 +150,11 @@ This swipes a notification to dismiss it and then ensures the notification shutt
 
 {% highlight ruby %}
 def dismiss_notification(xpath)
- found_bounds = bounds_from_xpath(xpath) do |x1, y1, _x2, y2|
-   ym = (y1 + y2) >> 1
-   exec_adb("shell input swipe #{x1} #{ym} 10000 #{ym}")
- end
- found_bounds.nil?
+  found_bounds = bounds_from_xpath(xpath) do |x1, y1, _x2, y2|
+    ym = (y1 + y2) >> 1
+    exec_adb("shell input swipe #{x1} #{ym} 10000 #{ym}")
+  end
+  found_bounds.nil?
 end
 {% endhighlight %}
 
@@ -153,29 +164,29 @@ This combines the above code to tap or dismiss a notification, with retry logic 
 
 {% highlight ruby %}
 def handle_notification(params)
- xpath = xpath_for_full_path_texts(params)
- timeout = params['timeout'].to_i
- start = Time.new
- while start + timeout / 1000 > Time.new
-   open_notification_shutter
-   if params['action.click']
-     break if tap_notification(xpath)
-   else
-     break if dismiss_notification(xpath)
-   end
- end
+  xpath = xpath_for_full_path_texts(params)
+  timeout = params['timeout'].to_i
+  start = Time.new
+  while start + timeout / 1000 > Time.new
+    open_notification_shutter
+    if params['action.click']
+      break if tap_notification(xpath)
+    else
+      break if dismiss_notification(xpath)
+    end
+  end
 end
 
 def click_notification_matched_by_full_text(timeout, *strings)
- h = { 'timeout' => timeout.to_s, 'action.click' => 'true' }
- strings.map.with_index { |v, i| h["notification.full.#{i}"] = v if v }
- handle_notification(h)
+  h = { 'timeout' => timeout.to_s, 'action.click' => 'true' }
+  strings.map.with_index { |v, i| h["notification.full.#{i}"] = v if v }
+  handle_notification(h)
 end
 
 def dismiss_notification_matched_by_full_text(timeout, *strings)
- h = { 'timeout' => timeout.to_s, 'action.dismiss' => 'true' }
- strings.map.with_index { |v, i| h["notification.full.#{i}"] = v if v }
- handle_notification(h)
+  h = { 'timeout' => timeout.to_s, 'action.dismiss' => 'true' }
+  strings.map.with_index { |v, i| h["notification.full.#{i}"] = v if v }
+  handle_notification(h)
 end
 {% endhighlight %}
 
@@ -183,16 +194,16 @@ end
 
 {% highlight ruby %}
 def exec_adb(cmd)
- adb_cmd = "#{default_device.adb_command} #{cmd}"
- stdout, stderr, status = Open3.capture3(adb_cmd)
- unless status.success?
-   fail "Adb failed: #{adb_cmd} Returned #{stdout} :: #{stderr}"
- end
- [stdout, stderr, status]
+  adb_cmd = "#{default_device.adb_command} #{cmd}"
+  stdout, stderr, status = Open3.capture3(adb_cmd)
+  unless status.success?
+    fail "Adb failed: #{adb_cmd} Returned #{stdout} :: #{stderr}"
+  end
+  [stdout, stderr, status]
 end
 
 def keyboard_enter_keyevent(keyevent)
- exec_adb("shell input keyevent #{keyevent}")
+  exec_adb("shell input keyevent #{keyevent}")
 end
 {% endhighlight %}
 
