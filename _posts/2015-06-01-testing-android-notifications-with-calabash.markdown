@@ -54,7 +54,7 @@ You might object that this isn't doing a full round-trip through the notificatio
 
 There is a more direct route to checking notifications that you may find useful, and it's the one we're using for now because it suits our immediate needs.
 
-Everyone knows that Calabash isn't limited to talking to the phone through its server: most solutions to testing notifications suggest examining the output of `adb shell dumpsys notifications` to see whether the notification is being displayed, but as mentioned above it's just as important to test that the pressing of a notification ends up in the correct part of the application.
+Everyone knows that Calabash isn't limited to talking to the phone through its server: most solutions to testing notifications suggest examining the output of `adb shell dumpsys notification` to see whether the notification is being displayed, but as mentioned above it's just as important to test that the pressing of a notification ends up in the correct part of the application.
 
 Calabash can invoke `adb shell uiautomator dump` on Jellybean (4.1) and later devices to retrieve an XML document describing the current display. This isn't particularly fast as an operation, but most applications only have a few notifications to test, so it's a reasonable trade-off. It's possible to combine that view list with `adb input swipe` to open the notification drawer (on a phone; tablets are more varied) or dismiss a notification, and `adb input tap` to press the notification (or the action buttons on the notification, if you're feeling fancy). Again, not the fastest or most elegant solution, but it's workable.
 
