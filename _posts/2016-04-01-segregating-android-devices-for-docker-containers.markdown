@@ -9,7 +9,7 @@ categories: android
 We wanted to move our Android device tests to a Linux host: it's cheaper hardware, and we find that our Mac Mini build machines tend to fumble Android USB connections, making phones mysteriously vanish in the middle of a test run.
 We mostly use Docker containers to manage our Linux servers, and we decided to try to build an Android test container that could test with real phones, cloned once for each model/group of phones, so it would fit into the existing server scheme.
 
-A quick preview: one of the benefits of running on Linux over running on Mac, was that its more open system showed us one of the causes of the phones' mysterious disappeareance during the tests: disconnections lasting a fraction of a second. This allowed us to patch our test layer, adding a retry in the right place which has resolved pretty much all of our remaining problems in that regard. I will be encouraging my colleage to write that up shortly.
+A quick sidebar: one of the benefits of running on Linux over running on Mac was that because it's a more open system, it showed us one of the causes of the phones' mysterious disappearance during the tests: disconnections lasting a fraction of a second. This allowed us to patch our test layer, adding a retry in the right place which has resolved pretty much all of our remaining problems in that regard. I will be encouraging my colleague to write that up shortly.
 
 ### Docker
 
@@ -65,7 +65,8 @@ Now we needed a different mechanism to segregate the phones by bus. I downloaded
 
 Each container was given a different ADB_DEV_BUS_USB value to denote the bus it should pay attention to.
 
-Aside: although the patch was trivial, building abd required trial and error, because most people want to build everything. My final recipe was this:
+Aside: although the patch was trivial, building abd required trial and error, because most people want to build everything. My final recipe was this (in a case-sensitive filesystem - my work laptop is a mac):
+
 {% highlight sh %}
 cd src/android-src
 source build/envsetup.sh
@@ -191,4 +192,6 @@ index 500898a..92e15ca 100644
          // TODO: Use inotify.
          find_usb_device("/dev/bus/usb", register_device);
 {% endhighlight %}
+
+I hope all this saves you some time, if you're engaged in a similar project. Feel free to ask for clarifications in the comments below.
 
