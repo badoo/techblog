@@ -49,7 +49,7 @@ On the host machine, you can see phones being added and removed by keeping a loo
 
 Unfortunately, not only do these creations and deletions not happen within the Docker containers, but even if you set things up to create and delete those nodes, the nodes you create don't actually talk to the phones!
 
-The sledge-hammer we used to resolve this issue was putting our containers in --privileged mode, and letting them see the whole /dev/bus/usb directory as the host machine sees it.
+The sledge-hammer we used to resolve this issue was putting our containers in `--privileged` mode, and letting them see the whole /dev/bus/usb directory as the host machine sees it.
 
 Now we needed a different mechanism to segregate the phones by bus. I downloaded the Android source, and trivially patched platform/system/core/adb/usb_linux.cpp
 
@@ -78,11 +78,11 @@ out/host/linux-x86/bin/adb
 
 ### Multiplexing USB ports
 
-So far so good, but when we installed our USB expansion card, we found there was only one USB bus on it, whereas we had five groups of devices we wanted to segregate.
+So far so good, but when we installed our USB expansion card, we found that there was only one USB bus on it, whereas we had five groups of devices we wanted to segregate.
 
 Having been inside ADB's source code already, I decided simply to add another environment variable: ADB_VID_PID_FILTER takes a list of vid:pid pairs, and makes adb ignore any device that doesn't match.
 
-The patch is below. There may be a slight race condition, when multiple adbd processes listening to the same USB bus try to scan the phones, but this hasn't proven to be a problem in practice.
+The patch is below. There may be a slight race condition, when multiple adbd processes listening to the same USB bus try to scan the phones, but in practice this hasn't proven to be a problem.
 
 {% highlight cpp %}
 diff --git a/adb/usb_linux.cpp b/adb/usb_linux.cpp
