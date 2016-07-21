@@ -78,7 +78,7 @@ out/host/linux-x86/bin/adb
 
 ### Multiplexing USB ports
 
-So far so good, but when we installed our USB expansion card, we found that there was only one USB bus on it, whereas we had five groups of devices we wanted to segregate.
+So far so good, but when we installed our USB expansion card we found that there was only one USB bus on it, taking our machine to three buses, whereas we had five groups of devices we wanted to segregate.
 
 Having been inside ADB's source code already, I decided simply to add another environment variable: ADB_VID_PID_FILTER takes a list of vid:pid pairs, and makes adb ignore any device that doesn't match.
 
