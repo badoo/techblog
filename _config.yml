@@ -21,7 +21,7 @@ use_lessjs: false
 disqus_shortname: badootechblog
 
 # files to exclude
-exclude: ["pom.xml", "assembly.xml", "target", "README.md"]
+exclude: ["pom.xml", "assembly.xml", "target", "README.md", "deploy.sh", "*.tgz"]
 
 # Google Analytics tracking code and domain
 google_analytics:

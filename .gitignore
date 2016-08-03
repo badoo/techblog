@@ -10,3 +10,4 @@ _site
 .classpath
 .tern-*
 target
+*.tgz
