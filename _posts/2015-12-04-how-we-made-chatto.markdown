@@ -3,7 +3,7 @@ layout: post
 title: How we made Chatto
 author: Diego Sanchez Roman
 date: 2015-12-04
-categories: iOS Swift
+categories: ios swift
 ---
 
 Our chat was old, having evolved over the years into a massive view controller with weird fixes that nobody could understand. It was difficult to add new types of messages and new bugs were easily introduced. So we decided to rewrite it from scratch on Swift and make it [open source](https://github.com/badoo/Chatto).

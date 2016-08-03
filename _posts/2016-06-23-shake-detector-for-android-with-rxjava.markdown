@@ -3,7 +3,7 @@ layout: post
 title:  Shake Detector for Android with RxJava
 author: Arkady Gamza
 date:   2016-06-23
-categories: Android RxJava
+categories: android rxjava
 excerpt: It all began when I had the task of undoing a user action in the app when the device was shaken. The main problem was how to know that a shake had occurred. After a couple of minutes of searching, it became clear that one should subscribe to accelerometer events and then somehow try to detect shakes.
 ---
 It all began when I had the task of undoing a user action in the app when the device was shaken. The main problem was how to know that a shake had occurred. After a couple of minutes of searching, it became clear that one should subscribe to accelerometer events and then somehow try to detect shakes.
