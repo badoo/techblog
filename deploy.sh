@@ -13,12 +13,23 @@ rm -rf _site
 
 archive=techblog-$build_version-site
 
+if [ "$(jekyll -v)" != "jekyll 3.1.6" ]; then 
+	yes|sudo gem uninstall -a jekyll
+fi
 if [ ! $(which jekyll) ]; then
-	gem install jekyll
+	sudo gem install jekyll -v 3.1.6
+fi
+if [ ! $(which lessc) ]; then
 	npm install -g less
 fi
 
 jekyll build
+#output="$(jekyll build 2>&1 |tee /dev/stderr | grep -E 'syntax error|Warning|Unexpected|less is not installed')"
+#if [ ! -z "$output" ]; then
+#	echo 'Build failed'
+#	exit 1
+#fi
+
 cd _site
 tar -czf ../$archive.tgz .
 cd ..
