@@ -3,7 +3,7 @@ layout: post
 title: "Let's build: Freehand Drawing in iOS - Part 2"
 author: Miguel Angel Quinones
 date:   2015-06-29
-categories: iOS tutorial
+categories: ios tutorial
 ---
 
 This the second in a series of tutorials in which we build **Freehand Drawing** for iOS. In this part we'll add undo functionality and the ability to draw dots.
@@ -25,7 +25,7 @@ private func setupGestureRecognizers() {
         // Pan gesture recognizer to track lines
         let panRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
         self.addGestureRecognizer(panRecognizer)
-        
+
         // Tap gesture recognizer to track points
         let tapRecognizer = UITapGestureRecognizer(target: self, action: "handleTap:")
         self.addGestureRecognizer(tapRecognizer)
@@ -40,30 +40,30 @@ private func setupGestureRecognizers() {
 
 {% endhighlight %}
 
-Now we need to draw a dot. Drawing a dot itself is achieved by drawing a filled circle. But then we duplicate a lot of the functionality and optimizations we previously did when drawing lines. We can refactor to share that code. 
+Now we need to draw a dot. Drawing a dot itself is achieved by drawing a filled circle. But then we duplicate a lot of the functionality and optimizations we previously did when drawing lines. We can refactor to share that code.
 This is how `drawLine` and the new `drawPoint` methods look, with the common code refactored into a utility method:
 
 {% highlight swift %}
 
  // MARK: Drawing a path
-    
+
     private func drawLine(a: CGPoint, b: CGPoint, buffer: UIImage?) -> UIImage {
         let image = drawInContext { context in
             // Draw the line
             self.drawColor.setStroke()
             CGContextSetLineWidth(context, self.drawWidth)
             CGContextSetLineCap(context, kCGLineCapRound)
-            
+
             CGContextMoveToPoint(context, a.x, a.y)
             CGContextAddLineToPoint(context, b.x, b.y)
             CGContextStrokePath(context)
         }
-        
+
         return image
     }
-    
+
     // MARK: Drawing a point
-    
+
     private func drawPoint(at: CGPoint, buffer: UIImage?) -> UIImage {
         let image = drawInContext { context in
             // Draw the point
@@ -71,30 +71,30 @@ This is how `drawLine` and the new `drawPoint` methods look, with the common cod
             let circle = UIBezierPath(arcCenter: at, radius: self.drawWidth / 2.0, startAngle: 0, endAngle: 2 * CGFloat(M_PI), clockwise: true)
             circle.fill()
         }
-        
+
         return image
     }
-    
+
     // MARK: General setup to draw. Reusing a buffer and returning a new one
-    
+
     private func drawInContext(code:(context: CGContextRef) -> Void) -> UIImage {
         let size = self.bounds.size
-        
+
         // Initialize a full size image. Opaque because we don't need to draw over anything. Will be more performant.
         UIGraphicsBeginImageContextWithOptions(size, true, 0)
         let context = UIGraphicsGetCurrentContext()
-        
+
         CGContextSetFillColorWithColor(context, self.backgroundColor?.CGColor ?? UIColor.whiteColor().CGColor)
         CGContextFillRect(context, self.bounds)
-        
+
         // Draw previous buffer first
         if let buffer = buffer {
             buffer.drawInRect(self.bounds)
         }
-    
+
         // Execute draw code
         code(context: context)
-        
+
         // Grab updated buffer and return it
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -112,7 +112,7 @@ This works fine, but as we'll see in the next section, our approach of adding mo
 
 # Undo functionality
 
-The main feature we want to talk about in this post is adding **undo**. You probably know how it works but let's review it anyway. We'll add a button which lets the user to go back in time and delete the last line or point she drew. 
+The main feature we want to talk about in this post is adding **undo**. You probably know how it works but let's review it anyway. We'll add a button which lets the user to go back in time and delete the last line or point she drew.
 
 This will allow her to correct mistakes or simply change her mind after drawing something. The button can be tapped repeatedly with the effect of deleting more and more lines and dots until the drawing is as empty as it was in the beginning.
 
@@ -123,9 +123,9 @@ Bear in mind that one ‘undo’ will remove the last full line or dot the user 
 
 The current code is simple and understandable. To add undo, possibly the first idea that comes to mind is to add some kind of memory of the path we have been drawing, and then remove the last part when user taps the button. That could be a simple ordered array of points the user went through.
 
-But what about the fact that we want to undo a whole stroke? This means we need to keep track of when the stroke started and when it ended. 
+But what about the fact that we want to undo a whole stroke? This means we need to keep track of when the stroke started and when it ended.
 
-What about dots? We need to differentiate between drawing dots and drawing lines. 
+What about dots? We need to differentiate between drawing dots and drawing lines.
 And then, how do we actually undo a line? We have a cached buffer with the accumulated contents the user has been drawing, and we can only render on top of it.
 
 Another issue is that all the logic and display is in the same object. The only way to access touch data and the history of user finger movements is to add that functionality directly to the view. It seems that our `DrawView` object code will grow very fast, so it will be harder to understand and maintain in the future.
@@ -171,12 +171,12 @@ struct LineDrawCommand : DrawCommand {
     let color: UIColor
 
     // MARK: DrawCommand
-    
+
     func execute(canvas: Canvas) {
         CGContextSetStrokeColorWithColor(canvas.context, self.color.CGColor)
         CGContextSetLineWidth(canvas.context, self.width)
         CGContextSetLineCap(canvas.context, kCGLineCapRound)
-        
+
         CGContextMoveToPoint(canvas.context, a.x, a.y)
         CGContextAddLineToPoint(canvas.context, b.x, b.y)
         CGContextStrokePath(canvas.context)
@@ -190,16 +190,16 @@ Similarly we can construct our command to draw a circle:
 {% highlight swift %}
 
 struct CircleDrawCommand : DrawCommand {
-    
+
     let center: CGPoint
     let radius: CGFloat
     let color: UIColor
-    
+
     // MARK: DrawCommand
-    
+
     func execute(canvas: Canvas) {
         CGContextSetFillColorWithColor(canvas.context, self.color.CGColor)
-        
+
         CGContextAddArc(canvas.context, self.center.x, self.center.y, self.radius, 0, 2 * CGFloat(M_PI), 1)
         CGContextFillPath(canvas.context)
     }
@@ -226,21 +226,21 @@ The view contains much less code, conforms to two protocols and has no gesture l
 {% highlight swift %}
 
 class DrawView : UIView, Canvas, DrawCommandReceiver {
-    
+
     // MARK: Canvas
-    
+
     var context: CGContextRef {
         return UIGraphicsGetCurrentContext()
     }
-    
+
     // MARK: DrawCommandReceiver
-    
+
     func executeCommand(command: DrawCommand) {
         autoreleasepool {
             self.buffer = drawInContext { context in
                 command.execute(self)
             }
-            
+
             self.layer.contents = self.buffer?.CGImage ?? nil
         }
     }
@@ -256,30 +256,30 @@ All the logic is moved to a new class, called `FreehandDrawingController`. It co
 {% highlight swift %}
 
 // MARK: Draw commands
-    
+
     private func startAtPoint(point: CGPoint) {
         self.lastPoint = point
     }
-    
+
     private func continueAtPoint(point: CGPoint) {
         let lineCommand = LineDrawCommand(a: self.lastPoint, b: point, width: self.width, color: self.color)
-        
+
         self.canvas.executeCommand(lineCommand)
         self.commandQueue.append(lineCommand)
-        
+
         self.lastPoint = point
     }
-    
+
     private func endAtPoint(point: CGPoint) {
         self.lastPoint = CGPointZero
     }
-    
+
     private func tapAtPoint(point: CGPoint) {
         let circleCommand = CircleDrawCommand(centre: point, radius: self.width/2.0, color: self.color)
         self.canvas.executeCommand(circleCommand)
         self.commandQueue.append(circleCommand)
     }
-    
+
     private let canvas: protocol<Canvas, DrawCommandReceiver>
     private var commandQueue: Array<DrawCommand> = []
     private var lastPoint: CGPoint = CGPointZero
@@ -300,7 +300,7 @@ A way to see undo graphically is as a deletion, but how do we express this in th
 
 ### Redoing whole queue
 
-We can think of undo as executing all commands but the last one in order, on an empty canvas. Implementing undo this way makes code and commands simpler. The commands only need to know how to ‘do’ the action, but not how to ‘undo’ it. 
+We can think of undo as executing all commands but the last one in order, on an empty canvas. Implementing undo this way makes code and commands simpler. The commands only need to know how to ‘do’ the action, but not how to ‘undo’ it.
 
 The drawback of this solution is that undoing will take longer if the queue has many commands. The slowness is likely not to be perceived by the user as they tap a button. Let's implement it and see if it will affect the user experience.
 
@@ -329,7 +329,7 @@ func reset() {
 
 If you run this, you’ll see that it does not work as expected. There are two problems:
 
-1. Undo is very slow every tap, even when user draws only a few lines. 
+1. Undo is very slow every tap, even when user draws only a few lines.
 2. We’re deleting the last part of the last line, not the whole line itself. This is not what we expect when we tap the button.
 
 Fixing the performance problem means changing the `DrawCommandReceiver` protocol to accept an ordered list of commands to execute, as opposed to only one command. This will allow the underlying view to set up the context and change the buffer only once for the whole set of commands.
@@ -338,11 +338,11 @@ You can see the previous changes [here][undo1].
 
 ### Composed command
 
-To make our undo operation behave as intended, we can take advantage our types, which requires very little effort. 
+To make our undo operation behave as intended, we can take advantage our types, which requires very little effort.
 
-A whole line is constructed by all the intermediate points the user is going through with her finger. We can model this in our controller by using a composed command. 
+A whole line is constructed by all the intermediate points the user is going through with her finger. We can model this in our controller by using a composed command.
 
-A composed command will be a command that contains an ordered list of commands. These commands will be single line commands. The queue itself will contain either composed commands (a whole line) or a circle command (a dot). That way we’ll still undo the last command in the queue, but actually undo the whole stroke. 
+A composed command will be a command that contains an ordered list of commands. These commands will be single line commands. The queue itself will contain either composed commands (a whole line) or a circle command (a dot). That way we’ll still undo the last command in the queue, but actually undo the whole stroke.
 
 Check the changes [here][undo2].
 
@@ -353,17 +353,17 @@ struct ComposedCommand : DrawCommand {
     init(commands: [DrawCommand]) {
         self.commands = commands;
     }
-    
+
     // MARK: DrawCommand
-    
+
     func execute(canvas: Canvas) {
         self.commands.map { $0.execute(canvas) }
     }
-    
+
     mutating func addCommand(command: DrawCommand) {
         self.commands.append(command)
     }
-    
+
     private var commands: [DrawCommand]
 }
 {% endhighlight %}
@@ -379,34 +379,34 @@ private func startAtPoint(point: CGPoint) {
         self.lastPoint = point
         self.lineStrokeCommand = ComposedCommand(commands: [])
 }
-    
+
 private func continueAtPoint(point: CGPoint) {
         let lineCommand = LineDrawCommand(a: self.lastPoint, b: point, width: self.width, color: self.color)
-        
+
         self.canvas.executeCommands([lineCommand])
 
         self.lineStrokeCommand?.addCommand(lineCommand)
         self.lastPoint = point
     }
-    
+
 private func endAtPoint(point: CGPoint) {
         if let lineStrokeCommand = self.lineStrokeCommand {
             self.commandQueue.append(lineStrokeCommand)
         }
-        
+
         self.lastPoint = CGPointZero
         self.lineStrokeCommand = nil
 }
 
 // New var:
-private var lineStrokeCommand: ComposedCommand? 
+private var lineStrokeCommand: ComposedCommand?
 {% endhighlight %}
 
 With these changes we’ve finished our undo implementation.
 
 ## Conclusion
 
-We've added the ability to draw dots and undo. When implementing undo we refactored the code to make it easier to understand and maintain in future. 
+We've added the ability to draw dots and undo. When implementing undo we refactored the code to make it easier to understand and maintain in future.
 
 Taking leverage of the command design pattern and some domain modelling we could easily implement undo as an operation that removes that last command and executes all accumulated commands in order on a blank canvas.
 

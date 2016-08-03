@@ -3,7 +3,7 @@ layout: post
 title:  Mobile App Testing - Tips and Tricks
 author: Alexander Khozya
 date:   2016-01-15
-categories: QA
+categories: qa
 ---
 
 Our new article is in fact a list of tips and tricks. These tips will help beginners to progress faster while more experienced users will be able to streamline what they know. The article will also be useful for developers, product and project managers, and for anyone who would like to improve both product quality and inter-departmental relations.
@@ -41,13 +41,13 @@ In iOS it can do the following:
 8. Switch between screens many times.
   - For iOS, you should check for the following: memory operations work correctly (to prevent access to wrong memory areas,and prevent updates to screens that are already hidden) and memory leaks.
   - Memory leaks are possible in Android, as something may have locked up the previous activity.
-    
+
     It’s a good idea to switch screens while the application is interacting with the network:
     <ul>
     <li>Incomplete requests should be cancelled;</li>
     <li>Server response to an invisible (i.e. deleted from the memory) screen should not crash the application.</li>
     </ul>
-    
+
 9. Don’t overlook testing on [emulators](http://developer.android.com/tools/devices/emulator.html) and [simulators](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/iOS_Simulator_Guide/Introduction/Introduction.html) – those are really convenient and make some test scenarios easier.
 In iOS, for example, this makes testing location changes, background location updates, hotkey memory warning simulations and slowed-down animations much easier. In Android, you can configure exotic hardware settings: screen resolutions, pixel density, RAM size, heap size, and internal and external memory size.
 10. Fill up the device RAM before launching an app. Firstly, it will let you run a stress test and check operation speed. Secondly, it will let you check that you can save and resume the app state (i.e. where do we return when the app was minimised? Will all the required services run?).
@@ -65,15 +65,15 @@ In iOS, for example, this makes testing location changes, background location up
   - When there is no response from the server;
   - When the response from the server is wrong (i.e. it features errors or rubbish);
   - When the connection type changes on the fly (eg Wi-Fi—3G—4G—Wi-Fi).
-    
+
     Use “problems with network” case chains to the full, using:
-    
+
     - Customised router firmware. The [Tomato](http://www.polarcloud.com/tomato) firmware for the Linksys WRT54G used to help me a lot. The router was dirt cheap, and this firmware let you set the required Wi-Fi speed on the go, without losing the connection with the devices;
     - Proxy;
     - [WANEm](http://wanem.sourceforge.net/);
     - [Network Link Conditioner](http://nshipster.com/network-link-conditioner/) can be easily installed on your Mac, and is built into iOS in version 6.0 and higher. It can shape the traffic and distribute it via an access point on both on an iOS devices and on [Macs](http://appletoolbox.com/2011/11/using-your-mac-as-a-wireless-access-point/);
     - With Android, you can use preset connection speeds in an emulator, or tweak settings manually using [netspeed](http://developer.android.com/tools/devices/emulator.html#netspeed).
-    
+
 2. If you needs a proxy server, the easiest solution is [CharlesProxy](http://www.charlesproxy.com/) (it features manuals for devices and emulators on iOS and Android, supports a binary protocols, rewriting and traffic throttling, and, in short, is [worth every penny you pay for it](http://engineering.hoteltonight.com/charlie-and-me-testing-native-mobile-apps-with-charles-proxy)) or [Fiddler](http://www.telerik.com/fiddler) (this one is free).
 
 ## Working with application data, internal and external services
@@ -87,11 +87,11 @@ In iOS, for example, this makes testing location changes, background location up
   - A null data structure is returned (JSON, XML, PLIST);
   - A wrong data structure was returned (HTML instead of XML);
   - An invalid URI or an URI with a wrong direction is returned.
-    
+
     In all these cases, an app may fail to parse an unexpected response and crash.
-    
+
     Apart from working on the application stability, in the aforementioned cases it’s important to give the user some visual feedback: an alert, a toast notification, placeholders instead of data, etc.
-    
+
 4. If your app updates data by static or easily-formed URLs, then you can use Dropbox or Google Drive in cases where the server logic is not ready or being tuned up. Uploading and updating files directly on the device is not very pleasant. So here’s what we did:
   - We made all URLs configurable and set them to a separate entity, so that a team of developers or testers could easily reassemble apps with particular URLs for updatable data;
   - In addition, we changed all the necessary files and substituted them for the existing ones (manually or by means of the easiest scripts). It’s possible to write another script to rollback to the previous version, writing reference files (you can also use file versioning as provided by Dropbox).
@@ -141,11 +141,11 @@ On the otherhand, iOS applications are faster to test, since their ecosystem is 
          - launch the feature on all platforms at the same time (it’s also helpful in cases where changes break backward compatibility);
          - to get faster more consistent A/B testing;
          - to take pressure off server teams who have to support outdated API versions because a number of users keep using (very) old app versions.
-   
+
    ### Our update system operates in two modes:
    - **Soft update**, where the screen features “Update” and “Skip” buttons. The screen can be hidden for 24 hours. Also, in this mode you can ask users to enable automatic iOS and Android app updates in system settings, since some users disable automatic updates.
    - **Hard update**, where the screen shows only the “Update” button, leading you directly to the app’s page in a store.
-   
+
    Not all users are physically able to update apps, so this method will be intentionally disabled in some versions or for some cases. iPhone4 users, for instance, will not be able to upgrade to iOS8, and we are planning to stop iOS7 support of the app.
 2. We need to monitor the following key application metrics on production:
   - *Daily/monthly/*… active users graphs in order to respond to emergencies faster;

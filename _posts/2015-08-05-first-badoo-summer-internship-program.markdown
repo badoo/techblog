@@ -3,7 +3,7 @@ layout: post
 title:  "First Badoo Summer Internship Program"
 author: Anton Terekhov
 date:   2015-08-05
-categories: Internship iOS
+categories: internship ios
 ---
 
 For the first time ever, Badoo has taken on an intern over the summer. We see it as an act of giving back, supporting young students in gaining relevant work experience and skills, while enjoying the pace of working for a big company. This internship program is our contribution to the community, and a way to say thanks to all those who let us be who we are - from our loyal users to the developers who make the open source components we use.
@@ -20,13 +20,13 @@ In the end it is a win-win situation, with good results for all the parties invo
 
 Mentoring a junior developer helps you identify areas where you could be stronger. The intern is assigned with a programming task, and will eventually face some problems that demand deeper knowledge of the platform. He or she will ask you questions that you should be able not only to answer, but also explain in a simple manner. This requires more reading and investigation, so being a mentor helps you to become a better developer.
 
-During the first days of the internship you must help the intern through the company's onboarding process, demonstrating how to get all the resources and access required. Having worked in the company for some time, it’s easier to understand how to make this process quick and painless, and how to make a newcomer’s first days enjoyable and productive. 
+During the first days of the internship you must help the intern through the company's onboarding process, demonstrating how to get all the resources and access required. Having worked in the company for some time, it’s easier to understand how to make this process quick and painless, and how to make a newcomer’s first days enjoyable and productive.
 
 With a little time, the intern will start to understand shared best practices and learn how to produce code of the same high standard as the whole team. The job of a mentor is to explain the pros and cons of different approaches, and why the majority of the team decided on the one they implemented. This becomes especially evident during code reviews. From structure to naming conventions, everything is questioned, requiring a detailed walkthrough.
 
 Being a mentor, you learn many new things. Technologies become outdated increasingly rapidly, and often approaches you’re used to are no longer the best ones. Interns are young and have only just started their careers, so they absorb new advances quickly, and adapt well to doing things in new and different ways. This will definitely broaden your view and add some techniques to your toolbox.
 
-As a final note, it’s been a pleasure to see how a junior developer gains knowledge and how their code style becomes noticeably cleaner week after week. You see the intern growing as a professional, and you can be proud of your contribution to their training.  
+As a final note, it’s been a pleasure to see how a junior developer gains knowledge and how their code style becomes noticeably cleaner week after week. You see the intern growing as a professional, and you can be proud of your contribution to their training.
 
 
 ## My experience as an intern, by Joan Molinas

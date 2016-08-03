@@ -3,7 +3,7 @@ layout: post
 title:  Winium - Now for Windows Phone
 author: Nick Abalov
 date:   2016-02-17
-categories: QA
+categories: qa
 excerpt: There are no convenient open source automated testing tools for Windows Phone and Windows. The existing tools are proprietary, have limitations and suggest their own approach that would differ from conventional standards like Selenium WebDriver. In this post we will present Selenium compatible open source tools for Windows Phone automation.
 ---
 
