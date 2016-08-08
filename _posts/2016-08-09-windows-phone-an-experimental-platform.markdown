@@ -2,7 +2,7 @@
 layout: post
 title:  Windows Phone - an experimental platform
 author: Vyacheslav Loktik
-date:   2016-08-05
+date:   2016-08-09
 categories: WindowsPhone
 excerpt: In this article I will tell you the story of our team - how our Windows Phone (WP) team became an experimental platform, the problems that we faced and how we solved them.
 ---
