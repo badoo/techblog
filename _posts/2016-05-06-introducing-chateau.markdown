@@ -3,7 +3,7 @@ layout: post
 title:  Pardon My French - Introducing Chateau
 author: Erik Andre & Rich King
 date:   2016-05-06
-categories: Android
+categories: android
 ---
 
 Being a social networking platform, providing a great chat experience is at the core of what we do at Badoo. However, the meaning of "a great chat experience" is constantly evolving, and the major chat applications keep adding new features to stay competitive and enhance user experience.

@@ -3,7 +3,7 @@ layout: post
 title:  Collection and Analysis of Daemon Logs at Badoo
 author: Marko Kevac
 date:   2016-06-6
-categories: Infrastructure Logs
+categories: infrastructure logs
 excerpt: At Badoo the monitoring division is responsible for keeping track of and sorting out problems with daemons. Our staff use Zabbix and scripts to check that the service has launched and is responding to requests. Additionally, the department examines statistics for daemons and the scripts that work with them, looking for anomalies, sudden spikes etc.
 ---
 

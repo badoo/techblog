@@ -3,16 +3,16 @@ layout: post
 title:  "Let's build: Freehand Drawing in iOS - Part 1"
 author: Miguel Angel Quinones
 date:   2015-06-15
-categories: iOS tutorial
+categories: ios tutorial
 ---
 
-This post will be the first of a series in which we follow the development of a specific feature. We want to add to the great quantity of existing tutorials on the internet by sharing practical knowledge directly from our engineering team. 
+This post will be the first of a series in which we follow the development of a specific feature. We want to add to the great quantity of existing tutorials on the internet by sharing practical knowledge directly from our engineering team.
 
 This time we will demonstrate the implementation of **[Freehand Drawing][Google], aka Doodling** in iOS.
 
 ## Structure of the tutorials
 
-These tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details, and the architecture. 
+These tutorials are aimed at mid-level developers. We will skip the basic project setup and focus on the domain parts of the feature, discussing the reasoning behind some details, and the architecture.
 
 We’ll guide you from a naive or 'first time' implementation, through natural iterative improvements. The final implementation we’ll reach will be very close to production-level quality code.
 
@@ -81,9 +81,9 @@ class DrawView : UIView {
         super.awakeFromNib()
         self.setupGestureRecognizers()
     }
-    
+
     // MARK: Drawing a path
-    
+
     override func drawRect(rect: CGRect) {
         // 4. Redraw whole rect, ignoring parameter. Please note we always invalidate whole view.
         let context = UIGraphicsGetCurrentContext()
@@ -92,15 +92,15 @@ class DrawView : UIView {
         self.path.lineCapStyle = kCGLineCapRound
         self.path.stroke()
     }
-    
+
     // MARK: Gestures
-    
+
     private func setupGestureRecognizers() {
         // 1. Set up a pan gesture recognizer to track where user moves finger
         let panRecognizer = UIPanGestureRecognizer(target: self, action: “handlePan:”)
         self.addGestureRecognizer(panRecognizer)
     }
-    
+
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         let point = sender.locationInView(self)
         switch sender.state {
@@ -116,28 +116,28 @@ class DrawView : UIView {
             assert(false, “State not handled”)
         }
     }
-    
+
     // MARK: Tracing a line
-    
+
     private func startAtPoint(point: CGPoint) {
         self.path.moveToPoint(point)
     }
-    
+
     private func continueAtPoint(point: CGPoint) {
         // 2. Accumulate points as they are reported by the gesture recognizer, in a bezier path object
         self.path.addLineToPoint(point)
-        
+
         // 3. Trigger a redraw every time a point is added (finger moves)
         self.setNeedsDisplay()
     }
-    
+
     private func endAtPoint(point: CGPoint) {
         // Nothing to do when ending/cancelling for now
     }
-    
+
     var drawColor: UIColor = UIColor.blackColor()
     var drawWidth: CGFloat = 10.0
-    
+
     private var path: UIBezierPath = UIBezierPath()
 }
 
@@ -171,18 +171,18 @@ First, we don’t need to accumulate a path. We’ll remember the last point so 
 private func startAtPoint(point: CGPoint) {
         self.lastPoint = point
     }
-    
+
     private func continueAtPoint(point: CGPoint) {
         // 2. Draw the current stroke in an accumulated bitmap
         self.buffer = self.drawLine(self.lastPoint, b: point, buffer: self.buffer)
-        
+
         // 3. Replace the layer contents with the updated image
         self.layer.contents = self.buffer?.CGImage ?? nil
-        
+
         // 4. Update last point for next stroke
         self.lastPoint = point
     }
-    
+
     private func endAtPoint(point: CGPoint) {
         self.lastPoint = CGPointZero
     }
@@ -195,28 +195,28 @@ The new incremental draw routine:
 
 private func drawLine(a: CGPoint, b: CGPoint, buffer: UIImage?) -> UIImage {
         let size = self.bounds.size
-        
+
         // Initialize a full size image. Opaque because we don’t need to draw over anything. Will be more performant.
         UIGraphicsBeginImageContextWithOptions(size, true, 0)
         let context = UIGraphicsGetCurrentContext()
-        
+
         CGContextSetFillColorWithColor(context, self.backgroundColor?.CGColor ?? UIColor.whiteColor().CGColor)
         CGContextFillRect(context, self.bounds)
-        
+
         // Draw previous buffer first
         if let buffer = buffer {
             buffer.drawInRect(self.bounds)
         }
-        
+
         // Draw the line
         self.drawColor.setStroke()
         CGContextSetLineWidth(context, self.drawWidth)
         CGContextSetLineCap(context, kCGLineCapRound)
-        
+
         CGContextMoveToPoint(context, a.x, a.y)
         CGContextAddLineToPoint(context, b.x, b.y)
         CGContextStrokePath(context)
-        
+
         // Grab the updated buffer
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -228,10 +228,10 @@ This solution is an improvement over the naive drawing, and also allows us to ch
 
 ## Memory problems
 
-Let’s run this code on an older device. Say an iPhone 4S. 
+Let’s run this code on an older device. Say an iPhone 4S.
 We expect this code might not be high performance enough, but it is sufficient for our feature on such a low end device.
 
-Now keep running drawing strokes for a while, especially fast strokes. You’ll eventually crash the application. The crash was due to a memory warning. With such small amount of code we now have memory problems! Building applications for mobile we always need to be mindful of memory constraints. 
+Now keep running drawing strokes for a while, especially fast strokes. You’ll eventually crash the application. The crash was due to a memory warning. With such small amount of code we now have memory problems! Building applications for mobile we always need to be mindful of memory constraints.
 
 Let’s run profile the code with the allocations instrument. Here is a run I captured reproducing the memory warning:
 
@@ -254,10 +254,10 @@ private func continueAtPoint(point: CGPoint) {
         autoreleasepool {
             // 2. Draw the current stroke in an accumulated bitmap
             self.buffer = self.drawLine(self.lastPoint, b: point, buffer: self.buffer)
-            
+
             // 3. Replace the layer contents with the updated image
             self.layer.contents = self.buffer?.CGImage ?? nil
-            
+
             // 4. Update last point for next stroke
             self.lastPoint = point
         }
@@ -288,9 +288,9 @@ Check the finished code for this post [here][part1].
 
 We’ve seen how to implement a simple drawing feature using a custom UIView. We hit a performance problem with very long sets of strokes, and fixed it by caching the previous strokes in an offscreen buffer. We also found and fixed high transient memory usage, which produced a crash on lower end devices.
 
-What about adding the other features? 
+What about adding the other features?
 
-- Think about how to add undo to this code. 
+- Think about how to add undo to this code.
 - What about adding more gestures such as detecting a tap to draw a point. Will the code be as clean as it is now?
 - The stroke is very simple and does not emulate handwriting in any way. This can be improved and we’ll see some ways to do that in upcoming posts.
 

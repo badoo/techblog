@@ -3,7 +3,7 @@ layout: post
 title:  How Badoo saved one million dollars switching to PHP7
 author: Badoo
 date:   2016-03-14
-categories: PHP
+categories: php
 excerpt: We did it! Hundreds of our application servers are now running on PHP7 and doing just fine. By all accounts, ours is only the second project of this scale (after Etsy) to switch to PHP7.
 ---
 ## Introduction

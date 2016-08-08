@@ -3,7 +3,7 @@ layout: post
 title: "Let's build: Freehand Drawing in iOS - Part 3"
 author: Miguel Angel Quinones
 date:   2015-08-18
-categories: iOS tutorial
+categories: ios tutorial
 ---
 
 This the third and final tutorial in which we build **Freehand Drawing** for iOS. In this part we’ll improve how the stroke looks and feels.
@@ -72,7 +72,7 @@ Let's start by explicitly having a model of a segment in our code to increase re
 struct Segment {
     let a: CGPoint
     let b: CGPoint
-    
+
     var midPoint: CGPoint {
         return CGPoint(x: (a.x + b.x) / 2, y: (a.y + b.y) / 2)
     }
@@ -85,12 +85,12 @@ We will initialise our draw command with one segment, and optionally a second on
 struct LineDrawCommand : DrawCommand {
     let current: Segment
     let previous: Segment?
-    
+
     let width: CGFloat
     let color: UIColor
 
     // MARK: DrawCommand
-    
+
     func execute(canvas: Canvas) {
         self.configure(canvas)
 
@@ -100,23 +100,23 @@ struct LineDrawCommand : DrawCommand {
             self.drawLine(canvas)
         }
     }
-    
+
     private func configure(canvas: Canvas) {
         CGContextSetStrokeColorWithColor(canvas.context, self.color.CGColor)
         CGContextSetLineWidth(canvas.context, self.width)
         CGContextSetLineCap(canvas.context, kCGLineCapRound)
     }
-    
+
     private func drawLine(canvas: Canvas) {
         CGContextMoveToPoint(canvas.context, self.current.a.x, self.current.a.y)
         CGContextAddLineToPoint(canvas.context, self.current.b.x, self.current.b.y)
         CGContextStrokePath(canvas.context)
     }
-    
+
     private func drawQuadraticCurve(canvas: Canvas) {
         if let previousMid = self.previous?.midPoint {
             let currentMid = self.current.midPoint
-            
+
             CGContextMoveToPoint(canvas.context, previousMid.x, previousMid.y)
             CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
             CGContextStrokePath(canvas.context)
@@ -131,9 +131,9 @@ The last change is to our `DrawController`. It needs to use the changed LineDraw
 // In DrawController.swift
 private func continueAtPoint(point: CGPoint) {
         let segment = Segment(a: self.lastPoint, b: point)
-        
+
         let lineCommand = LineDrawCommand(current: segment, previous: lastSegment, width: self.width, color: self.color)
-        
+
         self.canvas.executeCommands([lineCommand])
 
         self.lineStrokeCommand?.addCommand(lineCommand)
@@ -166,7 +166,7 @@ You can also see these changes [here][width1code].
 func modulatedWidth(width: CGFloat, velocity: CGPoint) -> CGFloat {
     let velocityAdjustement: CGFloat = 600.0 // Trial and error constant
     let speed = velocity.length() / velocityAdjustement
-   
+
     let modulated = width / speed
     return modulated
 }
@@ -198,11 +198,11 @@ func modulatedWidth(width: CGFloat, velocity: CGPoint, previousVelocity: CGPoint
     let velocityAdjustement: CGFloat = 600.0
     let speed = velocity.length() / velocityAdjustement
     let previousSpeed = previousVelocity.length() / velocityAdjustement
-    
+
     let modulated = width / (0.6 * speed + 0.4 * previousSpeed)
     let limited = clamp(modulated, 0.75 * previousWidth, 1.25 * previousWidth)
     let final = clamp(limited, 0.2*width, width)
-    
+
     return final
 }
 
@@ -216,15 +216,15 @@ func clamp<T: Comparable>(value: T, min: T, max: T) -> T {
     if (value < min) {
         return min
     }
-    
+
     if (value > max) {
         return max’
     }
-    
+
     return value
 }
 
-// Additional cleanup and setup in draw controller to keep 
+// Additional cleanup and setup in draw controller to keep
 // track of previous width and previous velocity. See repository.
 {% endhighlight %}
 
@@ -236,7 +236,7 @@ Now we’re getting the impression of drawing with a dip pen. You’ll need to t
 
 # Conclusion
 
-We’ve improved the stroke of our small drawing application by connecting the dots using more than just straight lines. We’ve also achieved a more realistic and playful feel by changing the width of the stroke depending on the speed of user touches. 
+We’ve improved the stroke of our small drawing application by connecting the dots using more than just straight lines. We’ve also achieved a more realistic and playful feel by changing the width of the stroke depending on the speed of user touches.
 
 During the course of these tutorials we’ve seen the kind of technical challenges a developer may be faced with, and we’ve evolved our code by refactoring and redesigning as our requirements change.
 

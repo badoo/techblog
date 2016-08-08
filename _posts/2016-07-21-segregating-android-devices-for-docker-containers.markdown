@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Segregating Android Phones between Docker Containers
+title:  Segregating Android Phone Models between Docker Containers
 author: Tim Baverstock
 date:   2016-07-21
 categories: android

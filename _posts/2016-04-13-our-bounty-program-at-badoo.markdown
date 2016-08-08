@@ -3,7 +3,7 @@ layout: post
 title:  Our Bounty Program at Badoo
 author: Ilya Ageev
 date:   2016-04-13
-categories: QA
+categories: qa
 excerpt: Many IT companies now have their own bounty programs (i.e. programs that root out vulnerabilities), and Badoo is no exception.
 ---
 
