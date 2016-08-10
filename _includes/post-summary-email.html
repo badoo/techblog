@@ -5,6 +5,6 @@
         <p class="post-meta">By
             <a class="post-author" href="{{ site.url }}/authors/{{ post.author | downcase | replace:' ','-' }}">{{ post.author }}</a> on <span class="post-date">{{ post.date | date_to_string }}</span>
         </p>
+        <a href="{{ site.url}}{{ post.url }}" class="post-excerpt">{{ post.excerpt | markdownify | strip_html | truncatewords: 50 | replace:'...','&#8230;'}}</a>
     </div>
-    <a href="{{ site.url}}{{ post.url }}" class="post-excerpt">{{ post.excerpt | markdownify | strip_html | truncatewords: 50 | replace:'...','&#8230;'}}</a>
 </div>
