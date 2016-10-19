@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Masking Bitmaps
+title:  Masking Bitmaps on Android
 author: Arkady Gamza
 date:   2016-10-17
 categories: Android
