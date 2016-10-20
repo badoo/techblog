@@ -6,6 +6,9 @@ date:   2016-10-17
 categories: Android
 excerpt: In this article, I would like to analyse the tools available for Android developers which can be used to complete such tasks — and choose the most efficient of them.
 ---
+
+<img class="no-box-shadow" src="{{page.imgdir}}/1.png"/>
+
 The problem of image masking often comes up in Android development. Rounded image corners or rounded images are required most of all. Yet sometimes even more complex image masks are used.
 
 In this article, I would like to analyse the tools available for Android developers which can be used to complete such tasks — and choose the most efficient of them.
@@ -35,7 +38,7 @@ Pay attention to the .extractAlpha(), the call creating Bitmap with ALPHA_8 conf
 
 Once the images are loaded, we can proceed to the most interesting part: **overlaying the mask**. What methods could be used to do this?
 
-#PorterDuff Modes
+# PorterDuff Modes
 
 One of the solutions proposed is to use the Porter-Duff image overlay modes on the Canvas. Let's refresh our memories what it is about.
 
@@ -73,7 +76,7 @@ DST_IN mode  retains the canvas colour while SRC_IN mode  alters it. If the imag
 
 Now that everything is more clear, we can start writing the code.
 
-##SRC_IN
+## SRC_IN
 
 At <a href="http://stackoverflow.com/" target="_blank"> stackoverflow.com</a>, people often recommend allocating buffer memory when using PorterDuff modes, and even worse  allocating memory at each onDraw call. Of course, this is quite inefficient. You should try to avoid allocating buffer memory from the heap at onDraw calls altogether. Moreover, it make no sense to use there the Bitmap.createBitmap call,  because this can easily require several megabytes of memory. A simple example — a 640*640 ARGB_8888 image takes more than 1.5 megabytes of memory.
 
