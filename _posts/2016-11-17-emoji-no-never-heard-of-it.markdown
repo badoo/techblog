@@ -2,7 +2,7 @@
 layout: post
 title:  Emoji?! No, never heard of it
 author: Artem Kunets
-date:   2016-11-16
+date:   2016-11-17
 categories: Web-development, Javacript
 excerpt: Emoji have been part of our life for some time now. But sending and displaying emoji is not a simple matter for a cross-platform application. The problem is that emoji sent from mobile applications are not always displayed correctly on the web.
 ---
