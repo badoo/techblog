@@ -25,9 +25,11 @@ The basic idea is that we take any emoji, determine its Unicode code and convert
 
 Let us consider 😀 (smiley face). It has the code **U+1F600**, and so this is how we retrieve this code using JavaScript:
 
-<br/>'😀 '.length //2
-<br/>'😀 '.charCodeAt(0).toString(16) // **D83D**
-<br/>'😀 '.charCodeAt(1).toString(16) // **DE00**
+{% highlight javascript %}
+'😀'.length // 2
+'😀'.charCodeAt(0).toString(16) // **D83D**
+'😀'.charCodeAt(1).toString(16) // **DE00**
+{% endhighlight %}
 
 Altogether we obtain the surrogate pair: **U+D83D U+DE00.**
 
@@ -40,7 +42,7 @@ If you need to represent a symbol in UTF-16 which has a code greater than U+FFFF
 
 The following formula is used to obtain the code for an emoji found in the range above U+FFFF:
 
-{% highlight html %}
+{% highlight javascript %}
 
 (0xD83D - 0xD800) * 0x400 + 0xDE00 - 0xDC00 + 0x10000 = 1f600
 
@@ -48,7 +50,7 @@ The following formula is used to obtain the code for an emoji found in the range
 
 And now to translate back:
 
-{% highlight html %}
+{% highlight javascript %}
 
 D83D = ((0x1f600 - 0x10000) >> 10) + 0xD800;
 DE00 = ((0x1f600 - 0x10000) % 0x400) + 0xDC00;
@@ -59,7 +61,7 @@ This is quite complex and inconvenient. Let’s see what **ES 2015** can offer u
 
 With the new JavaScript standard we can forget about surrogate pairs and make our lives easier:
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 
 String.prototype.codePointAt // return codePoint from String
 String.fromCodePoint // return String from codePoint
@@ -72,7 +74,7 @@ Both methods work correctly with surrogate pairs. It’s still possible to inser
 
 **RegExp.prototype.unicode**: the **u** flag in regular expressions provides the best support when working with Unicode:
 
-{% highlight html %}
+{% highlight javascript %}
 
 /\u{1F466}/u
 
@@ -81,7 +83,6 @@ Both methods work correctly with surrogate pairs. It’s still possible to inser
 Currently, Unicode standard 8.0 contains 1,281 emoji symbols, and this doesn’t include modifiers for skin colour and groups (emoji families). Major companies have their own implementation:
 
 <img class="no-box-shadow" src="{{page.imgdir}}/7.png"/>
-
 
 Emoji can be divided into several groups:
 
@@ -94,12 +95,12 @@ Emoji can be divided into several groups:
 
 ## Our solution
 
-1.    We receive a source text with symbols, and search it for all emoji collections with the help of a regular expression;
-2.    We determine the code for the character by using the codePointAt function;
-3.    We compose an img element (important that it has the tag img) with a URL which consists of the code for this symbol;
-4.    We replace the symbol with the img in the original text.
+1. We receive a source text with symbols, and search it for all emoji collections with the help of a regular expression;
+2. We determine the code for the character by using the codePointAt function;
+3. We compose an img element (important that it has the tag img) with a URL which consists of the code for this symbol;
+4. We replace the symbol with the img in the original text.
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 
 function emojiToHtml(str) {
      	str = str.replace(/\uFE0F/g, '');
@@ -109,6 +110,7 @@ function emojiToHtml(str) {
 var tpl = '<img class="emoji emoji--{code} js-smile-insert" src="{src}" srcset="{src} 1x, {src_x2} 2x" unselectable="on">';
 var url = 'https://badoocdn.com/big/chat/emoji/{code}.png';
 var url2 = 'https://badoocdn.com/big/chat/emoji@x2/{code}.png';
+
 function buildImgFromEmoji(emoji) {
      	var codePoint = extractEmojiToCodePoint(emoji);
      	return $tpl(tpl, {
@@ -144,7 +146,7 @@ function isSurrogatePair(codePoint) {
 
 The basic concept for the regular expression which finds emoji symbols:
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 
 var emojiRanges = [
      	'(?:\uD83C[\uDDE6-\uDDFF]){2}', // flags
@@ -183,7 +185,7 @@ var emojiRegex = new RegExp(emojiRanges.join('|'), 'g');
 ## Chat
 
 Below you will see how we were able to construct a chat prototype with support for emoji.
-<br/>A <div/> is used as the field for entering the message:
+<br/>A ```<div/>``` is used as the field for entering the message:
 
 {% highlight html %}
 
@@ -194,7 +196,7 @@ Below you will see how we were able to construct a chat prototype with support f
 
 We strip possible HTML tags from its content when entering the message or inserting it from the clipboard:
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 
 var tagRegex = /<[^>]+>/gim;
 var styleTagRegex = /<style\b[^>]*>([\s\S]*?)<\/style>/gim;
@@ -213,7 +215,7 @@ function cleanUp(text) {
 
 We use the paste event for processing a string inserted from the clipboard:
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 
 function onPaste(e) {
      	e.preventDefault();
