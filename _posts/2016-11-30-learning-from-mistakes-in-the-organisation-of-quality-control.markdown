@@ -5,7 +5,6 @@ author: Ilya Kudinov
 date:   2016-11-30
 categories: QA
 excerpt: Three years ago, I started attending various IT conferences and giving talks about the processes and techniques we use for quality control. And naturally, after each talk, I spoke with people in the audience and took an interest in how they were doing things.
-I have saved up a lot of these stories and I would like to share some of them with you.
 ---
 <img class="no-box-shadow" src="{{page.imgdir}}/1.png" style="float:left; width: 60%; margin-right: 10px;"/>
 
