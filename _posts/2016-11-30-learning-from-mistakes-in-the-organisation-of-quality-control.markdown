@@ -4,7 +4,8 @@ title:  Learning from mistakes in the organisation of quality control
 author: Ilya Kudinov
 date:   2016-11-30
 categories: QA
-excerpt: Emoji have been part of our life for some time now. But sending and displaying emoji is not a simple matter for a cross-platform application. The problem is that emoji sent from mobile applications are not always displayed correctly on the web.
+excerpt: Three years ago, I started attending various IT conferences and giving talks about the processes and techniques we use for quality control. And naturally, after each talk, I spoke with people in the audience and took an interest in how they were doing things.
+I have saved up a lot of these stories and I would like to share some of them with you.
 ---
 <img class="no-box-shadow" src="{{page.imgdir}}/1.png" style="float:left; width: 60%; margin-right: 10px;"/>
 
