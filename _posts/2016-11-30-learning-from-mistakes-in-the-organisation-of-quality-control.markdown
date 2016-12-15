@@ -45,7 +45,7 @@ The developer and the tester should join forces, striving towards a common goal 
 
 ## QA department
 
-###Case 1
+### Case 1
 
 <img class="no-box-shadow" src="{{page.imgdir}}/4.png" style="float:right; width: 40%; margin-left: 10px;"/>
 
@@ -143,7 +143,7 @@ In addition, in our world of dynamic projects and agile methodologies, the desig
 
 ----------
 
-## Case 4
+### Case 4
 
 <img class="no-box-shadow" src="{{page.imgdir}}/12.png" style="float:left; width: 50%; margin-right: 10px;"/>
 
