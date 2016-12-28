@@ -21,7 +21,7 @@
 @VERTICAL_PADDING: 1em;
 @HORIZONTAL_PADDING: 1em;
 
-@fullscreen-post-width: 710px;
+@fullscreen-post-width: 700px;
 
 @desktop-width: 1024px;
 @tablet-width: 768px;
@@ -226,6 +226,7 @@ body, #container {
 
 #container {
     margin: 0 auto;
+    position: relative;
 
     &:after {
        content: " ";
@@ -234,6 +235,11 @@ body, #container {
        height: 0;
        clear: both;
     }
+}
+
+.sticky {
+    position: static;
+    float: left;
 }
 
 #page-header {
@@ -387,6 +393,13 @@ body, #container {
 #page-content {
     word-wrap: break-word;
     padding: 10px;
+    position: relative;
+
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
 
     .summaries {
         .flex-display();
@@ -427,13 +440,23 @@ body, #container {
 
     .posts & {
         @media all and (min-width: @desktop-width) {
-            position: fixed;
-            top: 3.9em * 1.2;
-            left: 50%;
-            width: 320px;
-            margin-left: @fullscreen-post-width / 2 + 20px - 320/2;
+            width: 300px;
             padding: 0 10px;
+            float: right;
         }
+    }
+
+    &.fixed {
+        position: fixed;
+        top: 0;
+        margin-left: 4px;
+    }
+
+    &.stuck {
+        position: absolute;
+        top: initial;
+        bottom: 0;
+        margin-left: 4px;
     }
 }
 
