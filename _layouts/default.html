@@ -130,6 +130,42 @@
 
     <!-- Basic helpers -->
     <script>
+        if (window.innerWidth > 1023) {
+            window.addEventListener('scroll', function() {
+                var pageContent = document.querySelector('#page-content');
+                var containerHeight = document.querySelector('#container').offsetHeight;
+                var relatedContent = document.querySelector('#related-content');
+                var postContainer = document.querySelector('#post-container');
+
+                if ((window.scrollY + window.innerHeight) >= (postContainer.offsetHeight + postContainer.getBoundingClientRect().top) + window.pageYOffset) {
+                    relatedContent.classList.remove('fixed');
+                    relatedContent.classList.add('stuck');
+                } else {
+                    if (window.pageYOffset <= relatedContent.offsetTop || relatedContent.getBoundingClientRect().top > 0) {
+                        relatedContent.classList.add('fixed');
+                        relatedContent.classList.remove('stuck');
+                    }
+                }
+
+                if (window.scrollY >= pageContent.offsetTop) {
+                    if (!document.querySelectorAll('.sticky').length) {
+                        var sticky = document.createElement('div');
+                        sticky.classList.add('sticky');
+                        pageContent.appendChild(sticky);
+                        sticky.appendChild(relatedContent);
+                        relatedContent.classList.add('fixed');
+                    }
+                } else {
+                    relatedContent.classList.remove('fixed');
+                    pageContent.appendChild(relatedContent);
+
+                    if (document.querySelectorAll('.sticky').length) {
+                        document.querySelector('.sticky').remove();
+                    }
+                }
+            });
+        }
+
         (function () {
             if (document.querySelectorAll && 'classList' in Element.prototype) {
 
