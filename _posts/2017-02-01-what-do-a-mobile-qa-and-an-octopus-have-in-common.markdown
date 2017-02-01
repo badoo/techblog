@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  What do a mobile QA and an octopus have in common?
-author: Kateryna Mikheeva
+author: Ekaterina Mikheeva
 date:   2017-02-01
 categories: QA
 excerpt: It’s early morning, you are the mobile QA. You get ready for your day, and make yourself a strong coffee. You are about to test a couple of new features for your app, and you need to pick up some devices to check the new functionality. What devices should you pick?
