@@ -4,7 +4,7 @@ title: How to teach a web app to speak 100 languages - the specifics of localisa
 author: Vyacheslav Volkov
 date:   2017-02-23
 categories: Web-development JavaScript
-excerpt: It’s early morning, you are the mobile QA. You get ready for your day, and make yourself a strong coffee. You are about to test a couple of new features for your app, and you need to pick up some devices to check the new functionality. What devices should you pick?
+excerpt: A key characteristic of online services these days is that they are accessed by users from all over the world speaking a multitude of languages. If you are developing this kind of service and want people worldwide to be able to use it then you’ll need your product translated and adapted - in other words, your product should be localised.
 ---
 <img class="no-box-shadow" src="{{page.imgdir}}/1.png"/>
 
@@ -17,6 +17,8 @@ The idea behind writing this article came up after the MoscowJS meetup, where I 
 If you are only aiming at the local market you will probably never require localisation, or rather localisation won’t be required until your product becomes of interest for an international audience. If this happens, you will  need to quickly adapt your application to a range of new culture-specific elements, which is not so easy. So, it’s worth making the decision now and asking yourself the question: do I need localisation? If the answer is yes, then your service needs to be prepared for the specifics that different languages will bring. The overall approach and tools which allow us to take these elements into consideration are called internationalisation, which is the process of creating an application capable of working in various languages with different regional specifics, and without any kind of additional changes.
 
 <img class="no-box-shadow" src="{{page.imgdir}}/2.png"/>
+
+<br>
 
 The next question you need to answer is this: why is localisation important? It is important primarily for users and clients, as each of them should feel comfortable when using your application. As an example, residents of any foreign country prefer to make purchases in their own language, even if they know English well. The majority also prefer to use support services in their mother tongue. If we take Europe as an example, which has around 50 countries, each  of them will have their own regional format for expressing numbers, dates and currency. And if we widen our audience to include the whole world, there are countries such as China, Iran, Afghanistan or Saudi Arabia where text is written from right to left or top to bottom, with numbers written using Arabic or Persian symbols.
 
@@ -54,7 +56,7 @@ So, which linguistic characteristics should you first pay attention to after dec
     <td>9/22/2016</td>
     <td>USA</td>
   </tr>
-</table>
+</table> <br>
 
 The format for writing times also differs from country to country. For example, the US, Canada, Australia and New Zealand use a 12-hour time format based on the English system, while the rest of the world uses the 24-hour French system.
 
@@ -85,13 +87,16 @@ The next individual characteristics are formats for numbers and currencies. As c
     <td>de-AT</td>
     <td>Austria</td>
   </tr>
-</table>
+</table> <br>
 
 Special consideration arise with the <a href="https://en.wikipedia.org/wiki/Chinese_numerals">numbering system</a> in China. In Chinese, numbers are grouped in a different way  than in Russian. We are used to grouping numbers in thousands, whereas the Chinese group them in tens of thousands. As an example, the number 150,000,000 would be written as 1亿5000万. In addition, Chinese people are very superstitious when it comes to numbers and have a serious and contemplative view of numerology. The number 4 sounds the same as the word for death, and so the Chinese strive to avoid it.  Many hotels have no rooms containing the number four and sometimes even contain no fourth floor. This also applies to  bank account numbers - the dream of many a Chinese person is to get an account number containing an eight, which is a symbol of wealth and prosperity.
 
 Problems can also occur with the imperial system of measurement, which is still used in the USA, Myanmar and Liberia. And why is this important? We should take a moment to remember the <a href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter">Mars Climate Orbiter</a> which was sent to the red planet and crashed into the surface of Mars because the equipment team measured force in Newtons, while the software back on Earth measured forces in pounds. Nobody noticed the difference during the probe’s flight and the mistake cost 125 million dollars. So, the lesson is clear - don’t forget to show results in the way that is regarded as standard by your users.
 
 As we’ve now deciphered the world of dates and numerals, we can move on to issues of translation. The most difficult problem in Russian is the declension of nouns after numbers. As you may know, Russian has three plural forms, while English only has two. Some languages can have up to 6 plural forms. You can find a table of forms for every language at this <a href="http://www.unicode.org/cldr/charts/29/supplemental/language_plural_rules.html">link</a>.
+
+<br>
+
 <table>
   <tr>
     <th>Russian</th>
@@ -140,6 +145,8 @@ Whereas the Japanese version will come out differently:
 
 As can be seen in this example, the word order is reversed in Japanese. We can’t just write ‘Page ' + pageNum + ' from ' + total as many developers do.
 
+<br>
+
 **2.** Sometimes translation differs because of a person’s gender.
 
 As you can see in the example below, while the same sentence can often apply to both male and female, in Slovak each gender requires its own separate phrase.
@@ -159,9 +166,11 @@ Slovak
 Мale: Toto ocenenie si získal <span>{{award_date}}</span>
 Female: Toto ocenenie si získala <span>{{award_date}}</span>
 
-{% endhighlight %}
+{% endhighlight %} <br>
 
 **3.** Translation of strings must depend on the context. The translator must know the meaning of the whole sentence, phrase or paragraph, otherwise he or she may not understand the idea correctly, resulting in an incorrect translation. A phrase such as *"You can save this {{item}}”* can have a different translation depending on whether “save” means “keep” or “rescue”. In an ideal situation, the translator is not only able to see the string for the translation but also a graphic of the area where the string will be shown.
+
+<br>
 
 **4.** Reusing translation resources may be unwise. As an example, “Save” (for a file) and “Save” (for settings) may require a different word in some languages. A word such as “thread” may have several different translations depending on whether it refers to a programming sequence or a strand of cotton.
 
@@ -172,6 +181,8 @@ Let’s take a look at the internet to find out which utilities are available fo
 ## Methods of client-side localisation
 
 Developing interfaces and implementing complicated business logic already requires developers to solve many localisation problems client-side. The opportunities for internationalisation, which were available up until recently via ECMAScript, were fairly scant, and libraries such as Closure, Globalize, YUI, Moment.js as well as developers’ own custom solutions started to appear. These all broadened the opportunities of ECMAScript and filled in the gaps in internationalisation, but the solutions had different program interfaces and had some limitations, for example connected with comparing strings. In December 2012 the <a href="http://www.ecma-international.org/ecma-402/1.0/ECMA-402.pdf">ECMA-402</a> standard arrived, which should have made the lives of front end developers simpler when internationalising applications. But is this really what happened? Let’s take a look at what this standard now offers.
+
+<br>
 
 ### ECMAScript Internationalisation API
 
@@ -225,6 +236,8 @@ You can find a few more examples <a href="https://jsfiddle.net/5jusjhf2/2/">here
 
 As you may notice, there is a lot still to be implemented into this standard, taking into consideration all the characteristics that web developers face. As I mentioned earlier, you will either have to weigh up the current solutions or develop your own. At the present time, there are a rather large number of solutions, each with their strengths and weaknesses. Taking a look through Google, some of the first results are <a href="http://i18next.com/">i18next</a>, <a href="https://formatjs.io/">FormatJS</a>, <a href="https://github.com/globalizejs/globalize">Globalize</a>, <a href="https://github.com/wikimedia/jquery.i18n">jQuery.i18n</a> and others. Some of these libraries offer their own solutions, while others try to go with the ECMA-402 standard. Let’s take a look at two libraries which come up on the first page of Google’s search results and see what they can do.
 
+<br>
+
 ### i18next
 
 As the developer claims, this is a very popular library for internationalisation both server-side (node.js) and client-side. There are numerous plugins and utilities and the library can be integrated into different frameworks. It has an interface for translators which translated files can be loaded into, but unfortunately you need to pay for it. The library has a lot of capabilities and the library continues to be developed, which is promising. It does not conform to ECMA-402 certification and has its own structural format for messages instead of <a href="http://userguide.icu-project.org/formatparse/messages">ICU Message syntax</a>. In addition, formatting dates and numbers requires downloading <a href="http://momentjs.com/">moment.js</a> or <a href="http://numeraljs.com/">numeral.js</a>. You’ll have to download the corresponding libraries into the project and also add locales for the required languages.
@@ -250,9 +263,12 @@ As the developer claims, this is a very popular library for internationalisation
 
 You can find more detailed information on working with the library and more examples on the <a href="http://i18next.com/translate/">official site</a>.
 
+<br>
+
 ### Format JS
 
 Format JS is a modular collection of JavaScript libraries for internationalisation. It is based on ECMA-402, ICU and CLDR standards and can be integrated with many frameworks and templating engines such as Dust, Ember and Handlebars. The given library either downloads a polyfill for internationalisation work as required, or uses browser capabilities. It also supports work client-side or server-side.
+
 <table>
   <tr>
     <th>ADVANTAGES</th>
@@ -270,7 +286,6 @@ Format JS is a modular collection of JavaScript libraries for internationalisati
     </td>
   </tr>
 </table>
-
 To take an example, text for translation in the ICU format will have the following form:
 <img class="no-box-shadow" src="{{page.imgdir}}/6.png"/>
 
