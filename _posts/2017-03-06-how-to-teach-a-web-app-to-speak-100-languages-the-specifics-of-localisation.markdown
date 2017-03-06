@@ -2,7 +2,7 @@
 layout: post
 title: How to teach a web app to speak 100 languages - the specifics of localisation
 author: Vyacheslav Volkov
-date:   2017-02-23
+date:   2017-03-06
 categories: Web-development JavaScript
 excerpt: A key characteristic of online services these days is that they are accessed by users from all over the world speaking a multitude of languages. If you are developing this kind of service and want people worldwide to be able to use it then you’ll need your product translated and adapted - in other words, your product should be localised.
 ---
