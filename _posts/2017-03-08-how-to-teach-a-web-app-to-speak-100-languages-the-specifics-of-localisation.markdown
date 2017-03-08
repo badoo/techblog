@@ -25,69 +25,14 @@ The next question you need to answer is this: why is localisation important? It 
 ## Special language features
 
 So, which linguistic characteristics should you first pay attention to after deciding on localisation? It’s worth first of all taking a look at how times and dates are expressed in the relevant countries. Several differing date conventions are shown in the table below. As you will see, most countries use a different format.
-<table>
-  <tr>
-    <th>Format</th>
-    <th>Date example</th>
-    <th>Country</th>
-  </tr>
-  <tr>
-    <td>yyyy.mm.dd</td>
-    <td>2016.09.22</td>
-    <td>Hungary</td>
-  </tr>
-  <tr>
-    <td>yyyy-mm-dd</td>
-    <td>2016-09-22</td>
-    <td>Poland, Switzerland, Lithuania, Canada</td>
-  </tr>
-  <tr>
-    <td>yyyy/mm/dd</td>
-    <td>2016/09/22</td>
-    <td>Iran, Japan</td>
-  </tr>
-  <tr>
-    <<td>dd.mm.yyyy</td>
-    <td>22.09.2016</td>
-    <td>Russian, Slovenia, Turkey, Ukraine</td>
-  </tr>
-  <tr>
-    <td>mm/d/yyyy</td>
-    <td>9/22/2016</td>
-    <td>USA</td>
-  </tr>
-</table> <br>
+
+<img class="no-box-shadow" src="{{page.imgdir}}/8.png"/>
 
 The format for writing times also differs from country to country. For example, the US, Canada, Australia and New Zealand use a 12-hour time format based on the English system, while the rest of the world uses the 24-hour French system.
 
 The next individual characteristics are formats for numbers and currencies. As can be seen in the table below, thousands and decimals can be divided by a point, a comma or a space. Also, the position of a currency symbol can differ not only in different languages, but in different countries as well. Germany and Austria speak the same language but use opposing formats for currencies.
-<table>
-  <tr>
-    <th>Example</th>
-    <th>Locale</th>
-    <th>Country</th>
-  </tr>
-  <tr>
-    <td>123 456,79 €</td>
-    <td>ru-RU</td>
-    <td>Russia</td>
-  </tr>
-  <tr>
-    <td>€123,456.79</td>
-    <td>en-US</td>
-    <td>USA</td>
-  </tr>
-  <tr>
-    <td>123.456,79 €</td>
-    <td>de-DE</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <<td>€ 123 456,79</td>
-    <td>de-AT</td>
-    <td>Austria</td>
-  </tr>
-</table> <br>
+
+<img class="no-box-shadow" src="{{page.imgdir}}/9.png"/>
 
 Special consideration arise with the <a href="https://en.wikipedia.org/wiki/Chinese_numerals">numbering system</a> in China. In Chinese, numbers are grouped in a different way  than in Russian. We are used to grouping numbers in thousands, whereas the Chinese group them in tens of thousands. As an example, the number 150,000,000 would be written as 1亿5000万. In addition, Chinese people are very superstitious when it comes to numbers and have a serious and contemplative view of numerology. The number 4 sounds the same as the word for death, and so the Chinese strive to avoid it.  Many hotels have no rooms containing the number four and sometimes even contain no fourth floor. This also applies to  bank account numbers - the dream of many a Chinese person is to get an account number containing an eight, which is a symbol of wealth and prosperity.
 
@@ -95,30 +40,7 @@ Problems can also occur with the imperial system of measurement, which is still 
 
 As we’ve now deciphered the world of dates and numerals, we can move on to issues of translation. The most difficult problem in Russian is the declension of nouns after numbers. As you may know, Russian has three plural forms, while English only has two. Some languages can have up to 6 plural forms. You can find a table of forms for every language at this <a href="http://www.unicode.org/cldr/charts/29/supplemental/language_plural_rules.html">link</a>.
 
-<br>
-
-<table>
-  <tr>
-    <th>Russian</th>
-    <th></th>
-    <th>English</th>
-  </tr>
-  <tr>
-    <td>У вас 1 подарок</td>
-    <td>Singular</td>
-    <td>You have 1 gift</td>
-  </tr>
-  <tr>
-    <td>У вас 5 подарков</td>
-    <td>Plural</td>
-    <td>You have 5 gifts</td>
-  </tr>
-  <tr>
-    <td>У вас 2 подарка</td>
-    <td>Few</td>
-    <td>You have 2 gifts</td>
-  </tr>
-</table>
+<img class="no-box-shadow" src="{{page.imgdir}}/10.png"/>
 
 We could dedicate a whole article to the specifics of translation. There are a wide range of linguistic characteristics to consider which we will list below. Let’s go to the first piece of advice.
 
@@ -189,30 +111,12 @@ Developing interfaces and implementing complicated business logic already requir
 This is a standard which features the ECMAScript programming interface for adaptation to linguistic and cultural characteristics for languages or countries. Work comes through the Intl object, which provides formatting for numbers (Intl.NumberFormat), dates (Intl.DateTimeFormat) and string comparison (Intl.Collator). At the present time <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl">it supports</a> all current browsers. The last browser to add support in recent times was Safari, although for outdated browsers a <a href="https://github.com/andyearnshaw/Intl.js/">polyfill</a> can be used.
 
 The greatest advantage with this standard is that it was developed with support from Google, Microsoft, Mozilla and Amazon, and, <a href="http://wiki.ecmascript.org/doku.php?id=globalization:strawman">as we have been promised</a>, it will continue to be developed. Options for string formatting will be added including multiple number and field forms, number parsing and much more. It’s a shame that all this has happened fairly slowly. The standard itself was confirmed in 2013 but unfortunately support from the most popular browsers only appeared in 2016. The Intl functional object is fairly limited for now and does not provide possibilities for translation. This means that either a client solution or a polyfill must be used for any format that has not  yet to been accepted.
-<table>
-  <tr>
-    <th>ADVANTAGES</th>
-    <th>DISADVANTAGES</th>
-  </tr>
-  <tr>
-    <td>
-    ● Native browser implementation; <br>
-    ● High productivity; <br>
-    ● Does not require download of additional resources; <br>
-    ●  String formatting for different locales without uploading JavaScript resources; <br>
-    ● Development of the ECMAScript 2017 Internationalisation API
-    </td>
-    <td>
-    ● Need to add polyfill for outdated browsers; <br>
-    ● Dependence on the system -some locales may not be supported by the client; <br>
-    ● Results may vary in different browsers.
-    </td>
-  </tr>
-</table>
+
+<img class="no-box-shadow" src="{{page.imgdir}}/11.png"/>
 
 ECMAScript Internationalisation API examples
 
-{% highlight html %}
+{% highlight JavaScript %}
 
 var mFormat = new Intl.NumberFormat("ru", {
  style: "currency",
@@ -241,25 +145,8 @@ As you may notice, there is a lot still to be implemented into this standard, ta
 ### i18next
 
 As the developer claims, this is a very popular library for internationalisation both server-side (node.js) and client-side. There are numerous plugins and utilities and the library can be integrated into different frameworks. It has an interface for translators which translated files can be loaded into, but unfortunately you need to pay for it. The library has a lot of capabilities and the library continues to be developed, which is promising. It does not conform to ECMA-402 certification and has its own structural format for messages instead of <a href="http://userguide.icu-project.org/formatparse/messages">ICU Message syntax</a>. In addition, formatting dates and numbers requires downloading <a href="http://momentjs.com/">moment.js</a> or <a href="http://numeraljs.com/">numeral.js</a>. You’ll have to download the corresponding libraries into the project and also add locales for the required languages.
-<table>
-  <tr>
-    <th>ADVANTAGES</th>
-    <th>DISADVANTAGES</th>
-  </tr>
-  <tr>
-    <td>
-    ● Support for many language characteristics. <br>
-    ● Possibility to download resources from back-end. <br>
-    ● Additional plugins and utilities. <br>
-    ● Expansion for popular frameworks and templating engines. <br>
-    </td>
-    <td>
-    ● Requires download of additional resources (i18next 35kb + moment 20kb + necessary locale). <br>
-    ● Does not follow ECMA-402 standard. <br>
-    ● Paid interface for translators.
-    </td>
-  </tr>
-</table>
+
+<img class="no-box-shadow" src="{{page.imgdir}}/12.png"/>
 
 You can find more detailed information on working with the library and more examples on the <a href="http://i18next.com/translate/">official site</a>.
 
@@ -269,23 +156,8 @@ You can find more detailed information on working with the library and more exam
 
 Format JS is a modular collection of JavaScript libraries for internationalisation. It is based on ECMA-402, ICU and CLDR standards and can be integrated with many frameworks and templating engines such as Dust, Ember and Handlebars. The given library either downloads a polyfill for internationalisation work as required, or uses browser capabilities. It also supports work client-side or server-side.
 
-<table>
-  <tr>
-    <th>ADVANTAGES</th>
-    <th>DISADVANTAGES</th>
-  </tr>
-  <tr>
-    <td>
-    ● Modularity. <br>
-    ● Uses capabilities of ECMA-402 or polyfill. <br>
-    ● Expansion for popular frameworks and templating engines.
-    </td>
-    <td>
-    ● You need to download additional resources as required. <br>
-    ● Does not offer all options for translations.
-    </td>
-  </tr>
-</table>
+<img class="no-box-shadow" src="{{page.imgdir}}/13.png"/>
+
 To take an example, text for translation in the ICU format will have the following form:
 <img class="no-box-shadow" src="{{page.imgdir}}/6.png"/>
 
