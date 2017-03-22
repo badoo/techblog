@@ -2,7 +2,7 @@
 layout: post
 title: WebRTC - Making a peer-to-peer game using JavaScript
 author: Alexander Gutnikov
-date:   2017-03-21
+date:   2017-03-23
 categories: JavaScript Game-development
 excerpt: As a rule, when people talk about WebRTC, they mean the organisation of audio and video connections, but this technology can also be used for other interesting things as well. I decided to try to make a peer-to-peer game and to share my experience in creating it.
 ---
