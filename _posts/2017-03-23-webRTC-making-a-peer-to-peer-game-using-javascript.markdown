@@ -448,7 +448,7 @@ Besides moving around on the map, it would also be good to get some ammunition a
 
 You can view the code (apart from the source code of ImpactJS itself) and instructions for launching it on <a href="https://github.com/gutnikov/webrtc-shooter">github</a>.
 
-I will take the risk of giving out the link where you can try to play it <a href="https://138.68.96.105/">here</a>. I don’t know what will happen to my single-core Droplet, but *que sera, sera* =)
+I will take the risk of giving out the link where you can try to play it <a href="https://tinylab.ru/?5739dccab9">here</a>. I don’t know what will happen to my single-core Droplet, but *que sera, sera* =)
 
 If you have read this right to the end – thank you! That means my work has not been wasted and you have found something interesting for yourself. Feel free to write any questions, feedback and suggestions in the comments section.
 
