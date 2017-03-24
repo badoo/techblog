@@ -8,6 +8,8 @@ excerpt: If you are unfamiliar with Git, some background may help introduce the 
 ---
 If you are unfamiliar with Git, some background may help introduce the relevant terminology before reading one of the many Git tutorials online.
 
+<img class="no-box-shadow" src="{{page.imgdir}}/git.png"/>
+
 Git is one of several source control systems - others include Subversion, RCS, Mercurial - which are used to keep a record of program source code as development progresses, as a means of keeping track of what went into a particular release, tracking down where a bug was introduced, and any other operation that benefits from a full and detailed history.
 
 ## Where everything lives
