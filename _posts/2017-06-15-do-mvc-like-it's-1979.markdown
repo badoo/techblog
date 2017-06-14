@@ -1,0 +1,228 @@
+---
+layout: post
+title: Do MVC like it's 1979
+author: Bohdan Orlov
+date:   2017-06-15
+categories: QA Mobile-App
+excerpt: In 1979 Trygve Reenskaug came up with MVC — a general solution to the problem of giving users control over the information they see from a device. The original tiny document caused an enormous amount of interest, and eventually, many companies and individuals came up with their own understanding and implementations of the MVC idea, not necessarily preserving the original meaning of a Model, View, and Controller.
+---
+## How to build a good iOS architecture by learning from the old one
+
+<img class="no-box-shadow" src="{{page.imgdir}}/1.png"/>
+<em>Port house Antwerp</em>
+
+## A bit of history
+
+In 1979 Trygve Reenskaug came up with MVC — a general solution to the problem of giving users control over the information they see from a device. The <a href="http://folk.uio.no/trygver/2007/MVC_Originals.pdf">original tiny document</a> caused an enormous amount of interest, and eventually, many companies and individuals came up with their own understanding and implementations of the MVC idea, not necessarily preserving the original meaning of a Model, View, and Controller.
+
+## The original MVC
+
+### Models
+
+*“Models represent knowledge. A model could be a single object (rather uninteresting), or it could be some structure of objects.” The original MVC report, 1979.*
+
+### Views
+
+*“A view is a (visual) representation of its model. It would ordinarily highlight certain attributes of the model and suppress others.” The original MVC report, 1979.*
+
+### Controllers
+
+*“A controller is a link between a user and the system. It provides the user with input by arranging for relevant views to present themselves in appropriate places on the screen.”
+The original MVC report, 1979.*
+
+Note: Controllers were initially named Editors, and then the name was changed.
+
+Sounds very familiar so far…
+
+<img class="no-box-shadow" src="{{page.imgdir}}/2.png"/>
+
+## Surprising facts about MVC:
+
+### Controllers
+
+*“…The controller receives the user’s output, translates it into the appropriate messages and passes these messages on to one or more of the views.” The original MVC report, 1979.*
+
+So Controllers know and change Views
+
+<img class="no-box-shadow" src="{{page.imgdir}}/3.png"/>
+
+*“A controller should never supplement the views, it should for example never connect the views of nodes by drawing arrows between them.” The original MVC report, 1979.*
+
+So a Controller is not about visual representation. The original MVC report, 1979.
+
+*“A controller is connected to all its views;, they are called the parts of the controller.” The original MVC report, 1979.*
+
+This means that the controller might know about Models, provided it creates the View and they are not injected.
+
+*“…This Editor is very similar to the previous one, but it has been created in the environment of a demonstration network. Messages to that network and all its activities may therefore be typed in and executed directly through the “doit” command.” The original MVC report, 1979.*
+
+If we recall that an Editor is the old name for a Controller and take into account that “network” and “activities” are Models we can draw the conclusion that the Controller does indeed know and also changes a Model.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/4.png"/>
+
+### Views
+
+*“…A* ***view is attached to its model*** *(or model part) and gets the data necessary for the presentation of the model by asking questions. It may also* ***update the model*** *by sending appropriate Messages.” The original MVC report, 1979.*
+
+So Views know and change Models.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/5.png"/>
+<em>Surprise</em>
+
+*“…A* ***view is attached to its model*** *(or model part) and gets the data necessary for the presentation of the model by asking questions. It may also* ***update the model*** *by sending appropriate Messages.” The original MVC report, 1979.*
+
+So Views know and change Models.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/6.png"/>
+<em>Surprise</em>
+
+Let’s put all the parts of the puzzle together:
+
+<img class="no-box-shadow" src="{{page.imgdir}}/7.png
+<em>The original MVC from 1979</em>
+
+Looks good?
+
+<img class="no-box-shadow" src="{{page.imgdir}}/8.png"/>
+
+
+There are two significant problems with the original MVC: it breaks some rules of good software design and it’s impractical to implement in iOS.
+
+## Patterns the original MVC violates
+
+### Single responsibility
+
+Both Views and Controllers are responsible for updating Models, but we want only one entity to have such responsibility. That is why everyone likes the unidirectional data flow idea.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/9.png"/>
+<em>Unidirectional data flow</em>
+
+### Loose coupling and high cohesion
+
+Views know about Models. Controllers know about Models and Views. This way Models are dependencies for Views and Controllers. This means when we have to change the Model interface we have to change both kinds of entities using it. But ideally, we want to minimize the number of entities affected by our changes, so that we want to minimize the number of dependencies both entities have. We want entities with one role to know nothing about entities with other roles, or know as few as possible, so that they “talk” only to their immediate “friends” but not to “strangers” following the <a href="https://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a>. In this specific case we can remove the ability for a View to change a Model, leaving a Controller responsible for this.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/10.png"/>
+<em>Talk to friends</em>
+
+## The original MVC is impractical — especially in iOS
+
+The original MVC allows the roles of a View and a Controller to be taken by the same object: “In simple cases, the Model, View, and Controller roles may be played by the same object.” The original MVC report, 1979. UIViewController is doing exactly this by taking both roles. So, Apple’s MVC seems to be following the original MVC idea. Except, the input mostly comes through UIControlls which are Views and not Controllers. So if we compare them they look the same:
+
+<img class="no-box-shadow" src="{{page.imgdir}}/11.png"/>
+<em>The original MVC</em>
+
+<img class="no-box-shadow" src="{{page.imgdir}}/12.png"/>
+<em>Apple’s MVC</em>
+
+Having two responsibilities in one object leads us to the situation when most of the business logic is kept in one object. Such an approach might end up in massive view controllers problem if not recognised in time. Although there is a stand-alone Model-entity, developers usually don’t realise that Models are primary keepers of business logic and don’t take advantage of a Model being totally separated from other entities.
+
+If we try to separate those responsibilities, we still can’t route a user input to an arbitrary Controller (to follow the original idea), since we have the operating system, UIApplication, and the Responder Chain delivering most of the user events to UIViews first.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/13.png"/>
+
+## Learning from the MVC
+
+If we look at MVC not so much as a pattern but as a guideline showing how to build good architecture, it becomes very useful.
+
+In fact, there are a lot of things which are “right” in MVC.
+
+### The separation of concerns
+
+MVC defines three roles or responsibilities which amount to a great generalization of solving the problem of a user interacting with a device or application. Model and View responsibilities are super clear, if we don’t talk about implementation details but stay on the abstract level. At the same time, a Controller responsibility is arguable and seems to be evolving from handling user input to mediating between a Model and a View.
+
+### Facade
+
+MVC uses a Model to represent the user’s mental model of a real object or a phenomenon. A Model includes data and logic regarding how to change this data. Such logic is often called business logic. People often neglect the logic part and make their Models data-only objects which are then manipulated by Controllers keeping all the logic, with the consequence that Models become thin and Controllers become fat.
+
+Proper Models are groups of objects and data; they are in fact the source of truth for the whole application.
+
+The Facade is an object that hides other groups of objects, just as the facade of a building hides how many rooms there are inside. When a facade pattern is applied, then interaction with those objects is done exclusively via the facade object, in the same way as people enter and exit a building though the entrance in the facade of the building. We avoid direct access to hidden objects, just as we avoid jumping through windows for faster access to rooms.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/14.png"/>
+<em>Facade example</em>
+
+The Facade pattern ensures the scalability of our Models. When a number of Model objects grows, and it becomes inconvenient to pass a lot of them to Controllers, or when you notice a lot of business logic settling down in Controllers, consider wrapping those Model objects in a Facade which will hide the complexity and implementation details.
+
+The Facade prevents business logic from leaving a Model layer and moving to a Controller layer.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/15.png"/>
+<em>Model layer facade</em>
+
+### Observer
+
+One of the techniques of removing the dependency from Models is the Observer pattern. The high-level idea is that a Model doesn’t know who uses it and just notifies potential users via notifications or callbacks that something has happened or data has changed.
+
+The easiest way to understand the Observer pattern is to imagine an object which propagates changes using a radio station to send signals, and objects who listen to changes using a radio for receiving a signal.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/16.png"/>
+<em>Observer example</em>
+
+This technique becomes especially powerful when you build your model layer as independent services. Services are stateful objects whose lifetime is usually equal to the lifetime of the application. Examples are Network Service, Feature Service, Analytic Service, Chat Service. Such services can be accessed from Controllers with one-liners to invoke some change.
+
+<img class="no-box-shadow" src="{{page.imgdir}}/17.png"/>
+<em>Observers of Model layer</em>
+
+### Mediator
+
+Let’s clarify the role of Controllers. We have Models on the one side and Views on the other. Do we need Controllers at all? Not having Controllers would force us to access Models directly from Views, and this would violate the single responsibility principle. Additionally, we would not be able to test that code easily, because Views are platform dependent (UIKit-dependent in our case), and every time you want to test code in a View you have to take into account the View Life Cycle of the UIViewController.
+
+Instead, we make our Controllers mediators between Models and Views. They are very thin and they are lighter than Models and Views, because they know about both Models and Views, and so they have more dependencies than Models or Views. Naturally the more dependencies an object has, the less logic you want to put inside. Having a smaller amount of responsibility will reduce complexity and consequently also the chance for a mistake.
+
+Thus Controllers become a light but sometimes dirty glue between <em>Models and Views.</em>
+
+<img class="no-box-shadow" src="{{page.imgdir}}/18.png"/>
+<em>Mediator example</em>
+
+Since our Model layer is typically stateful, we should try as hard as possible to avoid storing state in Controllers and instead provide computed accessors to data stored in a Model layer. It’s not always possible. If some of the bookkeeping required to fulfil business logic feels too awkward to be put into the corresponding Service/Model, we should choose the lesser of two evils and store edge case handling in the Controller.
+
+## MVC heritage in modern patterns
+
+Let’s see how MVC roles are distributed in modern architectural patterns.
+
+> *Make sure you’ve read about modern iOS architecture patterns so that we are on the same page.*
+
+### Apple’s MVC
+
+<img class="no-box-shadow" src="{{page.imgdir}}/19.png"/>
+<em>Realistic Cocoa MVC + MVC Roles</em>
+
+Apparently, the View and the Controller roles are performed by UIViewController.
+
+### MVP/MVVM
+
+<img class="no-box-shadow" src="{{page.imgdir}}/20.png"/>
+<em>MVP + MVC Roles</em>
+
+<img class="no-box-shadow" src="{{page.imgdir}}/21.png"/>
+<em>MVVM + MVC Roles</em>
+
+The single responsibility principle is met, and each entity has the corresponding role.
+
+### VIPER/Riblets
+
+<img class="no-box-shadow" src="{{page.imgdir}}/22.png"/>
+<em>VIPER + Service + MVC Roles</em>
+
+Both VIPER/Riblets do not show in their original schemes that there must be a Service/Repository/Storage (*I’ve added it to the diagram above*) which together with an Interactor and Entities act as a Model.
+
+We have at least two Controllers: a Presenter, and a Router. A Presenter has UI related logic while a Router is about transitions between modules
+
+## What we have learned
+
+Don’t try to use MVC as one single structural design pattern but rather as a guideline for good application architecture, or a set of design patterns which can solve some of our problems.
+
+Make sure you are not only able to explain a pattern in a job interview, but also understand how the pattern solves real problems in your everyday life as a programmer.
+
+**Apply design patterns as they are needed** during the application evolution (growth of codebase) following the YAGNI (you ain’t gonna need it) principle, instead of choosing an architecture and then trying to fit your application into it.
+
+Avoid blindly implementing a strict architecture like VIPER/Riblets for an application disregarding its size and real world circumstances, and don’t choose consistent codebase for which you pay by writing tons of boilerplate code. Remember, we can always split a role between multiple entities, but avoid doing so if this is not necessary.
+
+Design production code to make a user able to interact with information or with the system, not to make the developer’s life easier or more pleasant. At the same time, avoid writing code like there is no tomorrow. You might be the person who will use today’s code as a foundation for new features tomorrow.
+
+A big thank you to the author of the <a href="https://habrahabr.ru/post/321050/">extensive MVC investigation article [RUS]</a> which inspired me to write this article.
+
+**Thank you for reading! If you liked this article, please hit ‘Recommend’ (the ❤ button) so other people can read it too :)**
+
+*Hit <a href="https://twitter.com/bohdan_orlov">me on Twitter</a> if you want to chat.*
+
+**Bohdan Orlov, iOS Developer.**
