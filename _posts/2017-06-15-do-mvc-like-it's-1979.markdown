@@ -78,7 +78,7 @@ So Views know and change Models.
 
 Let’s put all the parts of the puzzle together:
 
-<img class="no-box-shadow" src="{{page.imgdir}}/7.png
+<img class="no-box-shadow" src="{{page.imgdir}}/7.png" />
 <em>The original MVC from 1979</em>
 
 Looks good?
