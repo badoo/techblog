@@ -13,7 +13,7 @@ Although the title of this article is hugely inspired from <a href="https://en.w
 
 Hi, I am Sunav and in my limited experience of around 8.5 years as a tester, I have worked with a world class team and built products used by millions today. By means of this post I would like to share my thoughts about the role and responsibility of various teams in ensuring product quality. Some examples mentioned in the later part are real-life examples from my current work place. After reading my post, feel free to share your story with me!
 
-# Defining the Common Goal
+## Defining the Common Goal
 
 What exactly is a company? It is a group of people working towards a common goal while managing different pieces of it. But for a product or a company to be successful it is imperative that all of these pieces are following a pre-determined pattern, or what is also known as a blueprint. Only then, can it achieve its goals like revenue targets, user acquisitions, etc.
 
@@ -99,7 +99,7 @@ To be honest, applying this approach will take time, and it may be even slow dow
 
 <img class="no-box-shadow" src="{{page.imgdir}}/2.png"/>
 
-# Conclusion
+## Conclusion
 
 Lastly, what we all need to acknowledge and appreciate is the fact that each one of us has only the best interests of the product in our hearts and minds. We all share a common target to achieve business goals speedily and deliver a quality product to our end users. And it is only by collaborating in a healthy and productive way that we are going to take the company forward in the right direction.
 In the end, it is never about who is right or wrong, as long as we all achieve the success that we are gunning for together.
