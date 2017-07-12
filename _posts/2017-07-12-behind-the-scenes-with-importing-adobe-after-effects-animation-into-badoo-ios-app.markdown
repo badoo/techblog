@@ -4,7 +4,7 @@ title: Behind the scenes with importing Adobe After Effects animation into Badoo
 author: Radoslaw Cieciwa
 date:   2017-07-12
 categories: iOS
-excerpt: We've updated the front façade of our app, rethinking everything along the way. Changes have affected the iOS app, and indeed all platforms. We have made everything new and we have called this project: Re-think.
+excerpt: We've updated the front façade of our app, rethinking everything along the way. Changes have affected the iOS app, and indeed all platforms. We have made everything new and we have called this project - Re-think.
 ---
 ## Re - think, Re - design, Re - fresh.
 
