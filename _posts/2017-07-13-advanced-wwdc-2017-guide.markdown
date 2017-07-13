@@ -326,4 +326,6 @@ Wonderful session about the significance of sound (after all we developers still
 
 > If you are a self-respecting developer, when the new iOS comes out you will stop using iOS 9 and will be able to enjoy the full force of iOS. So now is the time to brush up on what’s new and has been announced at WWDC 2016, and make the most of the most basic version of the application intelligently and usefully.
 
+*This article was originally published on <a href="https://badootech.badoo.com/advanced-wwdc-2017-guide-b6278ba0c94b">Alex's Medium account</a>.*
+
 **Alexander Zimin, iOS developer**
