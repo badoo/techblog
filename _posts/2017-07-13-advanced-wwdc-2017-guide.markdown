@@ -10,7 +10,7 @@ excerpt: I would like to share my thoughts on the WWDC developers conference. Th
 
 <img class="no-box-shadow" src="{{page.imgdir}}/1.png">
 
-Hello everyone! My name is Alexander and I would like to share my thoughts on the WWDC developers conference. This post should be helpful not only for those who have simply heard about this event, but also for those who have already had a chance to watch some of the sessions. There is a lot of material, so I would advise you to focus your attention on what is of most interest to you.
+Hello everyone! There are more than 120 sessions from WWDC, do you knw which one to watch? Get instruction on how to watch and check out some short reviews about the talks. Stick with me and I would like to share my thoughts on the WWDC developers conference. This post should be helpful not only for those who have simply heard about this event, but also for those who have already had a chance to watch some of the sessions. There is a lot of material, so I would advise you to focus your attention on what is of most interest to you.
 
 1. What is WWDC?
 2. The main points of WWDC 2017.
@@ -23,7 +23,7 @@ Let’s go!
 
 ***NB*** *If you already know about what’s new at WWDC 2017, you can move on to the description of how to view sessions or to my personal rating of them.*
 
-The Worldwide Developers Conference is a worldwide conference for developers on Apple platforms. It has been held since 1983 and recordings of some past talks are easy to find on the internet.
+The WWDC is a worldwide conference for developers on Apple platforms. It has been held since 1983 and recordings of some past talks are easy to find on the internet.
  
 For example, here is a Virtual Reality session from WWDC 1995: <a href="https://www.youtube.com/watch?v=6XEDlgtLmAs">https://www.youtube.com/watch?v=6XEDlgtLmAs</a>.
 
@@ -47,7 +47,7 @@ The main things that are new at WWDC are demonstrated during the <a href="https:
 1. New Source EditorSource Editor, written in pure Swift, has been ported from Playground onto the iPad. It is very advanced now (for example, it supports refactoring in Swift). They have promised to make it possible to add one’s own transformations.
 2. Markdown Editor inside Xcode.
 3. Over 300 new checks and rules for the compiler and analyser.
-4. Speaking about Xcode performance: they have speeded up the file-opening by 3. Now 60 fps when scrolling through lines of code and now jump-to-line action is 50 times faster.
+4. Speaking about Xcode performance: they have speeded up the file-opening by 3. And now 60 fps when scrolling through lines of code and now jump-to-line action is 50 times faster.
 5. The new Indexer is now able to index and build at the same time. Fast Open (⌘ + ⇧ + O) works 35 times faster and Project Search (⌘ + ⇧ + F) up to 50 times faster inside large projects.
 6. The new Build System is written entirely in Swift. They are promising to speed up the build of large projects  to make them 2.5 times faster.
 7. The new Source Control (apparently not in Swift), integration with GitHub and a whole new tab with various functions (branches, tags etc.).
@@ -70,11 +70,11 @@ The main things that are new at WWDC are demonstrated during the <a href="https:
 - MusicKit (API from Apple Music for your applications).
 - HEVC and HEIF (new format for photos and videos from Apple). It is said that files can be half the size and can be converted back excellently. <a href="https://iso.500px.com/heif-first-nail-jpegs-coffin/">500px guys are already going full out testing this</a>.
 - Core ML which allows you to apply deep machine learning models in a single line of code 👾! Of course, it has its issues, but Apple is already giving its API for Language Processing and Computer Vision, opening up the path for new opportunities.
-- Metal 2. I am not an expert in this field, but I have heard that Apple has added capabilities for additional optimisation.
+- Metal 2. I am not an expert in this field, but I have heard that Apple has added capabilities for additional optimisations.
 - VR and SteamVR for macOS. Apple is also selling <a href="https://developer.apple.com/development-kit/external-graphics/">External Graphics Development Kit</a> for developers.
 - ARKit is an augmented reality on iOS. Very cool stabilisation and easy integration with SpriteKit and ScreneKit. <a href="https://twitter.com/madewithARKit">There are some cool examples</a>. The bad news is that it is only for iPhone 6s and higher.
 
-And a couple more changes which are deserving of your attention, although they weren’t demonstrated in the Platforms State of the Union (thanks, <a href="https://medium.com/@dive">Artem Loenko</a>).
+And a couple more changes which are deserving of your attention, although they weren’t demonstrated in the Platforms State of the Union (thanks, <a href="https://medium.com/@dive">Artem Loenko</a> to mention part of them).
 
 - No more own custom ratting windows on your application; use only <a href="https://developer.apple.com/documentation/storekit/skstorereviewcontroller">SKStoreReviewController</a>:<a href="https://9to5mac.com/2017/06/09/app-rating-custom-prompts-app-store-banned/"> https://9to5mac.com/2017/06/09/app-rating-custom-prompts-app-store-banned/</a>.
 - MapKit now has a clustering identifier, which allows you to use basic maps comfortably, even if there are too many objects.
