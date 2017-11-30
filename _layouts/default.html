@@ -17,9 +17,8 @@
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:site_name" content="{{ site.name }}">
 
-    <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ site.url }}/badoo-192x192.png">
+
     <meta name="theme-color" content="#000000">
 
     {% if page.author && page.categories %}
@@ -38,9 +37,9 @@
     <title>{{ site.name }} :: {{ page.title }}</title>
 
     {% if site.use_lessjs %}
-    <link rel="stylesheet/less" type="text/css" href="/css/main.less">
+    <link rel="stylesheet/less" type="text/css" href="{{ site.url }}/css/main.less">
     {% else %}
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}/css/main.css">
     {% endif %}
 
     <!-- Disqus shortname - used for comment count and discussion threads -->
@@ -120,13 +119,13 @@
             poll: 1000
         };
     </script>
-    <script src="/js/less.js"></script>
+    <script src="{{ site.url }}/js/less.js"></script>
     <script>
         less.watch();
     </script>
     {% endif %}
 
-    <script async src="/js/modernizr.js"></script>
+    <script async src="{{ site.url }}/js/modernizr.js"></script>
 
     <!-- Basic helpers -->
     <script>
@@ -137,32 +136,36 @@
                 var relatedContent = document.querySelector('#related-content');
                 var postContainer = document.querySelector('#post-container');
 
-                if ((window.scrollY + window.innerHeight) >= (postContainer.offsetHeight + postContainer.getBoundingClientRect().top) + window.pageYOffset) {
-                    relatedContent.classList.remove('fixed');
-                    relatedContent.classList.add('stuck');
-                } else {
-                    if (window.pageYOffset <= relatedContent.offsetTop || relatedContent.getBoundingClientRect().top > 0) {
-                        relatedContent.classList.add('fixed');
-                        relatedContent.classList.remove('stuck');
+                if (postContainer) {
+
+                    if ((window.scrollY + window.innerHeight) >= (postContainer.offsetHeight + postContainer.getBoundingClientRect().top) + window.pageYOffset) {
+                        relatedContent.classList.remove('fixed');
+                        relatedContent.classList.add('stuck');
+                    } else {
+                        if (window.pageYOffset <= relatedContent.offsetTop || relatedContent.getBoundingClientRect().top > 0) {
+                            relatedContent.classList.add('fixed');
+                            relatedContent.classList.remove('stuck');
+                        }
+                    }
+
+                    if (window.scrollY >= pageContent.offsetTop) {
+                        if (!document.querySelectorAll('.sticky').length) {
+                            var sticky = document.createElement('div');
+                            sticky.classList.add('sticky');
+                            pageContent.appendChild(sticky);
+                            sticky.appendChild(relatedContent);
+                            relatedContent.classList.add('fixed');
+                        }
+                    } else {
+                        relatedContent.classList.remove('fixed');
+                        pageContent.appendChild(relatedContent);
+
+                        if (document.querySelectorAll('.sticky').length) {
+                            document.querySelector('.sticky').remove();
+                        }
                     }
                 }
 
-                if (window.scrollY >= pageContent.offsetTop) {
-                    if (!document.querySelectorAll('.sticky').length) {
-                        var sticky = document.createElement('div');
-                        sticky.classList.add('sticky');
-                        pageContent.appendChild(sticky);
-                        sticky.appendChild(relatedContent);
-                        relatedContent.classList.add('fixed');
-                    }
-                } else {
-                    relatedContent.classList.remove('fixed');
-                    pageContent.appendChild(relatedContent);
-
-                    if (document.querySelectorAll('.sticky').length) {
-                        document.querySelector('.sticky').remove();
-                    }
-                }
             });
         }
 
