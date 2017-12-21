@@ -10,7 +10,7 @@ layout: default
 
         <ul class="post-tags">
             {% for tag in page.categories %}
-            <li class="post-category post-category-{{ tag }}"><a href="/categories/{{ tag }}">{{ tag }}</a></li>
+            <li class="post-category post-category-{{ tag }}"><a href="/categories/{{ tag | downcase }}">{{ tag }}</a></li>
             {% endfor %}
         </ul>
 
