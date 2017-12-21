@@ -11,7 +11,7 @@
 @BODY_TEXT_COLOR: #333;
 @SIDEBAR_BACKGROUND_COLOR: #333;
 @SIDEBAR_TEXT_COLOR: #e4e7ea;
-@LINK_COLOR: #03acd7;
+@LINK_COLOR: #7000e3;
 @LINK_HOVER_COLOR: #369;
 @BORDER_COLOR: #EFEFEF;
 @WELL_COLOR: #EFEFEF;
@@ -256,9 +256,6 @@ body, #container {
     background-color: @SIDEBAR_BACKGROUND_COLOR;
     color: @SIDEBAR_TEXT_COLOR;
 
-    border-image: url(/images/header-bg.png) 1;
-    border-image-width: 0 0 2px 0;
-
     h1 {
         padding: 0;
         margin: 0;
@@ -271,6 +268,7 @@ body, #container {
             background-size: contain;
             text-indent: -9999px;
             width: 4em;
+            vertical-align: middle;
         }
 
         strong {
